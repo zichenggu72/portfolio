@@ -1,11 +1,10 @@
+// app/layout.tsx
 import "./global.css";
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { Navbar } from "./components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -46,19 +45,58 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        "text-black bg-white dark:text-white dark:black",
-        GeistSans.variable,
-        GeistMono.variable
+        "text-black bg-white dark:text-white dark:black font-graphik"
       )}
     >
       <body className="antialiased">
-        <div className="flex flex-row">
-          <nav className="w-64 min-h-screen pl-[30px]">
-            <Navbar />
+        {/* Make the entire layout full height */}
+        <div className="min-h-screen">
+          {/* Fixed navigation */}
+          <nav className="fixed left-0 w-[200px] h-screen pl-[30px] flex flex-col justify-between">
+            <div className="pt-10">
+              <NavItem color="#FF6B6B" text="Home" />
+            </div>
+
+            <ul className="space-y-8">
+              <NavItem color="#FF6B6B" text="Works" />
+              <NavItem color="#FFD93D" text="Projects" />
+              <NavItem color="#6BCB77" text="Create" />
+              <NavItem color="#4D96FF" text="Resources" />
+            </ul>
+
+            <div className="pb-10">
+              <NavItem color="#FF6B6B" text="Visitors" />
+            </div>
           </nav>
-          <main className="flex-1 max-w-3xl mx-auto px-4 mt-8">{children}</main>
+
+          {/* Centered content area - adjusted positioning */}
+          <div className="flex justify-center">
+            <main className="w-[680px] px-8 py-10 min-h-screen">
+              {children}
+            </main>
+          </div>
         </div>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
+  );
+}
+
+function NavItem({ color, text, extraClasses = "" }: { 
+  color: string; 
+  text: string;
+  extraClasses?: string;
+}) {
+  // Convert text to lowercase for the URL
+  const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
+  
+  return (
+    <li className={`flex items-center gap-3 ${extraClasses}`}>
+      <Link href={href} className="flex items-center gap-3">
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+        <span>{text}</span>
+      </Link>
+    </li>
   );
 }
