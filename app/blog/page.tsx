@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-        My Blog 123
+        My Blog 12345
       </h1>
       <BlogPosts />
     </section>
