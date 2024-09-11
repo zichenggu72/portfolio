@@ -15,6 +15,10 @@ This is a porfolio site template complete with a blog. Includes:
 
 https://oorange-design.vercel.app/
 
+## Figma
+
+https://www.figma.com/design/SwNhYh6d6urfYAkI1tPrCC/Zicheng?node-id=0-1&t=AhrivArVROLyQerw-1
+
 ## How to Use
 
 You can choose from one of the following two methods to use this repository:
