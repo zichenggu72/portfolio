@@ -1,6 +1,6 @@
 import { BlogPosts } from "app/components/posts";
 import ProfileAvatar from "app/components/ProfileAvatar";
-import { User } from "/Users/huigeng/Documents/zichengProfolio/app/types/user";
+import { User } from "app/types/user";
 
 export default function Page() {
   const user: User = {
