@@ -9,7 +9,7 @@ export default function Page() {
     description: "Designer around the 🌍",
   };
  
-  // todo replace with the actual latest post;
+  // todo fetch with the latest post;
   const post: Post = {
     date: "Updated Sep 18",
     headline: "Exploring London Design Festival  -  so much fun!",
