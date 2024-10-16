@@ -8,15 +8,15 @@ export default function Page() {
     name: "Zicheng Gu",
     description: "Designer around the 🌍",
   };
- 
-  // todo fetch with the latest post;
+
+  // todo fetch with the latest post;;;
   const post: Post = {
     date: "Updated Sep 18",
     headline: "Exploring London Design Festival  -  so much fun!",
     previewUrl:
       "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  }
-  
+  };
+
   return (
     <section className="mt-8 w-[80%]">
       {UserProfile(user)}
@@ -61,16 +61,17 @@ function UserProfile(user: User) {
       </p>
     </div>
   );
-};
+}
 
 function TextSection(title: string, body: string) {
   return (
     <div className="flex-auto flex flex-col mt-10">
       <h1 className="mt-2 mb-2 font-semibold tracking-tighter">{title}</h1>
-      {body.split('\\n').map((line, index) => (
+      {body.split("\\n").map((line, index) => (
         <>
           <p className="tracking-tighter mb-3">{line}</p>
-        </>))}
+        </>
+      ))}
     </div>
   );
 }
