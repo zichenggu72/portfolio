@@ -11,17 +11,33 @@
     "@vercel/analytics": "^1.1.3",
     "@vercel/speed-insights": "^1.0.9",
     "geist": "1.2.2",
-    "next": "canary",
+    "next": "^14.0.2",
     "next-mdx-remote": "^4.4.1",
     "postcss": "^8.4.35",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sugar-high": "^0.6.0",
-    "tailwindcss": "4.0.0-alpha.13"
+    "tailwindcss": "4.0.0-alpha.13",
+    "@emotion/cache": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.13",
+    "@next/font": "^13.0.2",
+    "react-icons": "^4.6.0",
+    "yup": "^0.32.11",
+    "clsx": "^1.2.1",
+    "formik": "^2.2.9"
   },
   "devDependencies": {
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "@types/react-dom": "18.0.8",
+    "eslint": "8.27.0",
+    "eslint-config-next": "13.0.2",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.7.1"
   }
 }

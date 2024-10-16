@@ -1,39 +1,41 @@
 import Link from "next/link";
 
-const navItems = {
-  "/": {
-    name: "home",
-  },
-  "/blog": {
-    name: "blog",
-  },
-  "https://vercel.com/templates/next.js/portfolio-starter-kit": {
-    name: "deploy",
-  },
-};
+const navItems = [
+  { path: "/", name: "Home", color: "bg-red-500" },
+  { path: "/", name: "", color: "bg-transparent" },
+  { path: "/works", name: "Works", color: "bg-orange-500" },
+  { path: "/projects", name: "Projects", color: "bg-yellow-500" },
+  { path: "/create", name: "Create", color: "bg-green-300" },
+  { path: "/thoughts", name: "Thoughts", color: "bg-green-700" },
+];
 
 export function Navbar() {
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight">
-      <div className="lg:sticky lg:top-20">
-        <nav
-          className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
-          id="nav"
-        >
-          <div className="flex flex-col space-x-0 pr-10">
-            {Object.entries(navItems).map(([path, { name }]) => {
-              return (
-                <Link
-                  key={path}
-                  href={path}
-                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
-                >
-                  {name}
-                </Link>
-              );
-            })}
-          </div>
+    <aside className="w-full h-full flex flex-col font-konstant-grotesk">
+      <div className="h-[80%] flex items-center justify-center">
+        <nav className="flex flex-col items-center justify-between space-y-8">
+          {navItems.map(({ path, name, color }) => (
+            <Link
+              key={path + name}
+              href={path}
+              className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-3 px-4 text-center w-full text-base flex items-center"
+            >
+              <span className={`w-3 h-3 rounded-full mr-3 ${color}`}></span>
+              {name}
+            </Link>
+          ))}
         </nav>
+      </div>
+      <div className="h-[20%] flex items-center justify-center">
+        <nav className="flex flex-col items-center justify-between space-y-8">
+        <Link
+          href="/visitors"
+          className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-3 px-4 text-center w-full text-base flex items-center"
+        >
+          <span className="w-3 h-3 rounded-full mr-3 bg-red-500"></span>
+          Visitors
+          </Link>
+          </nav>
       </div>
     </aside>
   );

@@ -1,12 +1,14 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'en',
+  },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'buffer.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    domains: ['buffer.com'],
   },
 };
+
+module.exports = nextConfig;

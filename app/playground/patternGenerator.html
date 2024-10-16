@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Image Repeater with Download</title>
+    <style>
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Image Repeater with Download</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <br><br>
+    <label for="columns">Columns (N): </label>
+    <input type="number" id="columns" min="1" value="2">
+    <br>
+    <label for="rows">Rows (M): </label>
+    <input type="number" id="rows" min="1" value="2">
+    <br>
+    <label for="outputWidth">Output Width (px): </label>
+    <input type="number" id="outputWidth" min="1" value="800">
+    <br>
+    <label for="outputHeight">Output Height (px): </label>
+    <input type="number" id="outputHeight" min="1" value="600">
+    <br>
+    <label for="horizontalSpacing">Horizontal Spacing (px): </label>
+    <input type="number" id="horizontalSpacing" min="0" value="10">
+    <br>
+    <label for="verticalSpacing">Vertical Spacing (px): </label>
+    <input type="number" id="verticalSpacing" min="0" value="10">
+    <br>
+    <label for="rotation">Rotation (degrees): </label>
+    <input type="number" id="rotation" value="0">
+    <br>
+    <label for="positionRandomization">Position Randomization (px): </label>
+    <input type="number" id="positionRandomization" min="0" max="10" value="5">
+    <br>
+    <label for="sizeRandomization">Size Randomization (px): </label>
+    <input type="number" id="sizeRandomization" min="0" max="10" value="5">
+    <br>
+    <label for="backgroundColor">Background Color: </label>
+    <input type="color" id="backgroundColor" value="#ffffff">
+    <br><br>
+    <button onclick="generateRepeatedImage()">Generate Repeated Image</button>
+    <button id="downloadButton" onclick="downloadImage()" disabled>Download Image</button>
+    <br><br>
+    <canvas id="outputCanvas"></canvas>
+
+    <script>
+        function generateRepeatedImage() {
+            const imageInput = document.getElementById('imageInput');
+            const columns = parseInt(document.getElementById('columns').value);
+            const rows = parseInt(document.getElementById('rows').value);
+            const outputWidth = parseInt(document.getElementById('outputWidth').value);
+            const outputHeight = parseInt(document.getElementById('outputHeight').value);
+            const horizontalSpacing = parseInt(document.getElementById('horizontalSpacing').value);
+            const verticalSpacing = parseInt(document.getElementById('verticalSpacing').value);
+            const rotation = parseFloat(document.getElementById('rotation').value);
+            const positionRandomization = parseInt(document.getElementById('positionRandomization').value);
+            const sizeRandomization = parseInt(document.getElementById('sizeRandomization').value);
+            const backgroundColor = document.getElementById('backgroundColor').value;
+            const canvas = document.getElementById('outputCanvas');
+            const ctx = canvas.getContext('2d');
+
+            if (!imageInput.files || imageInput.files.length === 0) {
+                alert('Please select an image first.');
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = outputWidth;
+                canvas.height = outputHeight;
+
+                // Calculate the available space for images after subtracting spacing
+                const availableWidth = outputWidth - (horizontalSpacing * (columns - 1));
+                const availableHeight = outputHeight - (verticalSpacing * (rows - 1));
+
+                const baseTileWidth = availableWidth / columns;
+                const baseTileHeight = availableHeight / rows;
+
+                // Fill the background with the selected color
+                ctx.fillStyle = backgroundColor;
+                ctx.fillRect(0, 0, outputWidth, outputHeight);
+
+                // Save the canvas state before rotation
+                ctx.save();
+
+                // Move to the center of the canvas
+                ctx.translate(outputWidth / 2, outputHeight / 2);
+
+                // Rotate the canvas
+                ctx.rotate(rotation * Math.PI / 180);
+
+                // Move back to the top-left corner
+                ctx.translate(-outputWidth / 2, -outputHeight / 2);
+
+                // Draw the repeated and rotated pattern with randomization
+                for (let i = 0; i < rows; i++) {
+                    for (let j = 0; j < columns; j++) {
+                        const baseX = j * (baseTileWidth + horizontalSpacing);
+                        const baseY = i * (baseTileHeight + verticalSpacing);
+                        
+                        // Add position randomization
+                        const randomX = (Math.random() * 2 - 1) * positionRandomization;
+                        const randomY = (Math.random() * 2 - 1) * positionRandomization;
+                        
+                        // Add size randomization
+                        const randomWidth = baseTileWidth + (Math.random() * 2 - 1) * sizeRandomization;
+                        const randomHeight = baseTileHeight + (Math.random() * 2 - 1) * sizeRandomization;
+                        
+                        ctx.drawImage(img, baseX + randomX, baseY + randomY, randomWidth, randomHeight);
+                    }
+                }
+
+                // Restore the canvas state
+                ctx.restore();
+
+                // Enable the download button
+                document.getElementById('downloadButton').disabled = false;
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
+        function downloadImage() {
+            const canvas = document.getElementById('outputCanvas');
+            const imageInput = document.getElementById('imageInput');
+            
+            // Create a temporary link element
+            const link = document.createElement('a');
+            
+            // Set the download attribute with a default filename
+            link.download = 'repeated_image.png';
+            
+            // Convert the canvas content to a data URL
+            link.href = canvas.toDataURL('image/png');
+            
+            // Programmatically click the link to trigger the download
+            link.click();
+        }
+    </script>
+</body>
+</html>

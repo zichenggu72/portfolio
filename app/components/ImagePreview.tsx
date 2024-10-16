@@ -1,7 +1,21 @@
 import React from "react";
 import Image from "next/image";
 
-const ProfileAvatar = ({ src, alt, size = 40, name }) => {
+const ImagePreview = ({ src, alt, size = 40, name }) => {
+  const isValidUrl = (string) => {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+  };
+  const hasValidPreviewUrl = src && isValidUrl(src);
+  
+  if (!hasValidPreviewUrl) {
+    return null;
+  }
+
   const initials = name
     ? name
         .split(" ")
@@ -37,4 +51,4 @@ const ProfileAvatar = ({ src, alt, size = 40, name }) => {
   );
 };
 
-export default ProfileAvatar;
+export default ImagePreview;
