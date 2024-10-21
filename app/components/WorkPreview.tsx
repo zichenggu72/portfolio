@@ -1,4 +1,6 @@
 import React from "react";
+import { MdxImage } from "./MdxImage";
+import circle from "app/public/circle.png";
 
 interface ExperienceItem {
   header: string;
@@ -16,14 +18,16 @@ const WorkPreview: React.FC<ExperienceItem> = ({
       <h3 className="text-lg font-semibold">{header}</h3>
       <p className="text-sm text-gray-600 mb-2">{description}</p>
       <div className="flex space-x-2">
-        {previewImages.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`Preview ${index + 1}`}
-            className="w-[100px] h-[100px] object-cover rounded"
-          />
-        ))}
+        {previewImages.map((img, index) => {
+          return (
+            <MdxImage
+              src={img}
+              alt="Picture of the author"
+              width={100}
+              height={100}
+            />
+          );
+        })}
       </div>
     </div>
   );

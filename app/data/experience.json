@@ -5,7 +5,7 @@
         {
           "header": "Senior Designer at TechCorp",
           "description": "Led the design team for our flagship product.",
-          "previewImages": ["/images/techcorp1.jpg", "/images/techcorp2.jpg"]
+          "previewImages": ["/assets/images/circle.png"]
         }
       ]
     },
@@ -15,27 +15,27 @@
         {
           "header": "UX Consultant for StartupX",
           "description": "Redesigned the user onboarding experience.",
-          "previewImages": ["/images/startupx1.jpg"]
+          "previewImages": []
         },
         {
           "header": "Speaker at DesignCon 2022",
           "description": "Gave a talk on 'The Future of UI Design'.",
-          "previewImages": ["/images/designcon1.jpg", "/images/designcon2.jpg"]
+          "previewImages": []
         }
       ]
     },
     {
-      "year": "2022-2023",
+      "year": "2020-2021",
       "items": [
         {
           "header": "UX Consultant for StartupX",
           "description": "Redesigned the user onboarding experience.",
-          "previewImages": ["/images/startupx1.jpg"]
+          "previewImages": []
         },
         {
           "header": "Speaker at DesignCon 2022",
           "description": "Gave a talk on 'The Future of UI Design'.",
-          "previewImages": ["/images/designcon1.jpg", "/images/designcon2.jpg"]
+          "previewImages": []
         }
       ]
     }
