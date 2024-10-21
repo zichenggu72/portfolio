@@ -1,9 +1,9 @@
-import { BlogPosts } from "app/components/posts";
+import { BlogPosts } from "app/components/BlogPosts";
 import { User } from "app/types/user";
 import { Post } from "app/types/post";
 import PostPreview from "app/components/PostPreview";
 
-export default function Page() {
+export default function Homepage() {
   const user: User = {
     name: "Zicheng Gu",
     description: "Designer around the 🌍",

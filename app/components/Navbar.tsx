@@ -3,10 +3,10 @@ import Link from "next/link";
 const navItems = [
   { path: "/", name: "Home", color: "bg-red-500" },
   { path: "/", name: "", color: "bg-transparent" },
-  { path: "/works", name: "Works", color: "bg-orange-500" },
-  { path: "/projects", name: "Projects", color: "bg-yellow-500" },
-  { path: "/create", name: "Create", color: "bg-green-300" },
-  { path: "/thoughts", name: "Thoughts", color: "bg-green-700" },
+  { path: "/n/works", name: "Works", color: "bg-orange-500" },
+  { path: "/n/projects", name: "Projects", color: "bg-yellow-500" },
+  { path: "/n/create", name: "Create", color: "bg-green-300" },
+  { path: "/n/thoughts", name: "Thoughts", color: "bg-green-700" },
 ];
 
 export function Navbar() {
@@ -28,14 +28,14 @@ export function Navbar() {
       </div>
       <div className="h-[20%] flex items-center justify-center">
         <nav className="flex flex-col items-center justify-between space-y-8">
-        <Link
-          href="/visitors"
-          className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-3 px-4 text-center w-full text-base flex items-center"
-        >
-          <span className="w-3 h-3 rounded-full mr-3 bg-red-500"></span>
-          Visitors
+          <Link
+            href="/n/visitors"
+            className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-3 px-4 text-center w-full text-base flex items-center"
+          >
+            <span className="w-3 h-3 rounded-full mr-3 bg-red-500"></span>
+            Visitors
           </Link>
-          </nav>
+        </nav>
       </div>
     </aside>
   );
