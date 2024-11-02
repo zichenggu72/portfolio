@@ -9,6 +9,14 @@ const nextConfig = {
   images: {
     domains: ['buffer.com'],
   },
+  images: {
+    localPatterns: [
+      {
+        pathname: '/assets/images/**',
+        search: '',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

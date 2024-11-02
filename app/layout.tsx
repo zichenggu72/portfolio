@@ -2,10 +2,9 @@ import "./global.css";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Navbar } from "./components/nav";
+import { Navbar } from "./components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
 
 export const metadata: Metadata = {
@@ -44,27 +43,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-<html
-  lang="en"
-  className={cx(
-    "text-black bg-white dark:text-white dark:black",
-    GeistSans.variable,
-    GeistMono.variable
-  )}
->
-  <body className="antialiased">
-    <div className="flex flex-row">
-      <nav className="w-64 min-h-screen pl-[30px]">
-        <Navbar />
-      </nav>
-      <main className="flex-1 max-w-3xl mx-auto px-4 mt-8">
-        {children}
-        {/* <Footer />
-        <Analytics />
-        <SpeedInsights /> */}
-      </main>
-    </div>
-  </body>
-</html>
+    <html
+      lang="en"
+      className={cx(
+        "text-black bg-white dark:text-white dark:black",
+        GeistSans.variable,
+        GeistMono.variable
+      )}
+    >
+      <body className="antialiased">
+        <div className="flex flex-row">
+          <nav className="w-64 min-h-screen pl-[30px]">
+            <Navbar />
+          </nav>
+          <main className="flex-1 max-w-3xl mx-auto px-4 mt-8">{children}</main>
+        </div>
+      </body>
+    </html>
   );
 }
