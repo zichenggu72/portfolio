@@ -1,14 +1,15 @@
-export default function ProjectsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav></nav>
+import Link from 'next/link';
 
-      {children}
-    </section>
-  );
-}
+export default function ProjectsLayout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
+    return (
+      <section className="prose prose-xl">
+        <div className="font-graphik">
+          {children}
+        </div>
+      </section>
+    );
+  }
