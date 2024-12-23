@@ -7,9 +7,6 @@ const nextConfig = {
     defaultLocale: 'en',
   },
   images: {
-    domains: ['buffer.com'],
-  },
-  images: {
     localPatterns: [
       {
         pathname: '/assets/images/**',
