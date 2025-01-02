@@ -89,7 +89,7 @@ export default function WorksPage() {
             </div>
             
             {/* Description */}
-            <p className="font-semibold">{work.description}</p>
+            <p className="font-semibold mb-2">{work.description}</p>
             
             {/* New Details paragraph */}
             <p className="text-gray-600 mb-6">{work.details}</p>
