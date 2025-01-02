@@ -31,6 +31,8 @@
 
 html {
   min-width: 360px;
+  font-family: 'Graphik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+    'Helvetica Neue', Arial, sans-serif;
 }
 
 .prose .anchor {
