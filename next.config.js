@@ -7,7 +7,14 @@ const nextConfig = {
     defaultLocale: 'en',
   },
   images: {
-    domains: ['buffer.com'],
+    domains: ['savee.it'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'savee.it',
+        pathname: '/i/**',
+      },
+    ],
   },
   images: {
     localPatterns: [
