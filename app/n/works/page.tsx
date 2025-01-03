@@ -18,9 +18,11 @@ export default function WorksPage() {
     images: { src: any; alt: string }[];
     index: number;
   } | null>(null);
-
+  console.log('here WorksPage');
+  
   const works = [
     {
+      id: "vmware-cloud-integration",
       dateRange: "2024",
       title: "Proponent app 0 to 1",
       description: "Revolutionizing sales enablement through AI",
@@ -32,6 +34,7 @@ export default function WorksPage() {
       ]
     },
     {
+      id: "vmware-cloud-integration",
       dateRange: "2023",
       title: "VMware Cloud Service Integration",
       description: "Unified workflow to augment cloud capabilities",
@@ -43,6 +46,7 @@ export default function WorksPage() {
       ]
     },
     {
+      id: "vmware-cloud-integration",
       dateRange: "2023",
       title: "VMware Cloud Task Monitor",
       description: "Uncover a hidden behavior to facilitate task monitoring",
@@ -54,6 +58,7 @@ export default function WorksPage() {
       ]
     },
     {
+      id: "vmware-cloud-integration",
       dateRange: "2021",
       title: "Securonix Policy Creation",
       description: "Streamline the process of building tailored policies",
@@ -76,20 +81,26 @@ export default function WorksPage() {
             {/* Title and Date row */}
             <div className="flex justify-between items-center mb-1">
               <div className="flex items-center gap-1">
-                <span className="text-sm text-gray-500">
+                <Link 
+                  href={`/n/works/vmware-cloud-integration`}
+                  className="text-sm text-gray-500 hover:text-gray-700"
+                >
                   {work.title}
                   {work.projectUrl && (
-                    <Link href={work.projectUrl} className="text-gray-500 inline-flex items-center ml-1">
-                      ↗
-                    </Link>
+                    <span className="inline-flex items-center ml-1">↗</span>
                   )}
-                </span>
+                </Link>
               </div>
               <span className="text-sm text-gray-500">{work.dateRange}</span>
             </div>
             
-            {/* Description */}
-            <p className="font-semibold mb-2">{work.description}</p>
+            {/* Make description clickable too */}
+            <Link 
+              href={`/n/works/vmware-cloud-integration`}
+              className="block"
+            >
+              <p className="font-semibold mb-2 hover:text-gray-700">{work.description}</p>
+            </Link>
             
             {/* New Details paragraph */}
             <p className="text-gray-600 mb-6">{work.details}</p>
