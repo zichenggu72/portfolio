@@ -7,21 +7,18 @@ const nextConfig = {
     defaultLocale: 'en',
   },
   images: {
-    domains: ['savee.it'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'savee.it',
-        pathname: '/i/**',
-      },
-    ],
-  },
-  images: {
     localPatterns: [
       {
         pathname: '/assets/images/**',
         search: '',
       },
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/dsu2yornu/**',  // Updated to be more permissive
+      }
     ],
   },
 };
