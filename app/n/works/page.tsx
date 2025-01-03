@@ -18,7 +18,6 @@ export default function WorksPage() {
     images: { src: any; alt: string }[];
     index: number;
   } | null>(null);
-  console.log('here WorksPage');
   
   const works = [
     {
