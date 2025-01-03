@@ -43,7 +43,7 @@ export default function ImagePreview({ isOpen, onClose, images, currentImageInde
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
       
-      <div className="fixed inset-0 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
         <Dialog.Panel className="relative max-w-[90vw] max-h-[90vh]">
           <button
             onClick={onClose}
