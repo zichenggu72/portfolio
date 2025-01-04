@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import Link from 'next/link';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -54,18 +55,18 @@ export default function RootLayout({
           {/* Fixed navigation */}
           <nav className="fixed left-0 w-[200px] h-screen pl-[30px] flex flex-col justify-between">
             <div className="pt-10">
-              <NavItem color="#FF6B6B" text="Home" />
+              <NavItem color="#FF5D1F" text="Home" />
             </div>
 
             <ul className="space-y-8">
-              <NavItem color="#FF6B6B" text="Works" />
-              <NavItem color="#FFD93D" text="Projects" />
-              <NavItem color="#6BCB77" text="Create" />
-              <NavItem color="#4D96FF" text="Resources" />
+              <NavItem color="#F8961E" text="Works" />
+              <NavItem color="#F9C74F" text="Projects" />
+              <NavItem color="#90BE6D" text="Create" />
+              <NavItem color="#4D908E" text="Resources" />
             </ul>
 
             <div className="pb-10">
-              <NavItem color="#FF6B6B" text="Visitors" />
+              <NavItem color="#FF5D1F" text="Visitors" />
             </div>
           </nav>
 
