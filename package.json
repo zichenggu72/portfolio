@@ -21,6 +21,7 @@
     "clsx": "^1.2.1",
     "formik": "^2.2.9",
     "geist": "1.2.2",
+    "mapbox-gl": "^3.9.2",
     "next": "^14.0.2",
     "next-cloudinary": "^6.16.0",
     "next-mdx-remote": "^4.4.1",
@@ -28,6 +29,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
+    "react-map-gl": "^7.1.8",
     "sugar-high": "^0.6.0",
     "tailwindcss": "4.0.0-alpha.13",
     "yup": "^0.32.11"
