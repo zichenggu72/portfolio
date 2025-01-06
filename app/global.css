@@ -169,4 +169,16 @@ table {
   font-display: swap;
 }
 
+.image-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.horizontal-image,
+.vertical-image {
+  width: 100%;
+  height: auto;
+}
+
 /* Add more weights as needed */
