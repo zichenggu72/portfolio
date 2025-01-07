@@ -2,6 +2,8 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 
 type Recipe = {
   id: string;
@@ -47,6 +49,7 @@ const categories = ['memory', 'taste', 'graphic'];
 
 export default function TastePage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleCategoryClick = (category: string) => {
     if (category === 'taste') {
@@ -56,17 +59,18 @@ export default function TastePage() {
   };
 
   return (
-    <div className="max-w-[744px] mx-auto px-6">
+    <div className="main">
       <h1 className="font-semibold mb-6">Create</h1>
       <div className="flex gap-4 mb-8">
         {categories.map((category) => (
           <Link 
             key={category}
-            href={category === 'taste' ? '/n/create/taste' : '/n/create'}
+            href={category === 'memory' ? '/n/create' : `/n/create/${category}`}
             className={`text-sm px-3 py-1 rounded-md text-gray-400 hover:text-gray-600 ${
-              category === 'taste' 
-              ? 'bg-gray-100 text-black' 
-              : ''
+              (category === 'memory' && pathname === '/n/create') ||
+              pathname === `/n/create/${category}`
+                ? 'bg-gray-100 text-black' 
+                : ''
             }`}
           >
             {category}
@@ -85,7 +89,7 @@ export default function TastePage() {
         {recipes.map((recipe) => (
           <div key={recipe.id} className="flex gap-8">
             {/* Image */}
-            <div className="w-[240px] h-[240px] bg-gray-100 flex-shrink-0">
+            <div className="w-[160px] h-[160px] bg-gray-100 flex-shrink-0">
               {/* Temporarily commenting out Image until we have proper images */}
               {/*<Image
                 src={recipe.image}
