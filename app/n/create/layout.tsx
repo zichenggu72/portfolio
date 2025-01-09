@@ -12,6 +12,7 @@ type Pin = {
     url: string;
     alt?: string;
     orientation: 'horizontal' | 'vertical';
+    caption?: string;
   }[];
   title: string;
 }
@@ -32,7 +33,7 @@ const initialPins: Pin[] = [
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034358/DSC00587_y04x96.jpg',
         alt: 'London scene 1',
-        orientation: 'horizontal'
+        orientation: 'vertical'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034415/DSC00427-2_rvbix4.jpg',
@@ -42,12 +43,47 @@ const initialPins: Pin[] = [
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034383/DSC00472_bmbbd2.jpg',
         alt: 'London scene 3',
-        orientation: 'vertical'
+        orientation: 'horizontal'
       }
     ],
     title: 'London'
   },
-  // ... rest of your pins
+  {
+    id: '3',
+    latitude: 41.0082,
+    longitude: 28.9784,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448601/DSC00196-2_fngkqr.jpg',
+        alt: 'Turkey scene 1',
+        orientation: 'vertical'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736453522/DSC00199-2_zrmdit.jpg',
+        alt: 'Turkey scene 2',
+        orientation: 'vertical'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448471/DSC09659-2_jxnkhg.jpg',
+        alt: 'Turkey scene 2',
+        orientation: 'horizontal'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1735939400/DSC09764-2_nnm85n.jpg',
+        alt: 'Turkey scene 3',
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1735939400/DSC09764-2_nnm85n.jpg',
+        alt: 'Turkey scene 4',
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+      }
+    ],
+    title: 'Turkey'
+  },
+  
 ];
 
 export default function CreateLayout({
@@ -144,29 +180,37 @@ export default function CreateLayout({
         <div className="p-6 pt-10">
           <div className="flex justify-between items-center">
             <h2 className="font-semibold">{selectedPin?.title}</h2>
-            <button 
+            {/* <button 
               onClick={() => setSelectedPin(null)}
               className="text-gray-400 hover:text-gray-600"
             >
               ×
-            </button>
+            </button> */}
           </div>
         </div>
 
         {/* Content - scrollable */}
         <div className="flex-1 overflow-y-auto p-6">
           {selectedPin?.images.length ? (
-            <div className="image-container">
-              {selectedPin.images.map((image, index) => (
-                <Image 
-                  key={index}
-                  src={image.url}
-                  alt={image.alt || ''}
-                  width={1500}
-                  height={1000}
-                  className="w-full h-auto"
-                />
-              ))}
+            <div className="image-container flex flex-col items-center gap-6">
+              {selectedPin.images.map((image, index) => {
+                // Check if image is vertical (you might need to adjust this logic based on your actual image dimensions)
+                const isVertical = true; // For testing, assuming the image is vertical
+                return (
+                  <div 
+                    key={index}
+                    className={`${isVertical ? 'w-[60%]' : 'w-full'} mx-auto`}
+                  >
+                    <Image 
+                      src={image.url}
+                      alt={image.alt || ''}
+                      width={1500}
+                      height={1000}
+                      className="w-full h-auto rounded-md" // Added rounded-lg for soft corners
+                    />
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <p className="text-gray-500">No images yet</p>
