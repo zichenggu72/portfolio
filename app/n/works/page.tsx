@@ -71,7 +71,7 @@ export default function WorksPage() {
   ];
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-10">
       <h1 className="font-semibold mb-6">Works</h1>
       
       {works.map((work, index) => (
@@ -79,7 +79,7 @@ export default function WorksPage() {
           <div className="mb-4">
             {/* Title and Date row */}
             <div className="flex justify-between items-center mb-1">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center">
                 <Link 
                   href={`/n/works/vmware-cloud-integration`}
                   className="text-sm text-gray-500 hover:text-gray-700"

@@ -6,10 +6,10 @@ export default function ProjectsLayout({
     children: React.ReactNode;
   }) {
     return (
-      <section className="prose prose-xl">
+      
         <div className="font-graphik">
           {children}
         </div>
-      </section>
+      
     );
   }
