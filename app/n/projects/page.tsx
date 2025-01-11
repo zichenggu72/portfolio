@@ -51,13 +51,13 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <div className="space-y-16 pb-32">
-      <h1 className="font-semibold mb-6">Projects</h1>
+    <div className="space-y-10">
+      <h1 className="font-semibold mb-4">Projects</h1>
       
       {projects.map((project, projectIndex) => (
-        <article key={projectIndex} className="space-y-4">
+        <article key={projectIndex} className="mb-4">
           {/* Organization and Year */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-1">
           <span className="text-sm text-gray-500">
               {project.organization}
             </span>
@@ -68,7 +68,7 @@ export default function ProjectsPage() {
           <p className="font-semibold mb-2">{project.title}</p>
           
           {/* Description */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             {project.description.map((paragraph, index) => (
               <p key={index} className="text-gray-600">
               {paragraph}

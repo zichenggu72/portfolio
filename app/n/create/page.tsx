@@ -18,7 +18,7 @@ export default function CreatePage() {
             className={`text-sm px-3 py-1 rounded-md text-gray-400 hover:text-gray-600 ${
               (category === 'memory' && pathname === '/n/create') ||
               pathname === `/n/create/${category}`
-                ? 'bg-gray-100 text-black' 
+                ? 'bg-gray-100 text-gray-700' 
                 : ''
             }`}
           >
