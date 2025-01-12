@@ -67,7 +67,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2">
           <span className="text-sm text-gray-500">Background</span>
           
-          <p className="text-gray-600 mb-4">{caseStudy.background}</p>
+          <p className="text-gray-800 mb-4">{caseStudy.background}</p>
         </section>
 
         {/* Problem */}
@@ -100,7 +100,7 @@ export default function CaseStudyDetail() {
             ))}
           </div>
 
-          <p className="text-gray-600 mb-4">{caseStudy.problem}</p>
+          <p className="text-gray-800 mb-4">{caseStudy.problem}</p>
         </section>
 
         {/* Solution */}
@@ -134,7 +134,7 @@ export default function CaseStudyDetail() {
           </div>
 
          {/* First paragraph */}
-  <p className="text-gray-600">{caseStudy.solution[0]}</p>
+  <p className="text-gray-800">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
           <div className="grid grid-cols-1 gap-4 my-4">
@@ -164,7 +164,7 @@ export default function CaseStudyDetail() {
           </div>
 
            {/* Second paragraph */}
-  <p className="text-gray-600">{caseStudy.solution[1]}</p>
+  <p className="text-gray-800">{caseStudy.solution[1]}</p>
 
         </section>
 
@@ -172,10 +172,10 @@ export default function CaseStudyDetail() {
         <section className="space-y-2 mt-8">
         <span className="text-sm text-gray-500">Impact</span>
           <div className="space-y-2">
-            <p className="text-gray-600">
+            <p className="text-gray-800">
               1. <span className="font-bold">8 out of 8</span> users detect the new tab system and complete the tasks successfully.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-800">
               2. Aim to reduce the time-to-value by 30%, <span className="font-bold">reached 46%</span>
             </p>
           </div>
@@ -185,10 +185,10 @@ export default function CaseStudyDetail() {
         <section className="space-y-2 mt-8 mb-32">
         <span className="text-sm text-gray-500">What I Learned</span>
           <div className="space-y-4">
-            <p className="text-gray-600">
+            <p className="text-gray-800">
               1. Embrace the changing requirements. I have wondered that why our priorities are always changing. One day our focus is on the launchpad, the next day it shifts to services, and next week it shifts to Org view. This shifting landscape can be a bit challenging to keep up with. However, over time, I've come to understand that in the realm of live and active products, change is the only constant. I've learned to embrace this ever-evolving nature and adapt to it effectively.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-800">
               2. Through project reflection, I identified an opportunity to strengthen our data-driven approach: conducting comprehensive analysis of service categorization methods earlier in the design phase. By examining subscription patterns, availability metrics, and usage frequency, we could have further optimized service organization.
             </p>
           </div>
