@@ -79,6 +79,12 @@ export default function RootLayout({
         </div>
         <Analytics />
         <SpeedInsights />
+        
+        <footer className="mt-24 pb-8 text-sm text-gray-500">
+          <div className="max-w-2xl mx-auto px-8">
+            © {new Date().getFullYear()} Zicheng Gu
+          </div>
+        </footer>
       </body>
     </html>
   );
