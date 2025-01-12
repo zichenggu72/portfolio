@@ -29,7 +29,7 @@ export default function WorksPage() {
       projectUrl: "#",
       images: [
         { src: work1, alt: "Proponent Example 1" },
-        { src: work2, alt: "Proponent Example 2" },
+       
       ]
     },
     {
@@ -41,7 +41,7 @@ export default function WorksPage() {
       projectUrl: "#",
       images: [
         { src: work3, alt: "VMware Cloud Service Integration Example 1" },
-        { src: work4, alt: "VMware Cloud Service Integration Example 2" },
+        
       ]
     },
     {
@@ -53,7 +53,7 @@ export default function WorksPage() {
       projectUrl: "#",
       images: [
         { src: work5, alt: "VMware Cloud Task Monitor Example 1" },
-        { src: work6, alt: "VMware Cloud Task Monitor Example 2" },
+        
       ]
     },
     {
@@ -64,15 +64,15 @@ export default function WorksPage() {
       details: "Identified key bottlenecks in the policy creation workflow through in-depth user research, and implemented a practical and innovative solution in a cohesive manner.",
       projectUrl: "#",
       images: [
-        { src: work1, alt: "Securonix Policy Creation Example 1" },
-        { src: work2, alt: "Securonix Policy Creation Example 2" },
+        { src: work6, alt: "Securonix Policy Creation Example 1" },
+       
       ]
     }
   ];
 
   return (
-    <div className="space-y-10">
-      <h1 className="font-semibold mb-6">Works</h1>
+    <div className="space-y-12">
+      <h1 className="font-semibold">Works</h1>
       
       {works.map((work, index) => (
         <div key={index}>
@@ -118,7 +118,7 @@ export default function WorksPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={imageIndex === 0}
-                    className="object-cover rounded-lg hover:opacity-90 transition-opacity"
+                    className="object-cover rounded-lg shadow-md border border-gray-100 hover:opacity-90 transition-opacity"
                   />
                 </div>
               ))}
