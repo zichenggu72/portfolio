@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ type Recipe = {
   description: string;
   image: string;
   ingredients: string[];
-  sauce: string[];
+  sauce?: string[];
   steps: string[];
 }
 
@@ -53,70 +53,55 @@ const recipes: Recipe[] = [
   },
   {
     id: '2',
-    title: 'Bibimbap',
-    description: 'Hot stone mixed rice',
+    title: 'Matcha hummus',
+    description: 'Asian-inspired hummus',
     image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736723094/Untitled-4_1_p8oy1s.png',
     ingredients: [
-      '+ steamed rice',
-      '+ spinach',
-      '+ carrots',
-      '+ bean sprouts',
-      '+ mushrooms',
-      '+ beef bulgogi',
-      '+ fried egg',
-      '+ nori strips',
-      '+ kimchi'
+      '+ Match powder',
+      '+ coconut milk',
+      '+ dates, pitted and soaked',
+      '+ canned chickpeas',
     ],
-    sauce: [
-      '+ gochujang',
-      '+ sesame oil',
-      '+ soy sauce',
-      '+ garlic',
-      '+ sugar'
-    ],
+    // sauce: [
+    //   '+ gochujang',
+    //   '+ sesame oil',
+    //   '+ soy sauce',
+    //   '+ garlic',
+    //   '+ sugar'
+    // ],
     steps: [
-      '· prepare steamed rice and set aside.',
-      '· sauté each vegetable separately with salt and sesame oil.',
-      '· cook marinated beef bulgogi until browned.',
-      '· fry egg sunny-side up.',
-      '· arrange rice in a bowl.',
-      '· place vegetables and beef in sections around the rice.',
-      '· top with fried egg and nori strips.',
-      '· serve with gochujang sauce and kimchi on the side.'
+      '· the most important thing is to shell the chickpeas. it takes approximately 20 minutes to shell 1 can of chickpeas. it elevates the hummus to the next level.',
+      '· add the shelled chickpeas to a food processor or blender.',
+      '· add the matcha powder, dates, and start blending.',
+      '· gradually add the coconut milk until it reaches a smooth consistency.',
+ 
     ]
   },
   {
     id: '3',
-    title: 'Japchae',
-    description: 'Stir-fried glass noodles',
+    title: 'Papadam stack',
+    description: 'Indian-mexican pizza',
     image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736723094/Untitled-3_1_tgizbr.png',
     ingredients: [
-      '+ sweet potato noodles',
-      '+ spinach',
-      '+ carrots',
-      '+ onions',
-      '+ mushrooms',
-      '+ beef strips',
-      '+ eggs',
-      '+ green onions',
-      '+ sesame seeds'
+      '+ black pepper flavored papadam (uncooked)',
+      '+ cooked mixed rice',
+      '+ shrimp',
+      '+ avocado',
+      '+ mango',
     ],
     sauce: [
-      '+ soy sauce',
-      '+ sesame oil',
-      '+ brown sugar',
-      '+ garlic',
-      '+ black pepper'
+      '+ masala seasoning',
+      '+ salt and pepper',
     ],
     steps: [
-      '· soak sweet potato noodles in warm water.',
-      '· julienne all vegetables.',
-      '· scramble eggs and cook into thin omelette, then slice.',
-      '· cook beef strips with sauce.',
-      '· blanch spinach and season.',
-      '· stir-fry remaining vegetables.',
-      '· cook noodles and mix with sauce.',
-      '· combine all ingredients and garnish with sesame seeds.'
+      '· fold masala seasoning into warm rice, ensuring even distribution. let it cool completely',
+      '· cook shrimp and season with salt, and pepper. chop into small pieces.',
+      '· mash the avocado.',
+      '· dice the mango, and mix with avocado, and shrimp.',
+      '· bake the papadam until crispy.',
+      '· lay the rice between two papadams.',
+      '· top the sandwiched papadam with the mixture prepared before.',
+      '· garnish with cilantro and sesame seeds.(optional)'
     ]
   }
 ];
@@ -127,6 +112,24 @@ export default function TastePage() {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+
+  // Handle body scroll lock
+  useEffect(() => {
+    if (selectedRecipe) {
+      // Add padding right to prevent layout shift when scrollbar disappears
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.paddingRight = '0px';
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.paddingRight = '0px';
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedRecipe]);
 
   const handleCategoryClick = (category: string) => {
     if (category === 'taste') {
@@ -182,7 +185,7 @@ export default function TastePage() {
 
             {/* Description */}
             <div className="flex-1">
-              <h3 className="font-semibold mb-0 flex items-center gap-1">
+              <h3 className="font-semibold mb-1 flex items-center gap-1">
                 {recipe.title}
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
@@ -197,28 +200,28 @@ export default function TastePage() {
       {/* Drawer */}
       <div 
         className={`fixed top-0 right-0 w-1/2 h-screen bg-white transform 
-          transition-transform duration-300 ease-in-out z-30 p-12 overflow-y-auto
+          transition-transform duration-300 ease-in-out z-30 p-8 overflow-y-auto
           ${selectedRecipe ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {selectedRecipe && (
           <>
-            <div className="mb-12">
-              <h2 className="text-2xl font-medium mb-2">{selectedRecipe.title}</h2>
-              <p className="text-gray-600">= Spicy Korean salad</p>
+            <div className="mb-8">
+              <h2 className="font-semibold mb-1">{selectedRecipe.title}</h2>
+              <p className="text-gray-600">Spicy Korean salad</p>
             </div>
 
-            <div className="w-full h-48 relative mb-12">
+            <div className="w-full h-24 relative mb-10">
               <Image
                 src={selectedRecipe.image}
                 alt={selectedRecipe.title}
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover rounded-md"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-12 mb-12">
               <div>
-                <h3 className="text-lg mb-4">Ingredients</h3>
+                <h3 className="font-semibold mb-2">Ingredients</h3>
                 <div className="space-y-2">
                   {selectedRecipe.ingredients.map((ingredient, index) => (
                     <p key={index} className="text-gray-600">{ingredient}</p>
@@ -226,18 +229,20 @@ export default function TastePage() {
                 </div>
               </div>
               
-              <div>
-                <h3 className="text-lg mb-4">Sauce</h3>
-                <div className="space-y-2">
-                  {selectedRecipe.sauce.map((ingredient, index) => (
-                    <p key={index} className="text-gray-600">{ingredient}</p>
-                  ))}
+              {selectedRecipe.sauce && selectedRecipe.sauce.length > 0 && (
+                <div>
+                  <h3 className="font-semibold mb-2">Sauce</h3>
+                  <div className="space-y-2">
+                    {selectedRecipe.sauce.map((item, index) => (
+                      <p key={index} className="text-gray-600">{item}</p>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div>
-              <h3 className="text-lg mb-4">Steps</h3>
+              <h3 className="font-semibold mb-2">Steps</h3>
               <div className="space-y-3">
                 {selectedRecipe.steps.map((step, index) => (
                   <p key={index} className="text-gray-600">{step}</p>
