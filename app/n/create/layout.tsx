@@ -33,18 +33,71 @@ const initialPins: Pin[] = [
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034358/DSC00587_y04x96.jpg',
         alt: 'London scene 1',
-        orientation: 'vertical'
+        orientation: 'vertical',
+        caption: 'Determined turkish man'
+       
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034415/DSC00427-2_rvbix4.jpg',
         alt: 'London scene 2',
-        orientation: 'horizontal'
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+     
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034383/DSC00472_bmbbd2.jpg',
         alt: 'London scene 3',
-        orientation: 'horizontal'
-      }
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+       
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448815/DSC09217_cl0udi.jpg',
+        alt: 'London scene 1',
+        orientation: 'vertical',
+        caption: 'Determined turkish man'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448701/DSC09216_qidn0m.jpg',
+        alt: 'London scene 1',
+        orientation: 'vertical',
+        caption: 'Determined turkish man'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448917/DSC08934-2_joik0b.jpg',
+        alt: 'London scene 3',
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+      },      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448829/DSC09176_tdohyw.jpg',
+        alt: 'London scene 3',
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+      },      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736449025/DSC08064_dtyiyv.jpg',
+        alt: 'London scene 3',
+        orientation: 'horizontal',
+        caption: 'Determined turkish man'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736870497/DSC08926-2_c33gze.jpg',
+        alt: 'London scene 1',
+        orientation: 'vertical',
+        caption: 'Determined turkish man'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736870498/DSC08916-2_uihvcd.jpg',
+        alt: 'London scene 1',
+        orientation: 'vertical',
+        caption: 'Determined turkish man'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736872999/DSC08900-2_rbfgao.jpg',
+        alt: 'London scene 1',
+        orientation: 'vertical',
+        caption: 'Determined turkish man'
+      },
+
     ],
     title: 'London'
   },
@@ -67,6 +120,7 @@ const initialPins: Pin[] = [
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448471/DSC09659-2_jxnkhg.jpg',
         alt: 'Turkey scene 2',
         orientation: 'horizontal'
+        
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1735939400/DSC09764-2_nnm85n.jpg',
@@ -172,12 +226,12 @@ export default function CreateLayout({
 
       {/* Drawer */}
       <div 
-        className={`fixed top-0 right-0 w-[600px] h-screen bg-white transform 
+        className={`fixed top-0 right-0 w-1/2 h-screen bg-white transform 
           transition-transform duration-300 ease-in-out z-30 flex flex-col
           ${selectedPin ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <div className="sticky top-0 bg-white"></div>
-        <div className="p-6 pt-10">
+        <div className="p-8 pt-10">
           <div className="flex justify-between items-center">
             <h2 className="font-semibold">{selectedPin?.title}</h2>
             {/* <button 
@@ -190,27 +244,35 @@ export default function CreateLayout({
         </div>
 
         {/* Content - scrollable */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-8 pt-0">
           {selectedPin?.images.length ? (
-            <div className="image-container flex flex-col items-center gap-6">
-              {selectedPin.images.map((image, index) => {
-                // Check if image is vertical (you might need to adjust this logic based on your actual image dimensions)
-                const isVertical = true; // For testing, assuming the image is vertical
-                return (
+            <div className="grid grid-cols-2 auto-rows-[250px] gap-8">
+              {selectedPin.images
+                .sort((a, b) => {
+                  if (a.orientation === 'vertical' && b.orientation === 'horizontal') return -1;
+                  if (a.orientation === 'horizontal' && b.orientation === 'vertical') return 1;
+                  return 0;
+                })
+                .map((image, index) => (
                   <div 
-                    key={index}
-                    className={`${isVertical ? 'w-[60%]' : 'w-full'} mx-auto`}
+                    key={index} 
+                    className={`relative flex flex-col
+                      ${image.orientation === 'vertical' ? 'col-span-1 row-span-2' : 'col-span-2 row-span-2'}`}
                   >
-                    <Image 
-                      src={image.url}
-                      alt={image.alt || ''}
-                      width={1500}
-                      height={1000}
-                      className="w-full h-auto rounded-md" // Added rounded-lg for soft corners
-                    />
+                    <div className="relative w-full h-full overflow-hidden rounded-lg">
+                      <Image 
+                        src={image.url}
+                        alt={image.alt || ''}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                    {image.caption && (
+                      <p className="mt-2 text-gray-600">{image.caption}</p>
+                    )}
                   </div>
-                );
-              })}
+                ))}
             </div>
           ) : (
             <p className="text-gray-500">No images yet</p>

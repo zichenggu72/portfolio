@@ -207,7 +207,7 @@ export default function TastePage() {
           <>
             <div className="mb-8">
               <h2 className="font-semibold mb-1">{selectedRecipe.title}</h2>
-              <p className="text-gray-600">Spicy Korean salad</p>
+              <p className="text-gray-600">{selectedRecipe.description}</p>
             </div>
 
             <div className="w-full h-24 relative mb-10">
