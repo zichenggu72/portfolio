@@ -11,33 +11,28 @@ export default function CaseStudyDetail() {
     const params = useParams();
   
     // Sample case study data - you'll want to match this with your works data
-    const caseStudies = {
-      'vmware-cloud-integration': {
-        title: "VMware Cloud Integration",
-        subtitle: "Unified workflow to augment cloud capabilities",
-        background: "VMware, with its core vSphere product serving over 400,000 customers. VMware Cloud, as a major business segment of VMware, is transitioning from a license-based to a subscription-based business model. As part of this transformation, VMware has integrated various complementary services with vSphere to create comprehensive solution packages.",
-        problemImages1: [
-          "https://res.cloudinary.com/dsu2yornu/image/upload/v1735924435/Group_20836_vc9pev.svg",
-        ],
-        problem: "Looking at the current integrated service page, Besides the visual problems like service cards are not aligned, so many status indicators create an undesired and overwhelming environment. After the subscription model is introduced, more complexity will be added.",
+    const caseStudy = {
+      title: "VMware Cloud Integration",
+      subtitle: "Unified workflow to augment cloud capabilities",
+      background: "VMware, with its core vSphere product serving over 400,000 customers. VMware Cloud, as a major business segment of VMware, is transitioning from a license-based to a subscription-based business model. As part of this transformation, VMware has integrated various complementary services with vSphere to create comprehensive solution packages.",
+      problemImages1: [
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735924435/Group_20836_vc9pev.svg",
+      ],
+      problem: "Looking at the current integrated service page, Besides the visual problems like service cards are not aligned, so many status indicators create an undesired and overwhelming environment. After the subscription model is introduced, more complexity will be added.",
 
-        solutionImages1: [
-          "https://res.cloudinary.com/dsu2yornu/image/upload/v1735923739/Group_20833_cawpy1.svg",
-        ],
-        solution: [
-          "To expedite service consumption, I designed a strategy to categorize services into two categories: “Activated” services and “Available for Activation” services. This would ensure that the services ready for immediate use are the most prominently displayed for users. ",
-          "Individual service purchases are strategically made visible to users, driving additional revenue streams while enabling customers to enhance their cloud capabilities through potential purchases."
-        ],
-        solutionImages2: [
-          "https://res.cloudinary.com/dsu2yornu/image/upload/v1735927678/vCenter_-_Deployment_details_xvz9ie.svg",
-        ],
-        impact: "1. 8 out of 8 users detect the new tab system and complete the tasks successfully.\n\n2. Aim to reduce the time-to-value by 30%, reached 46%",
-        whatIlearned: "1. Embrace the changing requirements. I have wondered that why our priorities are always changing. One day our focus is on the launchpad, the next day it shifts to services, and next week it shifts to Org view. This shifting landscape can be a bit challenging to keep up with. However, over time, I've come to understand that in the realm of live and active products, change is the only constant. I've learned to embrace this ever-evolving nature and adapt to it effectively.\n\n2. Through project reflection, I identified an opportunity to strengthen our data-driven approach: conducting comprehensive analysis of service categorization methods earlier in the design phase. By examining subscription patterns, availability metrics, and usage frequency, we could have further optimized service organization"
-      }
-      // Add other case studies as needed
+      solutionImages1: [
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735923739/Group_20833_cawpy1.svg",
+      ],
+      solution: [
+        "To expedite service consumption, I designed a strategy to categorize services into two categories: “Activated” services and “Available for Activation” services. This would ensure that the services ready for immediate use are the most prominently displayed for users. ",
+        "Individual service purchases are strategically made visible to users, driving additional revenue streams while enabling customers to enhance their cloud capabilities through potential purchases."
+      ],
+      solutionImages2: [
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735927678/vCenter_-_Deployment_details_xvz9ie.svg",
+      ],
+      impact: "1. 8 out of 8 users detect the new tab system and complete the tasks successfully.\n\n2. Aim to reduce the time-to-value by 30%, reached 46%",
+      whatIlearned: "1. Embrace the changing requirements. I have wondered that why our priorities are always changing. One day our focus is on the launchpad, the next day it shifts to services, and next week it shifts to Org view. This shifting landscape can be a bit challenging to keep up with. However, over time, I've come to understand that in the realm of live and active products, change is the only constant. I've learned to embrace this ever-evolving nature and adapt to it effectively.\n\n2. Through project reflection, I identified an opportunity to strengthen our data-driven approach: conducting comprehensive analysis of service categorization methods earlier in the design phase. By examining subscription patterns, availability metrics, and usage frequency, we could have further optimized service organization"
     };
-  
-    const caseStudy = caseStudies[params.id as string];
   
     const [selectedWork, setSelectedWork] = useState<{
       images: { src: any; alt: string }[];
@@ -182,7 +177,7 @@ export default function CaseStudyDetail() {
         </section>
 
         {/* What I Learned */}
-        <section className="space-y-2 mt-8 mb-32">
+        <section className="space-y-2 mt-8">
         <span className="text-sm text-gray-500">What I Learned</span>
           <div className="space-y-4">
             <p className="text-gray-800">

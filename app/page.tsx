@@ -33,7 +33,7 @@ export default function HomePage() {
       {/* Profile */}
       <div className="space-y-2">
         <h1 className="text-lg font-semibold">Zicheng Gu</h1>
-        <p className="text-sm">Designer around the 🌍</p>
+        <p className="text-gray-800">Designer around the 🌍</p>
       </div>
 
       {/* Status Update */}
