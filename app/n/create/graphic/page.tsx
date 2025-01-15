@@ -11,16 +11,12 @@ export default function GraphicPage() {
   const pathname = usePathname();
   const [selectedImage, setSelectedImage] = useState<{ images: { src: string; alt: string; }[]; index: number } | null>(null);
 
-  const projectImage = {
-    src: "https://res.cloudinary.com/dsu2yornu/image/upload/v1736034383/DSC00472_bmbbd2.jpg",
-    alt: "Project image"
-  };
 
   return (
     <div className="main">
       {/* Navigation */}
       <h1 className="font-semibold mb-6">Create</h1>
-      <div className="flex gap-4 mb-16">
+      <div className="flex gap-4 mb-8">
         {categories.map((category) => (
           <Link 
             key={category}
@@ -38,41 +34,128 @@ export default function GraphicPage() {
       </div>
 
       {/* Project Content */}
-      <article className="space-y-4">
-        {/* Organization and Year
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">University of the Arts London</span>
-          <span className="text-sm text-gray-500">2024</span>
-        </div> */}
-        
-        {/* Title */}
-        <p className="font-semibold mb-2 -mt-8">Reimagine refrigerator magnet</p>
-        
-        {/* Description */}
-        <div className="space-y-4">
-          <p className="text-gray-600">
-            Using scratch paper to draw the most memorable spots from every city I've visited in the States, 
-            capturing the essence of my journeys in a way that's unique without overpaying the industrial souvenirs.
-          </p>
-        </div>
-
-        {/* Single Image */}
-        <div className="max-w-[50%] mt-6">
-          <div 
-            className="aspect-[4/3] relative cursor-pointer"
-            onClick={() => setSelectedImage({ images: [projectImage], index: 0 })}
-          >
-            <Image
-              src={projectImage.src}
-              alt={projectImage.alt}
-              fill
-              sizes="(max-width: 768px) 50vw, 25vw"
-              priority
-              className="object-cover rounded-lg hover:opacity-90 transition-opacity"
-            />
+      <div className="space-y-8">
+        {/* Project 1 */}
+        <div className="flex gap-8">
+          <div className="w-1/4">
+            <div 
+              className="relative aspect-[4/4] overflow-hidden rounded-lg cursor-pointer"
+              onClick={() => setSelectedImage({ 
+                images: [{ 
+                  src: "https://res.cloudinary.com/dsu2yornu/image/upload/v1736957711/Snapseed_iidle9.jpg", 
+                  alt: "Refrigerator magnet project" 
+                }], 
+                index: 0 
+              })}
+            >
+              <Image
+                src="https://res.cloudinary.com/dsu2yornu/image/upload/v1736957711/Snapseed_iidle9.jpg"
+                alt="Refrigerator magnet project"
+                fill
+                className="object-cover rounded-lg hover:opacity-90 transition-opacity"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          </div>
+          <div className="w-2/3">
+            <h3 className="font-medium mb-1">Reimagining refrigerator magnet</h3>
+            <p className="text-gray-600">
+              Using scratch paper to draw the most memorable spots from every city I've visited in the States, 
+              capturing the essence of my journeys in a way that's unique without overpaying the industrial souvenirs.
+            </p>
           </div>
         </div>
-      </article>
+
+        {/* Project 2 */}
+        <div className="flex gap-8">
+          <div className="w-1/4">
+            <div 
+              className="relative aspect-[4/4] overflow-hidden rounded-lg cursor-pointer"
+              onClick={() => setSelectedImage({ 
+                images: [{ 
+                  src: "https://res.cloudinary.com/dsu2yornu/image/upload/v1736957711/IMG_5615_lc0kvq.jpg", 
+                  alt: "Staring at time" 
+                }], 
+                index: 0 
+              })}
+            >
+              <Image
+                src="https://res.cloudinary.com/dsu2yornu/image/upload/v1736957711/IMG_5615_lc0kvq.jpg"
+                alt="Staring at time"
+                fill
+                className="object-cover rounded-lg hover:opacity-90 transition-opacity"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          </div>
+          <div className="w-2/3">
+            <h3 className="font-medium mb-1">Staring at time</h3>
+            <p className="text-gray-600">
+              Acrylic painting on canvas of glacier in Alaska. How far back in time am I staring at?
+            </p>
+          </div>
+        </div>
+
+        {/* Project 3 */}
+        <div className="flex gap-8">
+          <div className="w-1/4">
+            <div 
+              className="relative aspect-[4/4] overflow-hidden rounded-lg cursor-pointer"
+              onClick={() => setSelectedImage({ 
+                images: [{ 
+                  src: "https://res.cloudinary.com/dsu2yornu/image/upload/v1736957711/IMG_8317_ezlvz0.jpg", 
+                  alt: "Personal logo" 
+                }], 
+                index: 0 
+              })}
+            >
+              <Image
+                src="https://res.cloudinary.com/dsu2yornu/image/upload/v1736957711/IMG_8317_ezlvz0.jpg"
+                alt="Personal logo"
+                fill
+                className="object-cover rounded-lg hover:opacity-90 transition-opacity"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          </div>
+          <div className="w-2/3">
+            <h3 className="font-medium mb-1">Personal logo</h3>
+            <p className="text-gray-600">
+              Letter "G" after my surname
+            </p>
+          </div>
+        </div>
+
+        {/* Project 4 */}
+        <div className="flex gap-8">
+          <div className="w-1/4">
+            <div 
+              className="relative aspect-[4/4] overflow-hidden rounded-lg cursor-pointer"
+              onClick={() => setSelectedImage({ 
+                images: [{ 
+                  src: "https://res.cloudinary.com/dsu2yornu/image/upload/v1736957715/IMG_1877_f1titx.jpg", 
+                  alt: "Broken plate" 
+                }], 
+                index: 0 
+              })}
+            >
+              <Image
+                src="https://res.cloudinary.com/dsu2yornu/image/upload/v1736957715/IMG_1877_f1titx.jpg"
+                alt="Broken plate"
+                fill
+                className="object-cover rounded-lg hover:opacity-90 transition-opacity"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          </div>
+          <div className="w-2/3">
+            <h3 className="font-medium mb-1">Broken plate</h3>
+            <p className="text-gray-600">
+            When I opened the delivery of my long-awaited plate, only to find it broken. I decided to turn it into a canvas.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Image Preview Modal */}
       {selectedImage !== null && (

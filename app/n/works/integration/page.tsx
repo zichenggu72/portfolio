@@ -12,6 +12,7 @@ export default function CaseStudyDetail() {
   
     // Sample case study data - you'll want to match this with your works data
     const caseStudy = {
+      id: "integration",
       title: "VMware Cloud Integration",
       subtitle: "Unified workflow to augment cloud capabilities",
       background: "VMware, with its core vSphere product serving over 400,000 customers. VMware Cloud, as a major business segment of VMware, is transitioning from a license-based to a subscription-based business model. As part of this transformation, VMware has integrated various complementary services with vSphere to create comprehensive solution packages.",

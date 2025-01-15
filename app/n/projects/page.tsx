@@ -80,8 +80,8 @@ export default function ProjectsPage() {
           <div className={`grid ${project.title === "Good Nut Butter" ? 'grid-cols-4' : 'grid-cols-3'} gap-4 mt-6`}>
             {project.title === "Good Nut Butter" ? (
               <>
-                <div className="col-span-3 h-full grid grid-cols-3 gap-4">
-                  {project.images.slice(0, 3).map((image, index) => (
+                <div className="col-span-4 h-full grid grid-cols-4 gap-4">
+                  {project.images.slice(0, 4).map((image, index) => (
                     <div 
                       key={index} 
                       className="aspect-[3/4] relative cursor-pointer"
@@ -98,21 +98,7 @@ export default function ProjectsPage() {
                     </div>
                   ))}
                 </div>
-                <div className="col-span-1 h-[calc(100%*3/4)]">
-                  <div 
-                    className="aspect-[4/3] relative h-full cursor-pointer"
-                    onClick={() => setSelectedProject({ images: project.images, index: 3 })}
-                  >
-                    <Image
-                      src={project.images[3].src}
-                      alt={project.images[3].alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                      priority={false}
-                      className="object-cover rounded-lg hover:opacity-90 transition-opacity"
-                    />
-                  </div>
-                </div>
+            
               </>
             ) : (
               project.images.map((image, index) => (
