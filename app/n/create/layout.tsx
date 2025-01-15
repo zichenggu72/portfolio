@@ -22,7 +22,48 @@ const initialPins: Pin[] = [
     id: '1',
     latitude: 47.6062,
     longitude: -122.3321,
-    images: [], // Add image URLs for Seattle
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736939524/DSC09616_ys36ja.jpg',
+        alt: 'Seattle scene 1',
+        orientation: 'vertical',
+        caption: 'Mountain Rainier'
+       
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736940643/IMG_4063_t92947.jpg',
+        alt: 'Seattle scene 2',
+        orientation: 'vertical',
+        caption: 'Hand picked fruits'
+     
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736939524/IMG_2117_cldjwc.jpg',
+        alt: 'Seattle scene 3',
+        orientation: 'horizontal',
+        caption: 'The oil painting-like sunset'
+       
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736939524/IMG_2773_imrnes.jpg',
+        alt: 'Seattle scene 1',
+        orientation: 'horizontal',
+        caption: 'South Lake Union'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736940819/IMG_5435_vn8pq2.jpg',
+        alt: 'Seattle scene 1',
+        orientation: 'horizontal',
+        caption: 'Hello'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736940644/DSC05517_vpgvks.jpg',
+        alt: 'Seattle scene 1',
+        orientation: 'horizontal',
+        caption: 'Kerry Park'
+      },
+
+    ], // Add image URLs for Seattle
     title: 'Seattle'
   },
   {
@@ -34,68 +75,64 @@ const initialPins: Pin[] = [
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034358/DSC00587_y04x96.jpg',
         alt: 'London scene 1',
         orientation: 'vertical',
-        caption: 'Determined turkish man'
+        caption: 'Christmas vibe with a peanut vendor'
        
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034415/DSC00427-2_rvbix4.jpg',
         alt: 'London scene 2',
         orientation: 'horizontal',
-        caption: 'Determined turkish man'
+        caption: 'A pub at a rainy night'
      
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736034383/DSC00472_bmbbd2.jpg',
         alt: 'London scene 3',
         orientation: 'horizontal',
-        caption: 'Determined turkish man'
+        caption: 'Regent St during Christmas'
        
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448815/DSC09217_cl0udi.jpg',
         alt: 'London scene 1',
         orientation: 'vertical',
-        caption: 'Determined turkish man'
+        caption: 'The Cosmic House by Charles Jencks'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448701/DSC09216_qidn0m.jpg',
         alt: 'London scene 1',
         orientation: 'vertical',
-        caption: 'Determined turkish man'
+        caption: 'A leaf'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448917/DSC08934-2_joik0b.jpg',
         alt: 'London scene 3',
         orientation: 'horizontal',
-        caption: 'Determined turkish man'
-      },      {
-        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448829/DSC09176_tdohyw.jpg',
-        alt: 'London scene 3',
-        orientation: 'horizontal',
-        caption: 'Determined turkish man'
-      },      {
+        caption: 'Gagosian Gallery'
+      },      
+        {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736449025/DSC08064_dtyiyv.jpg',
         alt: 'London scene 3',
         orientation: 'horizontal',
-        caption: 'Determined turkish man'
+        caption: 'View of the Isle of Dogs'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736870497/DSC08926-2_c33gze.jpg',
         alt: 'London scene 1',
         orientation: 'vertical',
-        caption: 'Determined turkish man'
+        caption: 'Mount St'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736870498/DSC08916-2_uihvcd.jpg',
         alt: 'London scene 1',
         orientation: 'vertical',
-        caption: 'Determined turkish man'
+        caption: 'The reflection'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736872999/DSC08900-2_rbfgao.jpg',
         alt: 'London scene 1',
         orientation: 'vertical',
-        caption: 'Determined turkish man'
+        caption: 'Sky Garden'
       },
 
     ],
@@ -107,33 +144,49 @@ const initialPins: Pin[] = [
     longitude: 28.9784,
     images: [
       {
-        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448601/DSC00196-2_fngkqr.jpg',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736938015/DSC09910_likjzo.jpg',
         alt: 'Turkey scene 1',
-        orientation: 'vertical'
+        orientation: 'vertical',
+        caption: 'Cat and statue'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736453522/DSC00199-2_zrmdit.jpg',
         alt: 'Turkey scene 2',
-        orientation: 'vertical'
+        orientation: 'vertical',
+        caption: 'Hey fish, dinner served'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736448471/DSC09659-2_jxnkhg.jpg',
         alt: 'Turkey scene 2',
-        orientation: 'horizontal'
+        orientation: 'horizontal',
+        caption: 'A determined turkish man'
         
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736938019/DSC09649_x3y8oh.jpg',
+        alt: 'Turkey scene 4',
+        orientation: 'horizontal',
+        caption: 'Afternoon tea'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736937557/DSC00172_s7fwpl.jpg',
+        alt: 'Turkey scene 4',
+        orientation: 'horizontal',
+        caption: 'Kas'
       },
       {
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1735939400/DSC09764-2_nnm85n.jpg',
         alt: 'Turkey scene 3',
         orientation: 'horizontal',
-        caption: 'Determined turkish man'
+        caption: 'Corncob vendor by the sea'
       },
       {
-        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1735939400/DSC09764-2_nnm85n.jpg',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736937104/DSC00308_copy_o4dwve.jpg',
         alt: 'Turkey scene 4',
         orientation: 'horizontal',
-        caption: 'Determined turkish man'
+        caption: 'Thousands of years ago'
       }
+
     ],
     title: 'Turkey'
   },

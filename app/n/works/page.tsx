@@ -21,7 +21,7 @@ export default function WorksPage() {
   
   const works = [
     {
-      id: "vmware-cloud-integration",
+      id: "sales",
       dateRange: "2024",
       title: "Proponent app 0 to 1",
       description: "Revolutionizing sales enablement through AI",
@@ -33,7 +33,7 @@ export default function WorksPage() {
       ]
     },
     {
-      id: "vmware-cloud-integration",
+      id: "integration",
       dateRange: "2023",
       title: "VMware Cloud Service Integration",
       description: "Unified workflow to augment cloud capabilities",
@@ -45,7 +45,7 @@ export default function WorksPage() {
       ]
     },
     {
-      id: "vmware-cloud-integration",
+      id: "monitor",
       dateRange: "2023",
       title: "VMware Cloud Task Monitor",
       description: "Uncover a hidden behavior to facilitate task monitoring",
@@ -57,7 +57,7 @@ export default function WorksPage() {
       ]
     },
     {
-      id: "vmware-cloud-integration",
+      id: "pmm",
       dateRange: "2021",
       title: "Securonix Policy Creation",
       description: "Streamline the process of building tailored policies",
@@ -81,7 +81,7 @@ export default function WorksPage() {
             <div className="flex justify-between items-center mb-1">
               <div className="flex items-center">
                 <Link 
-                  href={`/n/works/vmware-cloud-integration`}
+                  href={`/n/works/${work.id}/page`}
                   className="text-sm text-gray-500 hover:text-gray-700"
                 >
                   {work.title}
@@ -95,7 +95,7 @@ export default function WorksPage() {
             
             {/* Make description clickable too */}
             <Link 
-              href={`/n/works/vmware-cloud-integration`}
+              href={`/n/works/${work.id}`}
               className="block"
             >
               <p className="font-semibold mb-2 hover:text-gray-700">{work.description}</p>
