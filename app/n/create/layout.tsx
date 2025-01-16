@@ -190,7 +190,51 @@ const initialPins: Pin[] = [
     ],
     title: 'Turkey'
   },
-  
+  {
+    id: '4',
+    latitude: 35.6762,
+    longitude: 139.6503,
+    images: [
+      {
+        url: 'path_to_japan_image1',
+        alt: 'Japan scene 1',
+        orientation: 'vertical',
+        caption: 'Tokyo streets'
+      },
+      // Add more Japan images here
+    ],
+    title: 'Japan'
+  },
+  {
+    id: '5',
+    latitude: 45.5017,
+    longitude: -73.5673,
+    images: [
+      {
+        url: 'path_to_montreal_image1',
+        alt: 'Montreal scene 1',
+        orientation: 'vertical',
+        caption: 'Old Montreal'
+      },
+      // Add more Montreal images here
+    ],
+    title: 'Montreal & Quebec City'
+  },
+  {
+    id: '6',
+    latitude: 29.2920,
+    longitude: 117.2074,
+    images: [
+      {
+        url: 'path_to_jingdezhen_image1',
+        alt: 'Jingdezhen scene 1',
+        orientation: 'vertical',
+        caption: 'Porcelain capital'
+      },
+      // Add more Jingdezhen images here
+    ],
+    title: 'Jingdezhen'
+  }
 ];
 
 export default function CreateLayout({
