@@ -58,7 +58,7 @@ export default function GraphicPage() {
             </div>
           </div>
           <div className="w-2/3">
-            <h3 className="font-medium mb-1">Reimagining refrigerator magnet</h3>
+            <h3 className="font-medium mb-1">Reimagine the refrigerator magnet</h3>
             <p className="text-gray-600">
               Using scratch paper to draw the most memorable spots from every city I've visited in the States, 
               capturing the essence of my journeys in a way that's unique without overpaying the industrial souvenirs.
@@ -89,7 +89,7 @@ export default function GraphicPage() {
             </div>
           </div>
           <div className="w-2/3">
-            <h3 className="font-medium mb-1">Staring at time</h3>
+            <h3 className="font-medium mb-1">Stare at time</h3>
             <p className="text-gray-600">
               Acrylic painting on canvas of glacier in Alaska. How far back in time am I staring at?
             </p>
