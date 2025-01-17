@@ -1,4 +1,4 @@
-import { oorangeregular } from "./layout";
+import { oorangeregular } from "./fonts";
 
 // app/page.tsx
 export default function HomePage() {
