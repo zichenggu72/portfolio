@@ -196,12 +196,55 @@ const initialPins: Pin[] = [
     longitude: 139.6503,
     images: [
       {
-        url: 'path_to_japan_image1',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999863/DSC07563_nlh5hf.jpg',
         alt: 'Japan scene 1',
         orientation: 'vertical',
-        caption: 'Tokyo streets'
+        caption: 'Street view from Shibuya Sky'
       },
-      // Add more Japan images here
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999862/DSC06824_u4jfa3.jpg',
+        alt: 'Japan scene 2',
+        orientation: 'vertical',
+        caption: 'Ninenzaka'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999871/DSC05818_mdx3xe.jpg',
+        alt: 'Japan scene 3',
+        orientation: 'horizontal',
+        caption: 'Osaka Umeda'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999864/DSC06903_hybwph.jpg',
+        alt: 'Japan scene 4',
+        orientation: 'horizontal',
+        caption: 'Street view that gives me the Japan vibe'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999866/DSC06929_luvx8n.jpg',
+        alt: 'Japan scene 5',
+        orientation: 'horizontal',
+        caption: 'Kamo River'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999865/DSC06998_k7rsoa.jpg',
+        alt: 'Japan scene 6',
+        orientation: 'horizontal',
+        caption: 'Lake Kawaguchi'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999865/DSC06949_h5ysyu.jpg',
+        alt: 'Japan scene 7',
+        orientation: 'horizontal',
+        caption: 'Village around Mount Fuji'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000077/f0c10ad49a8cfe63abee18e441c0fdde_y7ulir.jpg',
+        alt: 'Japan scene 8',
+        orientation: 'horizontal',
+        caption: 'Artpiece manhole cover'
+      },
+
+      
     ],
     title: 'Japan'
   },
@@ -211,12 +254,42 @@ const initialPins: Pin[] = [
     longitude: -73.5673,
     images: [
       {
-        url: 'path_to_montreal_image1',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000576/DSC08437_b6ndqo.jpg',
         alt: 'Montreal scene 1',
         orientation: 'vertical',
-        caption: 'Old Montreal'
+        caption: 'Chic street view'
       },
-      // Add more Montreal images here
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000575/DSC08809_qjhnfn.jpg',
+        alt: 'Montreal scene 2',
+        orientation: 'vertical',
+        caption: 'Just like the town in fairy tale'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000575/DSC08795_jdfw7p.jpg',
+        alt: 'Montreal scene 3',
+        orientation: 'horizontal',
+        caption: 'The autumn vibe'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000575/DSC08876_ltem9j.jpg',
+        alt: 'Montreal scene 4',
+        orientation: 'horizontal',
+        caption: 'The picturistic Fairmont Le Château Frontenac'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000574/DSC08523_ng5vas.jpg',
+        alt: 'Montreal scene 5',
+        orientation: 'horizontal',
+        caption: 'Notre-Dame Basilica of Montreal'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737000573/DSC08582_lovicm.jpg',
+        alt: 'Montreal scene 6',
+        orientation: 'horizontal',
+        caption: 'Nature Lover'
+      },
+      
     ],
     title: 'Montreal & Quebec City'
   },
@@ -226,15 +299,66 @@ const initialPins: Pin[] = [
     longitude: 117.2074,
     images: [
       {
-        url: 'path_to_jingdezhen_image1',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736998904/DSC05498_g3l7t9.jpg',
         alt: 'Jingdezhen scene 1',
         orientation: 'vertical',
-        caption: 'Porcelain capital'
+        caption: 'Porcelain bowl in making'
       },
-      // Add more Jingdezhen images here
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999078/DSC05727_yvc5yp.jpg',
+        alt: 'Jingdezhen scene 2',
+        orientation: 'vertical',
+        caption: 'Imperial Porcelain'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999080/DSC05571_my4cxr.jpg',
+        alt: 'Jingdezhen scene 3',
+        orientation: 'vertical',
+        caption: 'Porcelain Palace with porcelain floor'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999076/DSC05749_kzciyu.jpg',
+        alt: 'Jingdezhen scene 4',
+        orientation: 'vertical',
+        caption: 'O-lo-lo-lo'
+      },     
+       {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736999076/DSC05733_zppg8g.jpg',
+        alt: 'Jingdezhen scene 5',
+        orientation: 'horizontal',
+        caption: 'Imperial Porcelain'
+      },      
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736998907/DSC05495_xy9ygf.jpg',
+        alt: 'Jingdezhen scene 6',
+        orientation: 'horizontal',
+        caption: 'The art of repeating'
+      },      
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736998908/DSC05444_ppdczs.jpg',
+        alt: 'Jingdezhen scene 7',
+        orientation: 'horizontal',
+        caption: 'The art of broken'
+      },
+      
     ],
     title: 'Jingdezhen'
-  }
+  },
+  // {
+  //   id: '7',
+  //   latitude: 45.5017,
+  //   longitude: -73.5673,
+  //   images: [
+  //     {
+  //       url: 'path_to_montreal_image1',
+  //       alt: 'Montreal scene 1',
+  //       orientation: 'vertical',
+  //       caption: 'Old Montreal'
+  //     },
+  //     // Add more Montreal images here
+  //   ],
+  //   title: 'tbd'
+  // },
 ];
 
 export default function CreateLayout({

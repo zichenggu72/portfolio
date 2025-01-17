@@ -6,6 +6,17 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import Link from 'next/link';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import localFont from 'next/font/local'
+
+export const oorangeregular = localFont({
+  src: [
+    {
+      path: './fonts/local/oorangeregular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -58,7 +69,7 @@ export default function RootLayout({
               <NavItem color="#FF5D1F" text="Home" />
             </div>
 
-            <ul className="space-y-8">
+            <ul className="space-y-6">
               <NavItem color="#F8961E" text="Works" />
               <NavItem color="#F9C74F" text="Projects" />
               <NavItem color="#90BE6D" text="Create" />

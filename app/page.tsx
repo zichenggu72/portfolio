@@ -1,3 +1,5 @@
+import { oorangeregular } from "./layout";
+
 // app/page.tsx
 export default function HomePage() {
   const links = [
@@ -37,12 +39,11 @@ export default function HomePage() {
       </div>
 
       {/* Status Update */}
-      <div className="bg-[#F8F8F8] p-4 rounded-lg flex justify-between items-center">
-        <div>
-          <p className="text-sm text-gray-600">Updated Jan 12</p>
-          <p>Back from holiday in Seattle - great to chat with friends!</p>
-        </div>
-        <div className="w-12 h-12 bg-gray-200 rounded-full flex-shrink-0" />
+      <div className="bg-[#F8F8F8] p-4 rounded-lg">
+        <p className="text-sm text-gray-600">Updated Jan 12</p>
+        <p className={`${oorangeregular.className} text-xl mt-2 text-gray-900`}>
+          Back from holiday in Seattle - great to reconnect with old friends!
+        </p>
       </div>
 
       {/* About Section */}
