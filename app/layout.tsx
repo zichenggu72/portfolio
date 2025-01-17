@@ -67,7 +67,7 @@ export default function RootLayout({
             </ul>
 
             <div className="pb-10">
-              <NavItem color="#FF5D1F" text="Visitors" />
+              <NavItem color="#FF5D1F" text="Visitors (coming soon)" />
             </div>
           </nav>
 
