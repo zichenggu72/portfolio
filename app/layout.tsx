@@ -6,19 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import Link from 'next/link';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import localFont from 'next/font/local'
-
-const oorangeregular = localFont({
-  src: [
-    {
-      path: './public/fonts/oorangeregular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-  ],
-})
-
-export { oorangeregular }
+import { oorangeregular } from './fonts';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
