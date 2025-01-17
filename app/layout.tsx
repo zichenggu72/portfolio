@@ -11,7 +11,7 @@ import localFont from 'next/font/local'
 const oorangeregular = localFont({
   src: [
     {
-      path: './fonts/local/oorangeregular.ttf',
+      path: './public/fonts/oorangeregular.ttf',
       weight: '400',
       style: 'normal',
     },
