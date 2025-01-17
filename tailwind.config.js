@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Graphik', ...defaultTheme.fontFamily.sans],
+        oorangeregular: ['Oorangeregular', ...defaultTheme.fontFamily.sans],
       },
     },
   },
