@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     siteName: "My Portfolio",
     locale: "en_US",
     type: "website",
+  
   },
   robots: {
     index: true,
@@ -33,6 +34,11 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    icon: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737145010/image_20_k3fgrq.png',  // 32x32
+    apple: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737145010/image_20_k3fgrq.png',  // 180x180
+    shortcut: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737145010/image_20_k3fgrq.png',
   },
 };
 

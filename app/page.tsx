@@ -41,7 +41,7 @@ export default function HomePage() {
       {/* Status Update */}
       <div className="bg-[#F8F8F8] p-4 rounded-lg">
         <p className="text-sm text-gray-600">Updated Jan 12</p>
-        <p className={oorangeregular.className}>
+        <p className={`${oorangeregular.className}`}>
           Back from holiday in Seattle - great to reconnect with old friends!
         </p>
       </div>
