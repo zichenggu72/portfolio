@@ -8,15 +8,17 @@ import Link from 'next/link';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import localFont from 'next/font/local'
 
-export const oorangeregular = localFont({
+const oorangeregular = localFont({
   src: [
     {
-      path: './fonts/local/oorangeregular.ttf',
+      path: './fonts/Oorange-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
   ],
 })
+
+export { oorangeregular }
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
