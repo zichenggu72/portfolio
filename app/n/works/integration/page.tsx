@@ -70,7 +70,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2">
         <span className="text-sm text-gray-500">Problem</span>
           {/* Problem Images */}
-          <div className="grid grid-cols-1 gap-4 mb-4">
+          <div className="w-7/8 mx-auto grid grid-cols-1 gap-4 mt-4 mb-4">
             {caseStudy.problemImages1.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -103,7 +103,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2 mt-8">
         <span className="text-sm text-gray-500">Solution</span>
           {/* Solution Images 1 */}
-          <div className="grid grid-cols-1 gap-4 mb-4 w-[500px] mx-auto">
+          <div className="w-3/4 mx-auto grid grid-cols-1 gap-4 mt-4 mb-4">
             {caseStudy.solutionImages1.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -133,7 +133,7 @@ export default function CaseStudyDetail() {
   <p className="text-gray-800">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
-          <div className="grid grid-cols-1 gap-4 my-4">
+          <div className="w-7/8 mx-auto grid grid-cols-1 gap-4 mt-6 mb-6">
             {caseStudy.solutionImages2.map((imageUrl, index) => (
               <div 
                 key={index}

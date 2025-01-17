@@ -17,22 +17,31 @@ export default function CaseStudyDetail() {
       subtitle: "Uncover a hidden behavior to facilitate task monitoring",
       background: "Task monitoring panel is a component that is used across all the VMware cloud products. It will be triggered whenever asynchronous tasks take place. It serves as a crucial interface element that helps users track ongoing system operations.",
       problemImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735924435/Group_20836_vc9pev.svg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074037/Group_20921_exonso.jpg",
       ],
-      problem: "Looking at the current integrated service page, Besides the visual problems like service cards are not aligned, so many status indicators create an undesired and overwhelming environment. After the subscription model is introduced, more complexity will be added.",
+      problem: [
+        "There are 2 concerns regarding the current usage:",
+        "\n1. The task panel behaves as an overlay with no DISMISS function.\n2. Once a task is completed, there is no way to access the past tasks.",
+        
+        "After reading through all the doc and digging into the design system and demo of the component, I discovered that the problem was not like how it was described. There is a DISMISS button but it shows up only when user entering the detail view. It's hard for user to naturally discover the detail view.",
+        
+        "Without this knowledge, the task panel is an overlay and blocks and hides UI elements even when collapsed. Even with this knowledge, users need to dismiss the operation one by one to get rid of the panel is tedious."
+      ],
 
       solutionImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735923739/Group_20833_cawpy1.svg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074379/Group_20922_qdnjmz.jpg",
       ],
       solution: [
-        "To expedite service consumption, I designed a strategy to categorize services into two categories: “Activated” services and “Available for Activation” services. This would ensure that the services ready for immediate use are the most prominently displayed for users. ",
-        "Individual service purchases are strategically made visible to users, driving additional revenue streams while enabling customers to enhance their cloud capabilities through potential purchases."
+        "I implemented a two-phased approach to address these issues. The short-term solution simplified the information hierarchy by consolidating dismiss actions while maintaining individual cancel options per task, reducing multiple clicks to a single interaction.",
+        "For the long-term vision, I developed a dedicated task panel with PIN functionality, backed by user research with 10 experts who are well-versed in our product.",
+        "The PIN feature allowed users to toggle between persistent display and minimized views, accommodating both focused monitoring and multitasking preferences.",
+        "Implementation feasibility was confirmed through discovery of an existing PIN functionality during the design share-out meeting."
       ],
       solutionImages2: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735927678/vCenter_-_Deployment_details_xvz9ie.svg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074380/Group_20923_bjbsc0.jpg",
       ],
-      impact: "1. 8 out of 8 users detect the new tab system and complete the tasks successfully.\n\n2. Aim to reduce the time-to-value by 30%, reached 46%",
-      whatIlearned: "1. Embrace the changing requirements. I have wondered that why our priorities are always changing. One day our focus is on the launchpad, the next day it shifts to services, and next week it shifts to Org view. This shifting landscape can be a bit challenging to keep up with. However, over time, I've come to understand that in the realm of live and active products, change is the only constant. I've learned to embrace this ever-evolving nature and adapt to it effectively.\n\n2. Through project reflection, I identified an opportunity to strengthen our data-driven approach: conducting comprehensive analysis of service categorization methods earlier in the design phase. By examining subscription patterns, availability metrics, and usage frequency, we could have further optimized service organization"
+      impact: "The solution significantly improved user workflow efficiency by reducing interaction steps and providing flexible viewing options.",
+      whatIlearned: "1. Knowledge is distributed among various stakeholders in a large organization. Effective communication and finding the right contact is crucial for success.\n\n2. Maintaining structured documentation throughout the project lifecycle proves invaluable for decision tracking and reasoning, especially in long-term projects."
     };
   
     const [selectedWork, setSelectedWork] = useState<{
@@ -70,7 +79,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2">
         <span className="text-sm text-gray-500">Problem</span>
           {/* Problem Images */}
-          <div className="grid grid-cols-1 gap-4 mb-4">
+          <div className="w-7/8 mx-auto grid grid-cols-1 gap-4 mt-4 mb-4">
             {caseStudy.problemImages1.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -96,14 +105,25 @@ export default function CaseStudyDetail() {
             ))}
           </div>
 
-          <p className="text-gray-800 mb-4">{caseStudy.problem}</p>
+          <p className="text-gray-800 mb-4">{caseStudy.problem[0]}</p>
+          <div className="space-y-1 mb-4">
+            <p className="text-gray-800">
+              1. The task panel behaves as an overlay with no DISMISS function. 
+            </p>
+            <p className="text-gray-800">
+              2. Once a task is completed, there’s no way to access the past tasks.
+            </p>
+          </div>
+          <p className="text-gray-800 mb-4">{caseStudy.problem[2]}</p>
+          <p className="text-gray-800 mb-4">{caseStudy.problem[3]}</p>
+
         </section>
 
         {/* Solution */}
         <section className="space-y-2 mt-8">
         <span className="text-sm text-gray-500">Solution</span>
           {/* Solution Images 1 */}
-          <div className="grid grid-cols-1 gap-4 mb-4 w-[500px] mx-auto">
+          <div className="grid grid-cols-1 gap-4 mt-4 mb-8 w-[500px] mx-auto">
             {caseStudy.solutionImages1.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -133,7 +153,7 @@ export default function CaseStudyDetail() {
   <p className="text-gray-800">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
-          <div className="grid grid-cols-1 gap-4 my-4">
+          <div className="w-5/6 mx-auto grid grid-cols-1 gap-4 mt-6 mb-4">
             {caseStudy.solutionImages2.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -161,6 +181,9 @@ export default function CaseStudyDetail() {
 
            {/* Second paragraph */}
   <p className="text-gray-800">{caseStudy.solution[1]}</p>
+  <p className="text-gray-800">{caseStudy.solution[2]}</p>
+  <p className="text-gray-800">{caseStudy.solution[3]}</p>
+
 
         </section>
 
@@ -168,12 +191,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2 mt-8">
         <span className="text-sm text-gray-500">Impact</span>
           <div className="space-y-2">
-            <p className="text-gray-800">
-              1. <span className="font-bold">8 out of 8</span> users detect the new tab system and complete the tasks successfully.
-            </p>
-            <p className="text-gray-800">
-              2. Aim to reduce the time-to-value by 30%, <span className="font-bold">reached 46%</span>
-            </p>
+            <p className="text-gray-800">{caseStudy.impact}</p>
           </div>
         </section>
 
@@ -182,10 +200,10 @@ export default function CaseStudyDetail() {
         <span className="text-sm text-gray-500">What I Learned</span>
           <div className="space-y-4">
             <p className="text-gray-800">
-              1. Embrace the changing requirements. I have wondered that why our priorities are always changing. One day our focus is on the launchpad, the next day it shifts to services, and next week it shifts to Org view. This shifting landscape can be a bit challenging to keep up with. However, over time, I've come to understand that in the realm of live and active products, change is the only constant. I've learned to embrace this ever-evolving nature and adapt to it effectively.
+              1. Knowledge is distributed among various stakeholders in a large organization. Effective communication and finding the right contact is crucial for success.
             </p>
             <p className="text-gray-800">
-              2. Through project reflection, I identified an opportunity to strengthen our data-driven approach: conducting comprehensive analysis of service categorization methods earlier in the design phase. By examining subscription patterns, availability metrics, and usage frequency, we could have further optimized service organization.
+              2. Maintaining structured documentation throughout the project lifecycle proves invaluable for decision tracking and reasoning, especially in long-term projects.
             </p>
           </div>
         </section>

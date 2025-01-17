@@ -51,7 +51,7 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <h1 className="font-semibold mb-4">Projects</h1>
       
       {projects.map((project, projectIndex) => (
