@@ -7,4 +7,5 @@ export const oorangeregular = localFont({
 
     },
   ],
+  variable: '--font-oorange',
 })

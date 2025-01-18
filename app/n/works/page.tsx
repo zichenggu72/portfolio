@@ -81,60 +81,66 @@ export default function WorksPage() {
     <div className="space-y-12">
       <h1 className="font-semibold">Works</h1>
       
-      {works.map((work, index) => (
-        <div key={index}>
-          <div className="mb-4">
-            {/* Title and Date row */}
-            <div className="flex justify-between items-center mb-1">
-              <div className="flex items-center">
-                <Link 
-                  href={`/n/works/${work.id}`}
-                  className="text-sm text-gray-500 hover:text-gray-700"
-                >
-                  {work.title}
-                </Link>
-              </div>
-              <span className="text-sm text-gray-500">{work.dateRange}</span>
-            </div>
-            
-            {/* Make description clickable with hover arrow */}
-            <Link 
-              href={`/n/works/${work.id}`}
-              className="block group"
-            >
-              <p className="font-semibold mb-2 hover:text-gray-700 inline-flex items-center">
-                {work.description}
-                <span className="ml-2 opacity-0 transition-opacity group-hover:opacity-100">
-                  ↗
-                </span>
-              </p>
-            </Link>
-            
-            {/* New Details paragraph */}
-            <p className="text-gray-600 mb-2">{work.details}</p>
-
-            {/* Images */}
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {work.images.map((image, imageIndex) => (
-                <div 
-                  key={imageIndex}
-                  className=" aspect-video relative cursor-pointer"
-                  onClick={() => setSelectedWork({ images: work.images, index: imageIndex })}
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={imageIndex === 0}
-                    className="object-cover rounded-lg border border-gray-100 hover:opacity-90 transition-opacity"
-                  />
+      <div className="space-y-20">
+        {works.map((work, index) => (
+          <div key={index}>
+            <div className="mb-4">
+              {/* Title and Date row */}
+              <div className="flex justify-between items-center mb-1">
+                <div className="flex items-center">
+                  <Link 
+                    href={`/n/works/${work.id}`}
+                    className="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    {work.title}
+                  </Link>
                 </div>
-              ))}
+                <span className="text-sm text-gray-500">{work.dateRange}</span>
+              </div>
+              
+              {/* Make description clickable with hover arrow */}
+              <Link 
+                href={`/n/works/${work.id}`}
+                className="block group"
+              >
+                <p className={`font-semibold mb-2 transition-colors duration-200 inline-flex items-center
+                  ${work.id === 'sales' ? 'hover:text-[#F8961E]' : ''}
+                  ${work.id === 'integration' ? 'hover:text-[#A7A622]' : ''}
+                  ${work.id === 'monitor' ? 'hover:text-[#59829E]' : ''}`}
+                >
+                  {work.description}
+                  <span className="ml-2 opacity-0 transition-opacity group-hover:opacity-100">
+                    ↗
+                  </span>
+                </p>
+              </Link>
+              
+              {/* New Details paragraph */}
+              <p className="text-gray-600 mb-2">{work.details}</p>
+
+              {/* Images */}
+              <div className="mt-4 grid grid-cols-3 gap-4">
+                {work.images.map((image, imageIndex) => (
+                  <div 
+                    key={imageIndex}
+                    className=" aspect-video relative cursor-pointer"
+                    onClick={() => setSelectedWork({ images: work.images, index: imageIndex })}
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={imageIndex === 0}
+                      className="object-cover rounded-lg border border-gray-100 hover:opacity-90 transition-opacity"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {selectedWork !== null && (
         <ImagePreview
