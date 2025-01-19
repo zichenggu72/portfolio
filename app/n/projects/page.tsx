@@ -54,6 +54,7 @@ export default function ProjectsPage() {
     <div className="space-y-12">
       <h1 className="font-semibold mb-4">Projects</h1>
       
+      <div className="space-y-16">
       {projects.map((project, projectIndex) => (
         <article key={projectIndex} className="mb-4">
           {/* Organization and Year */}
@@ -119,8 +120,10 @@ export default function ProjectsPage() {
               ))
             )}
           </div>
+          
         </article>
       ))}
+      </div>
 
       {/* Image Preview Modal */}
       {selectedProject !== null && (

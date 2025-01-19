@@ -81,7 +81,7 @@ export default function WorksPage() {
     <div className="space-y-12">
       <h1 className="font-semibold">Works</h1>
       
-      <div className="space-y-20">
+      <div className="space-y-16">
         {works.map((work, index) => (
           <div key={index}>
             <div className="mb-4">
