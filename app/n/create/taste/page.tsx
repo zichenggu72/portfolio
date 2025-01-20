@@ -21,7 +21,7 @@ const recipes: Recipe[] = [
     id: '1',
     title: 'Muchim',
     description: 'Spicy Korean salad',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736723094/Untitled-1_1_rwxp03.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400479/IMG_1087_oa0zll.png',
     ingredients: [
       '+ avocado',
       '+ salmon sashimi',
@@ -55,7 +55,7 @@ const recipes: Recipe[] = [
     id: '2',
     title: 'Matcha hummus',
     description: 'Asian-inspired hummus',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736723094/Untitled-4_1_p8oy1s.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1088_xpkmwf.png',
     ingredients: [
       '+ Match powder',
       '+ coconut milk',
@@ -81,7 +81,7 @@ const recipes: Recipe[] = [
     id: '3',
     title: 'Papadam stack',
     description: 'Indian-mexican pizza',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1736723094/Untitled-3_1_tgizbr.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1086_xesox2.png',
     ingredients: [
       '+ black pepper flavored papadam (uncooked)',
       '+ cooked mixed rice',
@@ -210,14 +210,14 @@ export default function TastePage() {
               <p className="text-gray-600">{selectedRecipe.description}</p>
             </div>
 
-            <div className="w-full h-24 relative mb-10">
-              <Image
-                src={selectedRecipe.image}
-                alt={selectedRecipe.title}
-                fill
-                className="object-cover rounded-md"
-              />
-            </div>
+            <div 
+              className="w-full h-24 relative mb-10"
+              style={{ 
+                backgroundImage: `url(${selectedRecipe.image})`,
+                backgroundRepeat: 'repeat',
+                backgroundSize: '100px'  // Adjust this value to control the size of repeated pattern
+              }}
+            />
 
             <div className="grid grid-cols-2 gap-12 mb-12">
               <div>

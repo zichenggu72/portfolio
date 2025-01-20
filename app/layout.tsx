@@ -7,6 +7,7 @@ import { baseUrl } from "./sitemap";
 import Link from 'next/link';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { oorangeregular } from './fonts';
+import MobileNav from './n/components/MobileNav';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -22,7 +23,6 @@ export const metadata: Metadata = {
     siteName: "My Portfolio",
     locale: "en_US",
     type: "website",
-  
   },
   robots: {
     index: true,
@@ -44,6 +44,23 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
+function NavItem({ color, text, extraClasses = "" }: { 
+  color: string; 
+  text: string;
+  extraClasses?: string;
+}) {
+  const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
+  
+  return (
+    <li className={`flex items-center gap-3 ${extraClasses}`}>
+      <Link href={href} className="flex items-center gap-3">
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+        <span>{text}</span>
+      </Link>
+    </li>
+  );
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -57,10 +74,12 @@ export default function RootLayout({
       )}
     >
       <body className="antialiased">
-        {/* Make the entire layout full height */}
-        <div className="min-h-screen">
-          {/* Fixed navigation */}
-          <nav className="fixed left-0 w-[200px] h-screen pl-[30px] flex flex-col justify-between">
+        {/* Mobile Navigation */}
+        <MobileNav />
+
+        <div className="min-h-screen flex flex-col lg:flex-row">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:fixed lg:left-0 lg:w-[200px] lg:h-screen lg:pl-[30px] lg:flex lg:flex-col lg:justify-between">
             <div className="pt-10">
               <NavItem color="#FF5D1F" text="Home" />
             </div>
@@ -77,13 +96,14 @@ export default function RootLayout({
             </div>
           </nav>
 
-          {/* Centered content area - adjusted positioning */}
-          <div className="flex justify-center">
-            <main className="w-[680px] px-8 py-10 min-h-screen">
+          {/* Main content area */}
+          <div className="flex justify-center flex-1 lg:ml-[200px]">
+            <main className="w-full lg:w-[680px] px-4 lg:px-8 py-6 lg:py-10">
               {children}
             </main>
           </div>
         </div>
+        
         <Analytics />
         <SpeedInsights />
         
@@ -94,23 +114,5 @@ export default function RootLayout({
         </footer>
       </body>
     </html>
-  );
-}
-
-function NavItem({ color, text, extraClasses = "" }: { 
-  color: string; 
-  text: string;
-  extraClasses?: string;
-}) {
-  // Convert text to lowercase for the URL
-  const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
-  
-  return (
-    <li className={`flex items-center gap-3 ${extraClasses}`}>
-      <Link href={href} className="flex items-center gap-3">
-        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-        <span>{text}</span>
-      </Link>
-    </li>
   );
 }
