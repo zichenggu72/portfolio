@@ -79,7 +79,7 @@ export default function RootLayout({
 
         <div className="min-h-screen flex flex-col lg:flex-row">
           {/* Desktop Navigation */}
-          <nav className="hidden lg:fixed lg:left-0 lg:w-[200px] lg:h-screen lg:pl-[30px] lg:flex lg:flex-col lg:justify-between">
+          <nav className={`hidden lg:fixed lg:left-0 lg:w-[200px] lg:h-screen lg:pl-[30px] lg:flex lg:flex-col lg:justify-between ${oorangeregular.className} text-xl`}>
             <div className="pt-10">
               <NavItem color="#FF5D1F" text="Home" />
             </div>
