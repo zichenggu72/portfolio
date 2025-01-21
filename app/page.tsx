@@ -40,8 +40,8 @@ export default function HomePage() {
 
       {/* Status Update */}
       <div className="bg-[#F8F8F8] p-4 rounded-lg">
-        <p className="text-sm text-gray-600">Updated Jan 12</p>
-        <p className={`${oorangeregular.className}`}>
+        <p className="text-sm text-gray-600 mb-2">Updated Jan 12</p>
+        <p className={`${oorangeregular.className} text-xl`}>
           Back from holiday in Seattle - great to reconnect with old friends!
         </p>
       </div>
@@ -72,7 +72,7 @@ export default function HomePage() {
         <div className="space-y-2">
           {links.map((link, index) => (
             <div key={index} className="flex items-center">
-              <span className="text-gray-600 w-20">{link.label}</span>
+              <span className="text-gray-600 w-12">{link.label}</span>
               <span className="w-24" />
               <a 
                 href={link.href}

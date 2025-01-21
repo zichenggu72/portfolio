@@ -8,7 +8,7 @@ export default function CreatePage() {
   const pathname = usePathname();
 
   return (
-    <div className="main">
+    <div className="mx-auto max-w-[680px]">
       <h1 className="font-semibold mb-6">Create</h1>
       <div className="flex gap-4 mb-8">
         {categories.map((category) => (

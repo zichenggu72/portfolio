@@ -96,8 +96,9 @@ export default function RootLayout({
             </div>
           </nav>
 
-          {/* Main content area */}
-          <div className="flex justify-center flex-1 lg:ml-[200px]">
+        
+            {/* Main content area */}
+            <div className="mx-auto max-w-[680px]">
             <main className="w-full lg:w-[680px] px-4 lg:px-8 py-6 lg:py-10">
               {children}
             </main>
