@@ -344,6 +344,298 @@ const initialPins: Pin[] = [
     ],
     title: 'Jingdezhen'
   },
+  {
+    id: '7',
+    latitude: 41.8781,
+    longitude: -87.6298,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737454488/DSC00266_n5jhol.jpg',
+        alt: 'Chicago scene 1',
+        orientation: 'vertical',
+        caption: 'The architectural city'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737454481/IMG_0459_qsdlhw.jpg',
+        alt: 'Chicago scene 2',
+        orientation: 'vertical',
+        caption: 'The architectural city'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737454472/IMG_0457_jlxd7o.jpg',
+        alt: 'Chicago scene 3',
+        orientation: 'vertical',
+        caption: 'The green line'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737454480/DSC00294_lrlw97.jpg',
+        alt: 'Chicago scene 4',
+        orientation: 'vertical',
+        caption: 'Believe'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737454482/DSC00336_mbo8kt.jpg',
+        alt: 'Chicago scene 5',
+        orientation: 'horizontal',
+        caption: 'The Chicago Theatre'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737454477/DSC00445_cedqwa.jpg',
+        alt: 'Chicago scene 6',
+        orientation: 'horizontal',
+        caption: 'That kind of snow, and winter'
+      },
+      
+    ],
+    title: 'Chicago'
+  },
+  {
+    id: '8',
+    latitude: 19.8968,
+    longitude: -155.5828,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455317/DSC06552_evsfa1.jpg',
+        alt: 'Hawaii scene 1',
+        orientation: 'horizontal',
+        caption: 'The lighthouse'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455313/Snapseed_pmvs17.jpg',
+        alt: 'Hawaii scene 2',
+        orientation: 'horizontal',
+        caption: 'The fog floating'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455314/DSC07119_fk8tpz.jpg',
+        alt: 'Hawaii scene 3',
+        orientation: 'horizontal',
+        caption: 'When I touch the light above the clouds'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455318/DSC06467_fowhph.jpg',
+        alt: 'Hawaii scene 4',
+        orientation: 'horizontal',
+        caption: 'Starry night'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455323/DSC07100_escejz.jpg',
+        alt: 'Hawaii scene 5',
+        orientation: 'horizontal',
+        caption: 'Lava by the sea, the big island'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455317/DSC06481_bbu76m.jpg',
+        alt: 'Hawaii scene 6',
+        orientation: 'horizontal',
+        caption: 'The fruit vendor at local market'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455546/Snapseed_2_df6syr.jpg',
+        alt: 'Hawaii scene 7',
+        orientation: 'horizontal',
+        caption: 'Lanikai Pillbox Trail'
+      },
+      
+    ],
+    title: 'Hawaii'
+  },
+  {
+    id: '9',
+    latitude: 61.2181,
+    longitude: -149.9003,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455634/IMG_8934_oc0cgt.jpg',
+        alt: 'Anchorage scene 1',
+        orientation: 'vertical',
+        caption: 'How far back in time am I staring at'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455616/IMG_8939_hi6aoe.jpg',
+        alt: 'Anchorage scene 2',
+        orientation: 'vertical',
+        caption: 'The ice hole'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455623/7caba190de2ea79f510b85707521a53d_vi12c0.jpg',
+        alt: 'Anchorage scene 3',
+        orientation: 'horizontal',
+        caption: 'Denali National Park'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455618/IMG_8196_wky0f4.jpgg',
+        alt: 'Anchorage scene 4',
+        orientation: 'horizontal',
+        caption: 'Denali National Park'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455618/e23c89970b49a4c7febe51e752f9bb8e_klapxo.jpg',
+        alt: 'Anchorage scene 5',
+        orientation: 'horizontal',
+        caption: 'Denali National Park'
+      },
+     
+    ],
+    title: 'Anchorage'
+  },
+  {
+    id: '10',
+    latitude: 44.4280,
+    longitude: -110.5885,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737456004/IMG_4678_m4s6lw.jpg',
+        alt: 'Yellowstone scene 1',
+        orientation: 'horizontal',
+        caption: 'Live in the nature'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737456007/DSC08431_gm7aav.jpg',
+        alt: 'Yellowstone scene 2',
+        orientation: 'horizontal',
+        caption: 'The color'
+      },   {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737456004/IMG_4729_c34u6d.jpg',
+        alt: 'Yellowstone scene 3',
+        orientation: 'horizontal',
+        caption: 'The color'
+      },   {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737456011/DSC08580_kpb6bc.jpg',
+        alt: 'Yellowstone scene 4',
+        orientation: 'horizontal',
+        caption: 'The hill and the spring'
+      },   {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737456004/IMG_4739_ngbrwo.jpg',
+        alt: 'Yellowstone scene 5',
+        orientation: 'horizontal',
+        caption: 'Residents in the park'
+      },
+    
+    ],
+    title: 'Yellowstone & Grand Teton'
+  },
+  {
+    id: '11',
+    latitude: 36.0544,
+    longitude: -112.1401,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455622/DSC04860_cpqlwe.jpg',
+        alt: 'Grand Canyon scene 1',
+        orientation: 'vertical',
+        caption: 'Arches National Park'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455635/DSC05901_z5o1nh.jpg',
+        alt: 'Grand Canyon scene 2',
+        orientation: 'vertical',
+        caption: 'Grand Canyon National Park'
+      },      
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455947/DSC04592_lam5t1.jpg',
+        alt: 'Grand Canyon scene 3',
+        orientation: 'horizontal',
+        caption: 'Bryce Canyon National Park'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455634/DSC04708_jvctsl.jpg',
+        alt: 'Grand Canyon scene 4',
+        orientation: 'horizontal',
+        caption: 'Bryce Canyon National Park'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455630/DSC05199_vdx7oc.jpg',
+        alt: 'Grand Canyon scene 5',
+        orientation: 'horizontal',
+        caption: 'Monument Valley feat. Forrest Gump'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455627/DSC05597_uk7epe.jpg',
+        alt: 'Grand Canyon scene 6',
+        orientation: 'horizontal',
+        caption: 'Lake Powell'
+      },
+    ],
+    title: 'Grand Canyon etc'
+  },
+  // {
+  //   id: '12',
+  //   latitude: 30.3935,
+  //   longitude: -86.4958,
+  //   images: [
+  //     {
+  //       url: 'path_to_montreal_image1',
+  //       alt: 'Montreal scene 1',
+  //       orientation: 'vertical',
+  //       caption: 'Old Montreal'
+  //     },
+  //     // Add more Montreal images here
+  //   ],
+  //   title: 'Destin'
+  // },
+  // {
+  //   id: '13',
+  //   latitude: 40.7128,
+  //   longitude: -74.0060,
+  //   images: [
+  //     {
+  //       url: 'path_to_montreal_image1',
+  //       alt: 'Montreal scene 1',
+  //       orientation: 'vertical',
+  //       caption: 'Old Montreal'
+  //     },
+  //     // Add more Montreal images here
+  //   ],
+  //   title: 'New York'
+  // },  
+  {
+    id: '14',
+    latitude: 50.8552,
+    longitude: 0.5744,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
+        alt: 'Hasting scene 1',
+        orientation: 'vertical',
+        caption: '@Soap And Salvation'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737457256/DSC00702_yp5acv.jpg',
+        alt: 'Hasting scene 2',
+        orientation: 'vertical',
+        caption: 'Selfie by the East hill lift'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737457256/DSC00684_i6vlvl.jpg',
+        alt: 'Hasting scene 3',
+        orientation: 'horizontal',
+        caption: 'a small English town'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737457256/DSC00671-2_lol76k.jpg',
+        alt: 'Hasting scene 4',
+        orientation: 'horizontal',
+        caption: '@Merchant & Mills'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737457256/DSC00723_rzpqen.jpg',
+        alt: 'Hasting scene 5',
+        orientation: 'horizontal',
+        caption: 'I can still remember the freezing weather'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737457255/DSC00680_b3tufa.jpg',
+        alt: 'Hasting scene 6',
+        orientation: 'horizontal',
+        caption: 'Seagull'
+      },
+      // Add more Montreal images here
+    ],
+    title: 'Hastings & Rye'
+  },
+  
+  
   // {
   //   id: '7',
   //   latitude: 45.5017,
@@ -423,7 +715,7 @@ export default function CreateLayout({
                 onMouseEnter={() => setHoveredPin(pin.id)}
                 onMouseLeave={() => setHoveredPin(null)}
               >
-                <div className="w-3 h-3 bg-black rounded-full cursor-pointer" />
+                <div className="w-2.5 h-2.5 bg-[#1E1E1E] rounded-full cursor-pointer" />
                 
                 {/* Tooltip */}
                 {hoveredPin === pin.id && (
