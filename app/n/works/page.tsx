@@ -6,12 +6,15 @@ import Image from "next/image";
 import sale1 from "../../assets/images/sale1.png";
 import sale2 from "../../assets/images/sale2.png";
 import sale3 from "../../assets/images/sale3.png";
+import sale4 from "../../assets/images/sale4.png";
 import service1 from "../../assets/images/service1.png";
 import service2 from "../../assets/images/service2.png";
 import service3 from "../../assets/images/service3.png";
+import service4 from "../../assets/images/service4.png";
 import task1 from "../../assets/images/task1.png";
 import task2 from "../../assets/images/task2.png";
 import task3 from "../../assets/images/task3.png";
+import task4 from "../../assets/images/task4.png";  
 import ImagePreview from "../components/ImagePreview";
 
 export default function WorksPage() {
@@ -29,9 +32,10 @@ export default function WorksPage() {
       details: "From customer journey, information architecture, interaction flows, and visual design, I shaped the entire user experience as a founding designer. Build a cohesive product that empower sales teams and product marketing managers, together with the PM and Eng.",
       projectUrl: "#",
       images: [
-        { src: sale1, alt: "Proponent Example 1" },
-        { src: sale2, alt: "Proponent Example 1" },
-        { src: sale3, alt: "Proponent Example 1" },
+        { src: sale4, alt: "Proponent Example 1" },
+        { src: sale1, alt: "Proponent Example 2" },
+        { src: sale2, alt: "Proponent Example 3" },
+        { src: sale3, alt: "Proponent Example 4" },
        
       ]
     },
@@ -43,6 +47,7 @@ export default function WorksPage() {
       details: "To support the new business requirement (license to subscription mode transition), I designed a cloud service integration strategy that reduce the time-to-value.",
       projectUrl: "#",
       images: [
+        { src: service4, alt: "VMware Cloud Service Integration Example 1" },
         { src: service1, alt: "VMware Cloud Service Integration Example 1" },
         { src: service2, alt: "VMware Cloud Service Integration Example 1" },
         { src: service3, alt: "VMware Cloud Service Integration Example 1" },
@@ -57,9 +62,11 @@ export default function WorksPage() {
       details: "Designed phased solutions for VMware's core task monitoring system, a critical component used across products by millions of users. The strategy balanced quick implementation needs with long-term scalability.",
       projectUrl: "#",
       images: [
-        { src: task1, alt: "VMware Cloud Task Monitor Example 1" },
-        { src: task2, alt: "VMware Cloud Task Monitor Example 1" },
-        { src: task3, alt: "VMware Cloud Task Monitor Example 1" },
+        { src: task4, alt: "VMware Cloud Task Monitor Example 1" },
+        { src: task1, alt: "VMware Cloud Task Monitor Example 2" },
+        { src: task2, alt: "VMware Cloud Task Monitor Example 3" },
+        { src: task3, alt: "VMware Cloud Task Monitor Example 4" },
+       
         
       ]
     },
@@ -119,7 +126,7 @@ export default function WorksPage() {
               <p className="text-gray-600 mb-2">{work.details}</p>
 
               {/* Images */}
-              <div className="mt-4 grid grid-cols-3 gap-4">
+              <div className="mt-4 grid grid-cols-4 gap-4">
                 {work.images.map((image, imageIndex) => (
                   <div 
                     key={imageIndex}
