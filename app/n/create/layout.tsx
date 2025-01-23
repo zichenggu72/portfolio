@@ -738,7 +738,7 @@ export default function CreateLayout({
           
           <div className="fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen bg-white 
             transition-transform duration-300 ease-in-out z-50 flex flex-col overflow-y-auto">
-            <div className="sticky top-0 bg-white p-8 md:p-8 md:pt-10 z-40">
+            <div className="sticky top-0 bg-white p-6 md:p-8 md:pt-10 z-40">
               <div className="flex justify-between items-center">
                 <h2 className="font-semibold">{selectedPin?.title}</h2>
                 <button 
@@ -751,7 +751,7 @@ export default function CreateLayout({
                 </button>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 px-6 md:px-8">
               {selectedPin?.images
                 .sort((a, b) => {
                   if (a.orientation === 'vertical' && b.orientation === 'horizontal') return -1;
