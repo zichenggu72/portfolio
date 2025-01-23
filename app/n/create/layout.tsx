@@ -464,7 +464,7 @@ const initialPins: Pin[] = [
         caption: 'Denali National Park'
       },
       {
-        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455618/IMG_8196_wky0f4.jpgg',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737455618/IMG_8196_wky0f4.jpg',
         alt: 'Anchorage scene 4',
         orientation: 'horizontal',
         caption: 'Denali National Park'
@@ -683,12 +683,13 @@ export default function CreateLayout({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative z-20">
+      <div className={`relative ${selectedPin ? 'hidden md:block' : ''}`}>
         {children}
       </div>
 
       <div className={`absolute top-[140px] left-0 right-0 mx-auto max-w-[680px] px-8 
-        ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+        ${selectedPin ? 'hidden md:block' : ''}`}>
         <Map
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
@@ -717,7 +718,6 @@ export default function CreateLayout({
               >
                 <div className="w-2.5 h-2.5 bg-[#1E1E1E] rounded-full cursor-pointer" />
                 
-                {/* Tooltip */}
                 {hoveredPin === pin.id && (
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 whitespace-nowrap bg-black text-white text-sm px-2 py-1 rounded-md">
                     {pin.title} 
@@ -729,38 +729,30 @@ export default function CreateLayout({
         </Map>
       </div>
 
-      {/* Backdrop overlay */}
       {selectedPin && (
-        <div 
-          className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-20"
-          onClick={() => setSelectedPin(null)}
-        />
-      )}
-
-      {/* Drawer */}
-      <div 
-        className={`fixed top-0 right-0 w-1/2 h-screen bg-white transform 
-          transition-transform duration-300 ease-in-out z-30 flex flex-col
-          ${selectedPin ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        <div className="sticky top-0 bg-white"></div>
-        <div className="p-8 pt-10">
-          <div className="flex justify-between items-center">
-            <h2 className="font-semibold">{selectedPin?.title}</h2>
-            {/* <button 
-              onClick={() => setSelectedPin(null)}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              ×
-            </button> */}
-          </div>
-        </div>
-
-        {/* Content - scrollable */}
-        <div className="flex-1 overflow-y-auto p-8 pt-0">
-          {selectedPin?.images.length ? (
-            <div className="grid grid-cols-2 auto-rows-[250px] gap-8">
-              {selectedPin.images
+        <>
+          <div 
+            className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-20 md:block hidden"
+            onClick={() => setSelectedPin(null)}
+          />
+          
+          <div className="fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen bg-white 
+            transition-transform duration-300 ease-in-out z-50 flex flex-col overflow-y-auto">
+            <div className="sticky top-0 bg-white p-8 md:p-8 md:pt-10 z-40">
+              <div className="flex justify-between items-center">
+                <h2 className="font-semibold">{selectedPin?.title}</h2>
+                <button 
+                  onClick={() => setSelectedPin(null)}
+                  className="md:hidden p-2 hover:text-gray-600"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
+                    <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 px-8">
+              {selectedPin?.images
                 .sort((a, b) => {
                   if (a.orientation === 'vertical' && b.orientation === 'horizontal') return -1;
                   if (a.orientation === 'horizontal' && b.orientation === 'vertical') return 1;
@@ -770,7 +762,9 @@ export default function CreateLayout({
                   <div 
                     key={index} 
                     className={`relative flex flex-col
-                      ${image.orientation === 'vertical' ? 'col-span-1 row-span-2' : 'col-span-2 row-span-2'}`}
+                      ${image.orientation === 'vertical' 
+                        ? 'md:col-span-1 aspect-[3/4]' 
+                        : 'md:col-span-2 aspect-[16/9]'}`}
                   >
                     <div className="relative w-full h-full overflow-hidden rounded-lg">
                       <Image 
@@ -782,16 +776,14 @@ export default function CreateLayout({
                       />
                     </div>
                     {image.caption && (
-                      <p className="mt-2 text-gray-600">{image.caption}</p>
+                      <p className="mt-2 text-gray-600 text-sm">{image.caption}</p>
                     )}
                   </div>
                 ))}
             </div>
-          ) : (
-            <p className="text-gray-500">No images yet</p>
-          )}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

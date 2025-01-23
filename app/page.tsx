@@ -27,6 +27,11 @@ export default function HomePage() {
       label: 'GitHub', 
       value: 'zichenggu72',
       href: 'https://github.com/zichenggu72'
+    },
+    { 
+      label: 'X', 
+      value: '@ZichengGu',
+      href: 'https://x.com/ZichengGu'
     }
   ];
 
