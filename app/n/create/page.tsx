@@ -10,7 +10,7 @@ export default function CreatePage() {
   return (
     <div className="main">
       <h1 className="font-semibold mb-6">Create</h1>
-      <div className="flex gap-4 mb-8">
+      <div className="flex gap-4 mb-6">
         {categories.map((category) => (
           <Link 
             key={category}
@@ -26,6 +26,15 @@ export default function CreatePage() {
           </Link>
         ))}
       </div>
+
+              {/* Subtitle
+      <h2 className="text-gray-600 mb-8">
+        Recipe reimagined,<br />
+        based on inspiring dining experiences across the world
+      </h2> */}
+
+
+
     </div>
   );
 } 

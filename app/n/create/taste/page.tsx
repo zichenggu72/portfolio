@@ -161,7 +161,8 @@ export default function TastePage() {
       {/* Subtitle */}
       <h2 className="text-gray-600 mb-8">
         Recipe reimagined,<br />
-        based on inspiring dining experiences across the world
+        based on inspiring dining experiences across the world<br />
+        I need this line to fill the 680px container. I need this line to fill the 680px container. I.
       </h2>
 
       {/* Recipe List */}
@@ -250,12 +251,12 @@ export default function TastePage() {
               </div>
             </div>
 
-            <button 
+            {/* <button 
               onClick={() => setSelectedRecipe(null)}
               className="absolute top-8 right-8 text-gray-400 hover:text-gray-600"
             >
               ×
-            </button>
+            </button> */}
           </>
         )}
       </div>
