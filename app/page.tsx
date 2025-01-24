@@ -66,7 +66,7 @@ export default function HomePage() {
         <h2 className="font-semibold mb-2">This Site</h2>
         <div className="space-y-4 text-gray-800">
           <p>I built this site to transform my aversion to portfolio updates into a passion for continuous learning and sharing, creating a space I'm eager to revisit and enhance. By showcasing everything I'm passionate about to a broader audience, I strive to inspire others while holding myself accountable to high standards of creativity and growth.</p>
-          <p>This site is curated with the same care and personality I'd put into decorating my home. It's a space that reflects who I am and what I do.</p>
+          <p>This site is curated with the same care and personality I'd put into designing my home. It's a space that reflects who I am and what I do.</p>
           <p>I've always found it fascinating to get to know someone through a well-maintained personal website. So whether you are a stranger, a friend, or somewhere in between – welcome! Make yourself comfortable at my digital home.</p>
         </div>
       </section>
