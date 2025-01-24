@@ -44,15 +44,14 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
-function NavItem({ color, text, extraClasses = "" }: { 
+function NavItem({ color, text }: { 
   color: string; 
   text: string;
-  extraClasses?: string;
 }) {
   const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
   
   return (
-    <li className={`flex items-center gap-3 ${extraClasses}`}>
+    <li className="flex items-center gap-3">
       <Link href={href} className="flex items-center gap-3">
         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
         <span>{text}</span>
@@ -92,7 +91,7 @@ export default function RootLayout({
             </ul>
 
             <div className="pb-10">
-              <NavItem color="#FF5D1F" text="Visitors (coming soon)" />
+              <NavItem color="#FF5D1F" text="Visitors" />
             </div>
           </nav>
 
