@@ -1,18 +1,16 @@
 import { createYoga } from 'graphql-yoga';
 import { schema } from './schema';
-import { connectToDatabase } from '../../lib/mongodb';
-import { Canvas } from '../../models/canvas';
+import { NextRequest } from 'next/server';
 
 const yoga = createYoga({
   schema,
-  graphqlEndpoint: '/api/graphql',
-  context: async () => {
-    await connectToDatabase();
-    return {
-      db: { Canvas }
-    };
-  }
+  graphqlEndpoint: '/api/graphql'
 });
 
-export const GET = yoga;
-export const POST = yoga;
+export async function GET(request: NextRequest) {
+  return yoga.fetch(request);
+}
+
+export async function POST(request: NextRequest) {
+  return yoga.fetch(request);
+}
