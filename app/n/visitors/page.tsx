@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowClockwise, ArrowCounterClockwise, DownloadSimple } from '@phosphor-icons/react';
+import { ArrowBendUpLeft, ArrowBendUpRight, ArrowClockwise, ArrowCounterClockwise, DownloadSimple } from '@phosphor-icons/react';
 
 interface StrokePoint {
   row: number;
@@ -11,17 +11,17 @@ interface StrokePoint {
 }
 
 export default function VisitorsPage() {
-  const GRID_SIZE = 20;
+  const GRID_SIZE = 22;
   const COLORS = [
-    '#4A1C2C', // Deep burgundy
-    '#D65F5F', // Coral red
-    '#E6B33C', // Golden yellow
-    '#43858C', // Teal
-    '#2D5A27', // Forest green
-    '#8E9EA5', // Steel blue
-    '#E57A44', // Burnt orange
-    '#B67162', // Terra cotta
-    '#9BA657'  // Olive green
+    '#D26064', // Deep burgundy
+    '#F8961E', // Coral red
+    '#F9C74F', // Golden yellow
+    '#9BA65D', // Teal
+    '#59829E', // Forest green
+    '#A6B8C7', // Steel blue
+    '#B5A6C7', // Burnt orange
+    '#7E7A84', // Terra cotta
+    '#F1EEE3'  // Olive green
   ];
   const MAX_PIXELS_PER_IP = Math.floor((GRID_SIZE * GRID_SIZE) / 4);
 
@@ -31,13 +31,22 @@ export default function VisitorsPage() {
     );
   
   const [grid, setGrid] = useState<string[][]>(createInitialGrid());
-  const [currentColor, setCurrentColor] = useState(COLORS[0]);
+  const [currentColor, setCurrentColor] = useState('#F5f5f5');
+  const [hasSelectedColor, setHasSelectedColor] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
   const [history, setHistory] = useState<string[][][]>([createInitialGrid()]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [currentStroke, setCurrentStroke] = useState<StrokePoint[]>([]);
+  const [currentStroke, setCurrentStroke] = useState<Array<{row: number, col: number, prevColor: string}>>([]);
   const [isCollaborative, setIsCollaborative] = useState(true);
   const [pixelsDrawn, setPixelsDrawn] = useState(0);
+  const [visitorCount, setVisitorCount] = useState(1);
+  const MAX_VISITORS = 10;
+  const [visitorId] = useState(`visitor-${Math.random().toString(36).slice(2)}`);
+
+  useEffect(() => {
+    trackVisitor();
+    loadCanvas();
+  }, []);
 
   useEffect(() => {
     setGrid(createInitialGrid());
@@ -47,77 +56,131 @@ export default function VisitorsPage() {
   }, [isCollaborative]);
 
   const colorPixel = (row: number, col: number) => {
-    if (isCollaborative && pixelsDrawn >= MAX_PIXELS_PER_IP && grid[row][col] === '#FFFFFF') {
-      return;
-    }
+    if (!hasSelectedColor || grid[row][col] !== '#FFFFFF') return;
 
-    const newGrid = JSON.parse(JSON.stringify(grid));
-    const oldColor = grid[row][col];
-    const newColor = oldColor !== '#FFFFFF' ? '#FFFFFF' : currentColor;
-    newGrid[row][col] = newColor;
-    
-    if (isCollaborative) {
-      if (oldColor === '#FFFFFF' && newColor !== '#FFFFFF') {
-        setPixelsDrawn(prev => prev + 1);
-      } else if (oldColor !== '#FFFFFF' && newColor === '#FFFFFF') {
-        setPixelsDrawn(prev => prev - 1);
-      }
-    }
-    
+    // Create new grid with the change
+    const newGrid = grid.map(row => [...row]);
+    newGrid[row][col] = currentColor;
     setGrid(newGrid);
-    setCurrentStroke(prev => [...prev, { row, col, oldColor, newColor }]);
+
+    // Update history
+    const newHistory = history.slice(0, currentStep + 1);
+    newHistory.push(newGrid.map(row => [...row])); // Deep copy the new grid
+    setHistory(newHistory);
+    setCurrentStep(currentStep + 1);
+
+    // Backend save (unchanged)
+    fetch('/api/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+          mutation {
+            addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
+              x
+              y
+              color
+            }
+          }
+        `
+      }),
+    }).catch(error => console.error('Error saving pixel:', error));
+  };
+
+  const loadCanvas = async () => {
+    try {
+      const response = await fetch('/api/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            query {
+              activeCanvas {
+                id
+                pixels {
+                  x
+                  y
+                  color
+                }
+                visitorCount
+              }
+            }
+          `
+        }),
+      });
+  
+      const { data } = await response.json();
+      if (data?.activeCanvas) {
+        // Create fresh grid
+        const newGrid = createInitialGrid();
+      
+        // Only apply pixels from current canvas
+        data.activeCanvas.pixels.forEach((pixel: any) => {
+          newGrid[pixel.y][pixel.x] = pixel.color;
+        });
+        setGrid(newGrid);
+        setVisitorCount(data.activeCanvas.visitorCount);
+        
+        // Reset history when loading new canvas
+        setHistory([]);
+        setCurrentStep(0);
+        setPixelsDrawn(0);
+      }
+    } catch (error) {
+      console.error('Error loading canvas:', error);
+    }
+  };
+
+  const createNewCanvas = async () => {
+    try {
+      await fetch('/api/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation {
+              createNewCanvas {
+                id
+              }
+            }
+          `
+        }),
+      });
+      setGrid(createInitialGrid());
+      setVisitorCount(1);
+    } catch (error) {
+      console.error('Error creating new canvas:', error);
+    }
   };
 
   const commitStroke = () => {
     if (currentStroke.length > 0) {
       const newHistory = history.slice(0, currentStep + 1);
-      setHistory([...newHistory, grid]);
-      setCurrentStep(currentStep + 1);
-      setCurrentStroke([]);
+      newHistory.push(grid.map(row => [...row]));
+      setHistory(newHistory);
+      setCurrentStep(prev => prev + 1);
+      setCurrentStroke([]); // Clear current stroke
     }
+    setIsDrawing(false);
   };
 
   const undo = () => {
     if (currentStep > 0) {
-      const prevGrid = history[currentStep - 1];
-      const currentGrid = history[currentStep];
-      
-      if (isCollaborative) {
-        let pixelsDiff = 0;
-        for (let i = 0; i < GRID_SIZE; i++) {
-          for (let j = 0; j < GRID_SIZE; j++) {
-            if (currentGrid[i][j] !== '#FFFFFF' && prevGrid[i][j] === '#FFFFFF') {
-              pixelsDiff++;
-            }
-          }
-        }
-        setPixelsDrawn(prev => prev - pixelsDiff);
-      }
-      
-      setCurrentStep(currentStep - 1);
-      setGrid(prevGrid);
+      const prevStep = currentStep - 1;
+      setCurrentStep(prevStep);
+      setGrid(history[prevStep].map(row => [...row])); // Deep copy the previous grid
     }
   };
 
   const redo = () => {
     if (currentStep < history.length - 1) {
-      const nextGrid = history[currentStep + 1];
-      const currentGrid = history[currentStep];
-      
-      if (isCollaborative) {
-        let pixelsDiff = 0;
-        for (let i = 0; i < GRID_SIZE; i++) {
-          for (let j = 0; j < GRID_SIZE; j++) {
-            if (nextGrid[i][j] !== '#FFFFFF' && currentGrid[i][j] === '#FFFFFF') {
-              pixelsDiff++;
-            }
-          }
-        }
-        setPixelsDrawn(prev => prev + pixelsDiff);
-      }
-      
-      setCurrentStep(currentStep + 1);
-      setGrid(nextGrid);
+      const nextStep = currentStep + 1;
+      setCurrentStep(nextStep);
+      setGrid(history[nextStep].map(row => [...row])); // Deep copy the next grid
     }
   };
 
@@ -134,50 +197,77 @@ export default function VisitorsPage() {
     URL.revokeObjectURL(url);
   };
 
+  const trackVisitor = async () => {
+    try {
+      const response = await fetch('/api/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            mutation {
+              trackVisitor(visitorId: "${visitorId}")
+            }
+          `
+        }),
+      });
+      const { data } = await response.json();
+      return data?.trackVisitor;
+    } catch (error) {
+      console.error('Error tracking visitor:', error);
+      return false;
+    }
+  };
+
+  // const restartCanvas = () => {
+  //   setGrid(createInitialGrid());
+  //   setHistory([createInitialGrid()]);
+  //   setCurrentStep(0);
+  // };
+
   return (
     <div className="w-full max-w-[680px] mx-auto px-4">
       <h1 className="font-semibold mb-6">Visitors</h1>
       
+      <div className="text-gray-600 mb-4">
+        {visitorCount}/10 artists have joined this canvas
+      </div>
+      
+      <div className="mb-4 text-gray-900">
+        Welcome to our collaborative canvas! Each visitor adds their unique touch, building on what came before, before passing the brush to the next artist.
+        <br />
+        The canvas resets after {MAX_VISITORS} visitors. Ready to leave your stroke?
+      </div>
+
       <div 
         className="w-full flex flex-col items-start gap-4"
-        onMouseUp={() => {
-          setIsDrawing(false);
-          commitStroke();
-        }} 
-        onMouseLeave={() => {
-          setIsDrawing(false);
-          commitStroke();
-        }}
+        onMouseUp={commitStroke}
+        onMouseLeave={commitStroke}
       >
-        {/* Collaborative Mode Info */}
-        {isCollaborative && (
-          <div className="text-gray-600">
-            Hello there! You're now invited to a pattern creation party, where you will be given {MAX_PIXELS_PER_IP - pixelsDrawn}/{MAX_PIXELS_PER_IP} bricks to color. Together with 2 other visitors of this page, you will be able to create a pattern. Let your creativity flow, and have fun!
-          </div>
-        )}
-
         {/* Action Buttons - Centered above canvas */}
         <div className="flex gap-4 justify-center w-full">
           <button 
             onClick={undo}
-            disabled={currentStep === 0}
-            className="p-1 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:hover:text-gray-600"
+            disabled={currentStep <= 0}
+            className="p-2 rounded disabled:opacity-50 transition-colors hover:bg-gray-100"
           >
-            <ArrowCounterClockwise size={20} />
+            <ArrowBendUpLeft size={20} />
           </button>
           <button 
             onClick={redo}
-            disabled={currentStep === history.length - 1}
-            className="p-1 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:hover:text-gray-600"
+            disabled={currentStep >= history.length - 1}
+            className="p-2 rounded disabled:opacity-50 transition-colors hover:bg-gray-100"
           >
-            <ArrowClockwise size={20} />
+            <ArrowBendUpRight size={20} />
           </button>
-          <button 
-            onClick={downloadCanvas}
-            className="p-1 text-gray-600 hover:text-gray-900"
+          
+          {/* <button 
+            onClick={restartCanvas}
+            className="p-2 rounded disabled:opacity-50 transition-colors hover:bg-gray-100"
           >
-            <DownloadSimple size={20} />
-          </button>
+            <ArrowCounterClockwise size={20} />
+          </button> */}
+
+          
         </div>
         
         {/* Grid and Color Palette Container */}
@@ -189,16 +279,22 @@ export default function VisitorsPage() {
                 {row.map((color, colIndex) => (
                   <div
                     key={colIndex}
-                    className="w-6 h-6 cursor-pointer border-[0.5px] border-gray-200 rounded m-[2px]"
+                    className="w-5 h-5 cursor-pointer border-[0.5px] border-gray-200 rounded m-[2px]"
                     style={{ backgroundColor: color }}
-                    onMouseDown={() => {
+                    onMouseDown={(e) => {
+                      e.preventDefault(); // Prevent default selection
                       setIsDrawing(true);
                       colorPixel(rowIndex, colIndex);
                     }}
-                    onMouseEnter={() => {
+                    onMouseEnter={(e) => {
+                      e.preventDefault(); // Prevent default selection
                       if (isDrawing) {
                         colorPixel(rowIndex, colIndex);
                       }
+                    }}
+                    onMouseUp={() => {
+                      setIsDrawing(false);
+                      commitStroke();
                     }}
                   />
                 ))}
@@ -211,16 +307,22 @@ export default function VisitorsPage() {
             {COLORS.map((color) => (
               <div
                 key={color}
-                className={`w-8 h-8 cursor-pointer border border-gray-200 rounded ${currentColor === color ? 'ring-2 ring-blue-500' : ''}`}
+                className={`w-6 h-6 cursor-pointer border border-gray-200 rounded ${currentColor === color ? 'ring-2 ring-blue-500' : ''}`}
                 style={{ backgroundColor: color }}
-                onClick={() => setCurrentColor(color)}
+                onClick={() => {
+                  setCurrentColor(color);
+                  setHasSelectedColor(true);
+                }}
               />
             ))}
             <input
               type="color"
               value={currentColor}
-              onChange={(e) => setCurrentColor(e.target.value)}
-              className="w-8 h-7 cursor-pointer"
+              onChange={(e) => {
+                setCurrentColor(e.target.value);
+                setHasSelectedColor(true);
+              }}
+              className="w-6 h-6 cursor-pointer"
               style={{ 
                 padding: 1,
                 border: '2px solid white',
@@ -235,7 +337,7 @@ export default function VisitorsPage() {
           </div>
         </div>
 
-        {/* Mode Switch Button */}
+        {/* Mode Switch Button
         <button
           onClick={() => setIsCollaborative(!isCollaborative)}
           className="mt-2 text-gray-400 hover:text-gray-600 self-center"
@@ -243,7 +345,7 @@ export default function VisitorsPage() {
           {isCollaborative 
             ? "I'd rather have my own canvas" 
             : "Back to joint canvas"}
-        </button>
+        </button> */}
       </div>
     </div>
   );

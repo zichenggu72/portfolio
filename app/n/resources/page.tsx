@@ -28,6 +28,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
 
   creatives: [
     // Add your creative items here
+    { title: 'Victor Pontis', description: '', date: 'Jan 25', url: 'https://pont.is/', hoverColor: 'hover:text-[#F9C74F]' },
     { title: 'Spaces', description: '', date: 'Jan 25', url: 'https://spaces.is/loversmagazine/interviews', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'Seungmee Lee', description: '', date: 'Jan 25', url: 'https://www.seungmee-lee.com/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'SJ Zhang', description: '', date: 'Dec 24', url: 'https://www.sj.land/', hoverColor: 'hover:text-[#4D908E]' },
@@ -36,6 +37,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'Robin Spielmann', description: '', date: 'Nov 24', url: 'https://www.iamrob.in/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'Sam Peitz', description: '', date: 'Nov 24', url: 'https://www.sam-peitz.com/', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'Justin Jay Wang', description: '', date: 'Nov 24', url: 'https://justinjay.wang/', hoverColor: 'hover:text-[#90BE6D]' },
+
     
   ],
   photography: [
