@@ -16,6 +16,7 @@ const categories = ['inspirations', 'creatives', 'photography'];
 const resourcesData: Record<string, ResourceItem[]> = {
   inspirations: [
     // Add your inspiration items here
+    { title: 'sidebar', description: 'the five best design links, every workday', date: 'Jan 25', url: 'https://sidebar.io/', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'read.cv', description: 'design, art, eng, tech community with eye opening posts', date: 'Jan 25', url: 'https://read.cv/explore', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'design systems libraries', description: 'the all-in-one design system libraries that i am truly grateful for', date: 'Jan 25', url: 'https://designsystems.surf/design-systems', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'shadcn/ui', description: 'one of the best component library', date: 'Jan 25', url: 'https://ui.shadcn.com/', hoverColor: 'hover:text-[#90BE6D]' },
@@ -28,6 +29,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
 
   creatives: [
     // Add your creative items here
+    { title: 'Valentino Borghesi', description: '', date: 'Jan 25', url: 'https://valentinoborghesi.is/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'Victor Pontis', description: '', date: 'Jan 25', url: 'https://pont.is/', hoverColor: 'hover:text-[#F9C74F]' },
     { title: 'Spaces', description: '', date: 'Jan 25', url: 'https://spaces.is/loversmagazine/interviews', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'Seungmee Lee', description: '', date: 'Jan 25', url: 'https://www.seungmee-lee.com/', hoverColor: 'hover:text-[#FF5D1F]' },
