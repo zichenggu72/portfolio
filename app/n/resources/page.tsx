@@ -29,6 +29,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
 
   creatives: [
     // Add your creative items here
+    { title: 'Brain Lovin', description: '', date: 'Jan 25', url: 'https://brianlovin.com/', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'Valentino Borghesi', description: '', date: 'Jan 25', url: 'https://valentinoborghesi.is/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'Victor Pontis', description: '', date: 'Jan 25', url: 'https://pont.is/', hoverColor: 'hover:text-[#F9C74F]' },
     { title: 'Spaces', description: '', date: 'Jan 25', url: 'https://spaces.is/loversmagazine/interviews', hoverColor: 'hover:text-[#F8961E]' },
