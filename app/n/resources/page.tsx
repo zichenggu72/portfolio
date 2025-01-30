@@ -24,11 +24,12 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'books about food', description: 'people live in food, design, art intersection', date: 'Jan 25', url: 'https://www.booksabout.food/people', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'curated.design', description: 'web design catalog', date: 'Jan 25', url: 'https://www.curated.design/', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'featured type', description: 'typefaces collection', date: 'Jan 25', url: 'https://www.featuredtype.com/typefaces', hoverColor: 'hover:text-[#4D908E]' },
-  
+    { title: 'dive club', description: 'where designers never stop learning', date: 'Jan 25', url: 'https://www.dive.club/', hoverColor: 'hover:text-[#FF5D1F]' },
   ],
 
   creatives: [
     // Add your creative items here
+    { title: 'Brain Lovin', description: '', date: 'Jan 25', url: 'https://brianlovin.com/', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'Valentino Borghesi', description: '', date: 'Jan 25', url: 'https://valentinoborghesi.is/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'Victor Pontis', description: '', date: 'Jan 25', url: 'https://pont.is/', hoverColor: 'hover:text-[#F9C74F]' },
     { title: 'Spaces', description: '', date: 'Jan 25', url: 'https://spaces.is/loversmagazine/interviews', hoverColor: 'hover:text-[#F8961E]' },
