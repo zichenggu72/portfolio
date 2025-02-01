@@ -54,6 +54,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'Man Ray', description: '', date: 'Dec 24', url: 'https://www.manray.net/', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'Duane Michals', description: '', date: 'Dec 24', url: 'https://www.dcmooregallery.com/artists/duane-michals?view=slider', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'Michael Wesely', description: '', date: 'Dec 24', url: 'https://wesely.org/', hoverColor: 'hover:text-[#F9C74F]' },
+    { title: 'Cindy Sherman', description: '', date: 'Jan 25', url: 'https://www.moma.org/artists/5392-cindy-sherman', hoverColor: 'hover:text-[#4D908E]' },
   ],
 };
 
