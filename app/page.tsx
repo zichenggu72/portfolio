@@ -45,9 +45,9 @@ export default function HomePage() {
 
       {/* Status Update */}
       <div className="bg-[#F8F8F8] p-4 rounded-lg">
-        <p className="text-sm text-gray-600 mb-2">Updated Jan 12</p>
+        <p className="text-sm text-gray-600 mb-2">Updated Feb 2</p>
         <p className={`${oorangeregular.className} text-xl`}>
-          Back from holiday in Seattle - great to reconnect with old friends!
+          Went to Belgrade for 5 days, first time in the previous Yugoslavia. And also the first time I feel so close to the war, history, and politics.
         </p>
       </div>
 

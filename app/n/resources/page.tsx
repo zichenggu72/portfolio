@@ -25,6 +25,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'curated.design', description: 'web design catalog', date: 'Jan 25', url: 'https://www.curated.design/', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'featured type', description: 'typefaces collection', date: 'Jan 25', url: 'https://www.featuredtype.com/typefaces', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'dive club', description: 'where designers never stop learning', date: 'Jan 25', url: 'https://www.dive.club/', hoverColor: 'hover:text-[#FF5D1F]' },
+    { title: 'lennys newsletter', description: 'advice about building product, driving growth, and accelerating your career', date: 'Jan 25', url: 'https://www.lennysnewsletter.com/', hoverColor: 'hover:text-[#F8961E]' },
   ],
 
   creatives: [
@@ -53,6 +54,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'Man Ray', description: '', date: 'Dec 24', url: 'https://www.manray.net/', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'Duane Michals', description: '', date: 'Dec 24', url: 'https://www.dcmooregallery.com/artists/duane-michals?view=slider', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'Michael Wesely', description: '', date: 'Dec 24', url: 'https://wesely.org/', hoverColor: 'hover:text-[#F9C74F]' },
+    { title: 'Cindy Sherman', description: '', date: 'Jan 25', url: 'https://www.moma.org/artists/5392-cindy-sherman', hoverColor: 'hover:text-[#4D908E]' },
   ],
 };
 
