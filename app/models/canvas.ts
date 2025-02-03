@@ -14,7 +14,8 @@ const canvasSchema = new mongoose.Schema({
   pixels: [pixelSchema],
   visitorCount: { type: Number, default: 0 },
   refreshCount: { type: Number, default: 0 },
-  lastUpdated: { type: Date, default: Date.now }
+  lastUpdated: { type: Date, default: Date.now },
+  completed: { type: Boolean, default: false }
 });
 
 // Export the model

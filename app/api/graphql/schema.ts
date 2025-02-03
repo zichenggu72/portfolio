@@ -1,6 +1,8 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const MAX_VISITORS = 10;
+const GRID_SIZE = 22; // Match your frontend grid size
+const MAX_PIXELS = GRID_SIZE * GRID_SIZE; // Total possible pixels
 
 const typeDefs = `
   type Pixel {
@@ -16,6 +18,7 @@ const typeDefs = `
     pixels: [Pixel!]!
     visitorCount: Int!
     lastUpdated: String!
+    completed: Boolean!
   }
 
   type Query {
@@ -32,19 +35,22 @@ const resolvers = {
     activeCanvas: async (_, __, { db }) => {
       let canvas = await db.Canvas.findOne().sort({ _id: -1 });
       
-      if (!canvas) {
+      // Create new canvas if none exists or if current one is full
+      if (!canvas || canvas.pixels.length >= MAX_PIXELS || canvas.visitorCount >= MAX_VISITORS) {
+        // Mark current canvas as completed if it exists
+        if (canvas) {
+          canvas.completed = true;
+          await canvas.save();
+        }
+        
         canvas = await db.Canvas.create({
           pixels: [],
           visitorCount: 0,
-          lastUpdated: new Date()
+          lastUpdated: new Date(),
+          completed: false
         });
       }
 
-      // Count unique visitors who have actually drawn
-      const uniqueDrawnVisitors = new Set(canvas.pixels.map((p: any) => p.visitorId));
-      canvas.visitorCount = uniqueDrawnVisitors.size;
-      await canvas.save();
-      
       return canvas;
     }
   },
@@ -54,17 +60,31 @@ const resolvers = {
       
       // Count unique visitors who have drawn
       const uniqueDrawnVisitors = new Set(canvas.pixels.map((p: any) => p.visitorId));
-      uniqueDrawnVisitors.add(visitorId); // Add current visitor
+      uniqueDrawnVisitors.add(visitorId);
       
-      // If this would exceed visitor limit, create new canvas
-      if (uniqueDrawnVisitors.size > MAX_VISITORS) {
+      // Check if canvas should be reset BEFORE adding new pixel
+      if (canvas.pixels.length >= MAX_PIXELS || uniqueDrawnVisitors.size > MAX_VISITORS) {
+        // Mark current canvas as completed
+        canvas.completed = true;
+        await canvas.save();
+        
+        // Create new canvas without any pixels
         canvas = await db.Canvas.create({
           pixels: [],
-          visitorCount: 1,
-          lastUpdated: new Date()
+          visitorCount: 0,
+          lastUpdated: new Date(),
+          completed: false
         });
+        
+        // Now add the new pixel to the fresh canvas
+        const pixel = { x, y, color, visitorId, createdAt: new Date().toISOString() };
+        canvas.pixels = [pixel];
+        canvas.visitorCount = 1;
+        await canvas.save();
+        return pixel;
       }
 
+      // Normal case - add pixel to existing canvas
       const pixel = { x, y, color, visitorId, createdAt: new Date().toISOString() };
       canvas.pixels.push(pixel);
       canvas.visitorCount = uniqueDrawnVisitors.size;
