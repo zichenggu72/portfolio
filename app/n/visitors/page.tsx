@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowBendUpLeft, ArrowBendUpRight, ArrowClockwise, ArrowCounterClockwise, DownloadSimple } from '@phosphor-icons/react';
+import Link from 'next/link';
 
 interface StrokePoint {
   row: number;
@@ -346,6 +347,16 @@ export default function VisitorsPage() {
             ? "I'd rather have my own canvas" 
             : "Back to joint canvas"}
         </button> */}
+      </div>
+
+      {/* After the canvas grid */}
+      <div className="mt-4 flex justify-start">
+        <Link 
+          href="/n/hall-of-fame" 
+          className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+        >
+          Canvas Hall →
+        </Link>
       </div>
     </div>
   );
