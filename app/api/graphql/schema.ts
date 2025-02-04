@@ -1,8 +1,8 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const MAX_VISITORS = 10;
-const GRID_SIZE = 22; // Match your frontend grid size
-const MAX_PIXELS = GRID_SIZE * GRID_SIZE; // Total possible pixels
+const GRID_SIZE = 23; // Changed from 40 to match your frontend
+const MAX_PIXELS = GRID_SIZE * GRID_SIZE; // Now 484 pixels instead of 1600
 
 const typeDefs = `
   type Pixel {
@@ -23,6 +23,7 @@ const typeDefs = `
 
   type Query {
     activeCanvas: Canvas!
+    completedCanvases: [Canvas!]!
   }
 
   type Mutation {
@@ -52,6 +53,17 @@ const resolvers = {
       }
 
       return canvas;
+    },
+    completedCanvases: async (_, __, { db }) => {
+      // Find all completed canvases, sorted by most recent
+      const canvases = await db.Canvas.find({ 
+        completed: true 
+      }).sort({ 
+        lastUpdated: -1 
+      });
+      
+      console.log('Found completed canvases:', canvases.length); // Debug log
+      return canvases;
     }
   },
   Mutation: {

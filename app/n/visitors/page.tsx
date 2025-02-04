@@ -12,7 +12,7 @@ interface StrokePoint {
 }
 
 export default function VisitorsPage() {
-  const GRID_SIZE = 22;
+  const GRID_SIZE = 23;
   const COLORS = [
     '#D26064', // Deep burgundy
     '#F8961E', // Coral red
@@ -226,7 +226,7 @@ export default function VisitorsPage() {
   // };
 
   return (
-    <div className="w-full max-w-[680px] mx-auto px-4">
+    <div className="w-full max-w-[680px] mx-auto">
       <h1 className="font-semibold mb-6">Visitors</h1>
       
       <div className="text-gray-600 mb-4">
@@ -234,9 +234,9 @@ export default function VisitorsPage() {
       </div>
       
       <div className="mb-4 text-gray-900">
-        Welcome to our collaborative canvas! Each visitor adds their unique touch, building on what came before, before passing the brush to the next artist.
+        Welcome to the collaborative canvas! Each visitor adds their unique touch, building on the evolving artwork before passing the brush to the next visitor.
         <br />
-        The canvas resets after {MAX_VISITORS} visitors. Ready to leave your stroke?
+        The canvas resets after {MAX_VISITORS} visitors or once it's full. Ready to leave your stroke?
       </div>
 
       <div 
@@ -350,7 +350,7 @@ export default function VisitorsPage() {
       </div>
 
       {/* After the canvas grid */}
-      <div className="mt-4 flex justify-start">
+      <div className="mt-6 flex justify-start">
         <Link 
           href="/n/hall-of-fame" 
           className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
