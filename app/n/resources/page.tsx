@@ -47,6 +47,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
   ],
   photography: [
     // Add your photography items here
+    { title: 'Lee Miller', description: '', date: 'Feb 25', url: 'https://www.instagram.com/leemillerarchives/?hl=en', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'Magnum Photos', description: '', date: 'Dec 24', url: 'https://www.magnumphotos.com/', hoverColor: 'hover:text-[#F9C74F]' },
     { title: 'Saul Leiter', description: '', date: 'Dec 24', url: 'https://www.saulleiterfoundation.org/', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'Sam Youkilis', description: '', date: 'Dec 24', url: 'https://www.instagram.com/samyoukilis/?hl=en', hoverColor: 'hover:text-[#FF5D1F]' },
