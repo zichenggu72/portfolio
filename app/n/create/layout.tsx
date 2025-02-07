@@ -743,7 +743,7 @@ export default function CreateLayout({
                 <h2 className="font-semibold">{selectedPin?.title}</h2>
                 <button 
                   onClick={() => setSelectedPin(null)}
-                  className="md:hidden p-2 hover:text-gray-600"
+                  className="absolute top-4 right-4 p-2 hover:text-gray-600"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
                     <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

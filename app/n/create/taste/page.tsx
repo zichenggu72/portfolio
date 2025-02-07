@@ -164,8 +164,8 @@ export default function TastePage() {
         based on inspiring dining experiences across the world.<br />
       </h2>
 
-      {/* Recipe List */}
-      <div className="space-y-6">
+      {/* Recipe List - Make it responsive */}
+      <div className="space-y-6 md:w-1/2">
         {recipes.map((recipe) => (
           <div 
             key={recipe.id}
@@ -197,73 +197,83 @@ export default function TastePage() {
         ))}
       </div>
 
-      {/* Drawer */}
+      {/* Drawer - Make it responsive */}
       <div 
-        className={`fixed top-0 right-0 w-1/2 h-screen bg-white transform 
-          transition-transform duration-300 ease-in-out z-30 p-8 overflow-y-auto
+        className={`fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen 
+          transform transition-transform duration-300 ease-in-out z-60
           ${selectedRecipe ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {selectedRecipe && (
           <>
-            <div className="mb-8">
-              <h2 className="font-semibold mb-1">{selectedRecipe.title}</h2>
-              <p className="text-gray-600">{selectedRecipe.description}</p>
-            </div>
+            {/* Solid white background overlay */}
+            <div className="absolute inset-0 bg-white" />
+            
+            {/* Content */}
+            <div className="relative h-full overflow-y-auto">
+              <div className="p-8">
+                <button 
+                  onClick={() => setSelectedRecipe(null)}
+                  className="absolute top-4 right-4 p-2 hover:text-gray-600 transition-colors"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
 
-            <div 
-              className="w-full h-24 relative mb-10"
-              style={{ 
-                backgroundImage: `url(${selectedRecipe.image})`,
-                backgroundRepeat: 'repeat',
-                backgroundSize: '100px'  // Adjust this value to control the size of repeated pattern
-              }}
-            />
-
-            <div className="grid grid-cols-2 gap-12 mb-12">
-              <div>
-                <h3 className="font-semibold mb-2">Ingredients</h3>
-                <div className="space-y-2">
-                  {selectedRecipe.ingredients.map((ingredient, index) => (
-                    <p key={index} className="text-gray-600">{ingredient}</p>
-                  ))}
+                <div className="mb-8">
+                  <h2 className="font-semibold mb-1">{selectedRecipe.title}</h2>
+                  <p className="text-gray-600">{selectedRecipe.description}</p>
                 </div>
-              </div>
-              
-              {selectedRecipe.sauce && selectedRecipe.sauce.length > 0 && (
+
+                <div 
+                  className="w-full h-24 relative mb-10"
+                  style={{ 
+                    backgroundImage: `url(${selectedRecipe.image})`,
+                    backgroundRepeat: 'repeat',
+                    backgroundSize: '100px'
+                  }}
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  <div>
+                    <h3 className="font-semibold mb-2">Ingredients</h3>
+                    <div className="space-y-2">
+                      {selectedRecipe.ingredients.map((ingredient, index) => (
+                        <p key={index} className="text-gray-600">{ingredient}</p>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {selectedRecipe.sauce && selectedRecipe.sauce.length > 0 && (
+                    <div>
+                      <h3 className="font-semibold mb-2">Sauce</h3>
+                      <div className="space-y-2">
+                        {selectedRecipe.sauce.map((item, index) => (
+                          <p key={index} className="text-gray-600">{item}</p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 <div>
-                  <h3 className="font-semibold mb-2">Sauce</h3>
-                  <div className="space-y-2">
-                    {selectedRecipe.sauce.map((item, index) => (
-                      <p key={index} className="text-gray-600">{item}</p>
+                  <h3 className="font-semibold mb-2">Steps</h3>
+                  <div className="space-y-3">
+                    {selectedRecipe.steps.map((step, index) => (
+                      <p key={index} className="text-gray-600">{step}</p>
                     ))}
                   </div>
                 </div>
-              )}
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-2">Steps</h3>
-              <div className="space-y-3">
-                {selectedRecipe.steps.map((step, index) => (
-                  <p key={index} className="text-gray-600">{step}</p>
-                ))}
               </div>
             </div>
-
-            {/* <button 
-              onClick={() => setSelectedRecipe(null)}
-              className="absolute top-8 right-8 text-gray-400 hover:text-gray-600"
-            >
-              ×
-            </button> */}
           </>
         )}
       </div>
 
-      {/* Backdrop */}
+      {/* Backdrop - Show only on mobile */}
       {selectedRecipe && (
         <div 
-          className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-20"
+          className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-20 md:hidden"
           onClick={() => setSelectedRecipe(null)}
         />
       )}
