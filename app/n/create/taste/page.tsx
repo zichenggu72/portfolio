@@ -197,6 +197,14 @@ export default function TastePage() {
         ))}
       </div>
 
+      {/* Backdrop - Show on all screen sizes */}
+      {selectedRecipe && (
+        <div 
+          className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-[55]"
+          onClick={() => setSelectedRecipe(null)}
+        />
+      )}
+
       {/* Drawer - Make it responsive */}
       <div 
         className={`fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen 
@@ -269,14 +277,6 @@ export default function TastePage() {
           </>
         )}
       </div>
-
-      {/* Backdrop - Show only on mobile */}
-      {selectedRecipe && (
-        <div 
-          className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-20 md:hidden"
-          onClick={() => setSelectedRecipe(null)}
-        />
-      )}
     </div>
   );
 } 
