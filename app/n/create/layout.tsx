@@ -652,6 +652,22 @@ const initialPins: Pin[] = [
     title: 'Belgrade'
   },
 
+  {
+    id: '16',
+    latitude: 41.3874,
+    longitude: 2.1686,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
+        alt: 'Belgrade scene 1',
+        orientation: 'vertical',
+        caption: 'Old Montreal'
+      },
+      // Add more Montreal images here
+    ],
+    title: 'Barcelona'
+  },
+
   
     // {
   //   id: '7',
