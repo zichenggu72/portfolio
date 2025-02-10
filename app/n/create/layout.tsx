@@ -636,7 +636,40 @@ const initialPins: Pin[] = [
   },
   
   
-  // {
+  {
+    id: '15',
+    latitude: 44.7866,
+    longitude: 20.4489,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
+        alt: 'Belgrade scene 1',
+        orientation: 'vertical',
+        caption: 'Old Montreal'
+      },
+      // Add more Montreal images here
+    ],
+    title: 'Belgrade'
+  },
+
+  {
+    id: '16',
+    latitude: 41.3874,
+    longitude: 2.1686,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
+        alt: 'Belgrade scene 1',
+        orientation: 'vertical',
+        caption: 'Old Montreal'
+      },
+      // Add more Montreal images here
+    ],
+    title: 'Barcelona'
+  },
+
+  
+    // {
   //   id: '7',
   //   latitude: 45.5017,
   //   longitude: -73.5673,
@@ -743,7 +776,7 @@ export default function CreateLayout({
                 <h2 className="font-semibold">{selectedPin?.title}</h2>
                 <button 
                   onClick={() => setSelectedPin(null)}
-                  className="md:hidden p-2 hover:text-gray-600"
+                  className="absolute top-4 right-4 p-2 hover:text-gray-600"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
                     <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
