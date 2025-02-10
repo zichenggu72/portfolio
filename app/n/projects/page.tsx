@@ -10,6 +10,9 @@ import nut1 from "../../assets/images/nut1.jpg";
 import nut2 from "../../assets/images/nut2.jpg";
 import nut3 from "../../assets/images/nut3.jpg";
 import nut4 from "../../assets/images/nut4.jpg";
+import food1 from "../../assets/images/food1.jpg";
+import food2 from "../../assets/images/food2.jpg";
+import food3 from "../../assets/images/food3.jpg";
 import ImagePreview from "../components/ImagePreview";
 
 export default function ProjectsPage() {
@@ -19,6 +22,20 @@ export default function ProjectsPage() {
   } | null>(null);
   
   const projects = [
+    {
+      organization: "Food Photography",
+      year: "2024",
+      title: "Mundane Beauty",
+      description: [
+        "Explores common ingredients through an artistic lens.",
+        "The series is still ongoing and aims to reveal the overlooked aesthetic qualities in common food ingredients, challenging us to find beauty in the mundane.",
+      ],
+      images: [
+        { src: food1, alt: "News Font Example 1" },
+        { src: food2, alt: "News Font Example 2" },
+        { src: food3, alt: "News Font Example 3" },
+      ],
+    },
     {
       organization: "University of the Arts London",
       year: "2024",
