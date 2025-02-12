@@ -28,7 +28,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addPixel(x: Int!, y: Int!, color: String!, visitorId: String!, isCollabrative: Boolean): Pixel!
+    addPixel(x: Int!, y: Int!, color: String!, visitorId: String!, isCollaborative: Boolean): Pixel!
     saveCanvas(visitorId: String!, isCollaborative: Boolean): String!
   }
 `;
@@ -37,15 +37,13 @@ const resolvers = {
   Query: {
     activeCanvas: async (_, {isCollaborative = true}, { db }) => {
       let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
-      
       // Create new canvas if none exists or if current one is full
-      if (!canvas || canvas.pixels.length >= MAX_PIXELS || canvas.visitorCount >= MAX_VISITORS) {
+      if (!canvas || canvas.pixels.length >= MAX_PIXELS || canvas.visitorCount >= MAX_VISITORS || canvas.completed == true) {
         // Mark current canvas as completed if it exists
         if (canvas) {
           canvas.completed = true;
           await canvas.save();
         }
-        
         canvas = await db.Canvas.create({
           pixels: [],
           visitorCount: 0,
@@ -120,6 +118,16 @@ const resolvers = {
       canvas.completed = true;
       await canvas.save();
       console.log('save canvas success');
+      canvas = await db.Canvas.create({
+          pixels: [],
+          visitorCount: 0,
+          lastUpdated: new Date(),
+          isCollaborative: isCollaborative,
+          completed: false
+      });
+            console.log('create a new canvas');
+      canvas.visitorCount = 1;
+      await canvas.save();
       return visitorId;
     }
   }

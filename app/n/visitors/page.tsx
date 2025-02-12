@@ -135,18 +135,14 @@ export default function VisitorsPage() {
     setIsSaving(true);
     try {
       const mutation = `mutation {
-          saveCanvas(visitorId: "${visitorId}") {
-            visitorId
-          }
-        }`;
-
+        saveCanvas(visitorId: "${visitorId}", isCollaborative: true)
+      }`;
       fetch("/api/graphql", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: mutation }),
       }).catch((error) => console.error("Error saving pixel:", error));
     } catch (error) {
-      console.error("Error saving to backend:", error);
     } finally {
       setIsSaving(false);
     }
@@ -422,7 +418,6 @@ export default function VisitorsPage() {
         <button
           onClick={publishToHall}
           className="text-sm font-medium text-gray-600 hover:text-gray-800"
-          disabled={isSaving}
         >
           {isSaving ? "Saving..." : "Publish"}
         </button>
