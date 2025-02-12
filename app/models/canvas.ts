@@ -15,6 +15,7 @@ const canvasSchema = new mongoose.Schema({
   visitorCount: { type: Number, default: 0 },
   refreshCount: { type: Number, default: 0 },
   lastUpdated: { type: Date, default: Date.now },
+  isCollaborative: { type: Boolean, default: true },
   completed: { type: Boolean, default: false }
 });
 

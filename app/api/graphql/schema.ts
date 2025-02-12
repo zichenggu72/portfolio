@@ -18,6 +18,7 @@ const typeDefs = `
     pixels: [Pixel!]!
     visitorCount: Int!
     lastUpdated: String!
+    isCollaborative: Boolean!
     completed: Boolean!
   }
 
@@ -27,14 +28,15 @@ const typeDefs = `
   }
 
   type Mutation {
-    addPixel(x: Int!, y: Int!, color: String!, visitorId: String!): Pixel!
+    addPixel(x: Int!, y: Int!, color: String!, visitorId: String!, isCollabrative: Boolean): Pixel!
+    saveCanvas(visitorId: String!, isCollaborative: Boolean): String!
   }
 `;
 
 const resolvers = {
   Query: {
-    activeCanvas: async (_, __, { db }) => {
-      let canvas = await db.Canvas.findOne().sort({ _id: -1 });
+    activeCanvas: async (_, {isCollaborative = true}, { db }) => {
+      let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
       
       // Create new canvas if none exists or if current one is full
       if (!canvas || canvas.pixels.length >= MAX_PIXELS || canvas.visitorCount >= MAX_VISITORS) {
@@ -67,8 +69,8 @@ const resolvers = {
     }
   },
   Mutation: {
-    addPixel: async (_, { x, y, color, visitorId }, { db }) => {
-      let canvas = await db.Canvas.findOne().sort({ _id: -1 });
+    addPixel: async (_, { x, y, color, visitorId, isCollaborative = true }, { db }) => {
+      let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
       
       // Count unique visitors who have drawn
       const uniqueDrawnVisitors = new Set(canvas.pixels.map((p: any) => p.visitorId));
@@ -85,6 +87,7 @@ const resolvers = {
           pixels: [],
           visitorCount: 0,
           lastUpdated: new Date(),
+          isCollaborative: isCollaborative,
           completed: false
         });
         
@@ -104,6 +107,18 @@ const resolvers = {
       await canvas.save();
       
       return pixel;
+    },
+    saveCanvas: async (_, {visitorId, isCollaborative = true }, { db }) => {
+      let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
+      
+      // Count unique visitors who have drawn
+      const uniqueDrawnVisitors = new Set(canvas.pixels.map((p: any) => p.visitorId));
+      uniqueDrawnVisitors.add(visitorId);
+      
+      // Mark current canvas as completed
+      canvas.completed = true;
+      await canvas.save();
+      return visitorId;
     }
   }
 };
