@@ -57,6 +57,7 @@ export default function VisitorsPage() {
   const [pixelsDrawn, setPixelsDrawn] = useState(0);
   const [visitorCount, setVisitorCount] = useState(0);
   const [personalCanvasId, setPersonalCanvasId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   const MAX_VISITORS = 10;
 
   // Determine if we're in collaborative or personal mode based on the pathname
@@ -127,6 +128,28 @@ export default function VisitorsPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: mutation }),
     }).catch((error) => console.error("Error saving pixel:", error));
+  };
+
+  const publishToHall = async () => {
+    // Backend save
+    setIsSaving(true);
+    try {
+      const mutation = `mutation {
+          saveCanvas(visitorId: "${visitorId}") {
+            visitorId
+          }
+        }`;
+
+      fetch("/api/graphql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: mutation }),
+      }).catch((error) => console.error("Error saving pixel:", error));
+    } catch (error) {
+      console.error("Error saving to backend:", error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const loadCanvas = async () => {
@@ -388,13 +411,21 @@ export default function VisitorsPage() {
       </div>
 
       {/* After the canvas grid */}
-      <div className="mt-6 flex justify-start">
+      <div className="mt-6 flex justify-start gap-[25.5rem]">
         <Link
           href="/n/hall-of-fame"
           className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
         >
           Canvas Hall →
         </Link>
+
+        <button
+          onClick={publishToHall}
+          className="text-sm font-medium text-gray-600 hover:text-gray-800"
+          disabled={isSaving}
+        >
+          {isSaving ? "Saving..." : "Publish"}
+        </button>
       </div>
     </div>
   );

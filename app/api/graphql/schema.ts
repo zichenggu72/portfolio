@@ -70,6 +70,7 @@ const resolvers = {
   },
   Mutation: {
     addPixel: async (_, { x, y, color, visitorId, isCollaborative = true }, { db }) => {
+      console.log('add pixel');
       let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
       
       // Count unique visitors who have drawn
@@ -108,9 +109,9 @@ const resolvers = {
       
       return pixel;
     },
-    saveCanvas: async (_, {visitorId, isCollaborative = true }, { db }) => {
+    saveCanvas: async (_, { visitorId, isCollaborative = true }, { db }) => {
+      console.log('save canvas');
       let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
-      
       // Count unique visitors who have drawn
       const uniqueDrawnVisitors = new Set(canvas.pixels.map((p: any) => p.visitorId));
       uniqueDrawnVisitors.add(visitorId);
@@ -118,6 +119,7 @@ const resolvers = {
       // Mark current canvas as completed
       canvas.completed = true;
       await canvas.save();
+      console.log('save canvas success');
       return visitorId;
     }
   }
