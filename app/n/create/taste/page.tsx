@@ -103,7 +103,39 @@ const recipes: Recipe[] = [
       '· top the sandwiched papadam with the mixture prepared before.',
       '· garnish with cilantro and sesame seeds.(optional)'
     ]
-  }
+  },
+  {
+    id: '4',
+    title: 'Salty biscuit',
+    description: 'Serbia inspired biscuit',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1086_xesox2.png',
+    ingredients: [
+      '+ black pepper flavored papadam (uncooked)',
+      '+ cooked mixed rice',
+      '+ shrimp',
+      '+ avocado',
+      '+ mango',
+    ],
+    sauce: [
+      '+ masala seasoning',
+      '+ salt and pepper',
+    ],
+    steps: [
+      '· fold masala seasoning into warm rice, ensuring even distribution. let it cool completely',
+      '· cook shrimp and season with salt, and pepper. chop into small pieces.',
+      '· mash the avocado.',
+      '· dice the mango, and mix with avocado, and shrimp.',
+      '· bake the papadam until crispy.',
+      '· lay the rice between two papadams.',
+      '· top the sandwiched papadam with the mixture prepared before.',
+      '· garnish with cilantro and sesame seeds.(optional)'
+    ]
+  },
+
+
+
+
+
 ];
 
 const categories = ['memory', 'taste', 'graphic'];
