@@ -25,7 +25,6 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'curated.design', description: 'web design catalog', date: 'Jan 25', url: 'https://www.curated.design/', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'featured type', description: 'typefaces collection', date: 'Jan 25', url: 'https://www.featuredtype.com/typefaces', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'dive club', description: 'where designers never stop learning', date: 'Jan 25', url: 'https://www.dive.club/', hoverColor: 'hover:text-[#FF5D1F]' },
-    { title: 'lennys newsletter', description: 'advice about building product, driving growth, and accelerating your career', date: 'Jan 25', url: 'https://www.lennysnewsletter.com/', hoverColor: 'hover:text-[#F8961E]' },
   ],
 
   creatives: [

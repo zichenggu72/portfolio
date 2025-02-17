@@ -103,7 +103,39 @@ const recipes: Recipe[] = [
       '· top the sandwiched papadam with the mixture prepared before.',
       '· garnish with cilantro and sesame seeds.(optional)'
     ]
-  }
+  },
+  {
+    id: '4',
+    title: 'Salty biscuit',
+    description: 'Serbian inspired biscuit',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1086_xesox2.png',
+    ingredients: [
+      '+ 50g wheat flour',
+      '+ 40g mixed healthier flours (oat, quinoa, and chickpea flour etc)',
+      '+ 20g butter',
+      '+ 10g tahini',
+      '+ 5g milk/coconut powder',
+      '+ 5g chia seeds',
+      '+ 3g salt',
+      '+ 30~50ml preferred milk',
+      '+ pinch of baking powder'
+    ],
+    sauce: [
+      '+ masala seasoning (optional)',
+      '+ cardamom powder (optional)',
+    ],
+    steps: [
+      '· in a large bowl, whisk together all dry ingredients.',
+      '· add slightly softened butter and tahini, use fingers to rub them into the flour mixture until it resembles coarse breadcrumbs.',
+      '· add just enough preferred milk (start with 15-20g) to bring the dough together - stop when it just forms a cohesive ball.',
+      '· divide the dough and flatten it as thin biscuit.',
+    ]
+  },
+
+
+
+
+
 ];
 
 const categories = ['memory', 'taste', 'graphic'];

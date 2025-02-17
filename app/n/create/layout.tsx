@@ -645,7 +645,7 @@ const initialPins: Pin[] = [
         url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
         alt: 'Belgrade scene 1',
         orientation: 'vertical',
-        caption: 'Old Montreal'
+        caption: 'Belgrade'
       },
       // Add more Montreal images here
     ],
