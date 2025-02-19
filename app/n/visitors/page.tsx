@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowBendUpLeft, ArrowBendUpRight, ArrowClockwise, ArrowCounterClockwise, DownloadSimple } from '@phosphor-icons/react';
+import { ArrowBendUpLeft, ArrowBendUpRight, ArrowClockwise, ArrowCounterClockwise, DownloadSimple, UserCircle, Users } from '@phosphor-icons/react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface StrokePoint {
   row: number;
@@ -11,7 +12,12 @@ interface StrokePoint {
   newColor: string;
 }
 
+const categories = ['collaborative canvas', 'personal canvas'];
+
 export default function VisitorsPage() {
+  const pathname = usePathname();
+  const router = useRouter();
+  
   const GRID_SIZE = 23;
   const COLORS = [
     '#D26064', // Deep burgundy
@@ -38,23 +44,52 @@ export default function VisitorsPage() {
   const [history, setHistory] = useState<string[][][]>([createInitialGrid()]);
   const [currentStep, setCurrentStep] = useState(0);
   const [currentStroke, setCurrentStroke] = useState<Array<{row: number, col: number, prevColor: string}>>([]);
-  const [isCollaborative, setIsCollaborative] = useState(true);
   const [pixelsDrawn, setPixelsDrawn] = useState(0);
-  const [visitorCount, setVisitorCount] = useState(1);
+  const [visitorCount, setVisitorCount] = useState(0);
+  const [personalCanvasId, setPersonalCanvasId] = useState<string | null>(null);
   const MAX_VISITORS = 10;
-  const [visitorId] = useState(`visitor-${Math.random().toString(36).slice(2)}`);
+  
+  // Determine if we're in collaborative or personal mode based on the pathname
+  const isCollaborative = pathname === '/n/visitors/collaborative' || 
+                          pathname === '/n/visitors' || 
+                          !pathname.includes('personal');
+  
+  // Get or create visitor ID
+  const [visitorId] = useState(() => {
+    // Get visitor ID from localStorage or create a new one
+    const storedId = typeof localStorage !== 'undefined' ? localStorage.getItem('visitorId') : null;
+    const newId = storedId || `visitor-${Math.random().toString(36).slice(2)}`;
+    if (typeof localStorage !== 'undefined' && !storedId) {
+      localStorage.setItem('visitorId', newId);
+    }
+    return newId;
+  });
 
   useEffect(() => {
-    trackVisitor();
-    loadCanvas();
-  }, []);
+    if (isCollaborative) {
+      trackVisitor();
+      loadCanvas();
+    } else if (personalCanvasId) {
+      loadPersonalCanvas(personalCanvasId);
+    } else {
+      createPersonalCanvas();
+    }
+  }, [isCollaborative, pathname]);
 
   useEffect(() => {
     setGrid(createInitialGrid());
     setHistory([createInitialGrid()]);
     setCurrentStep(0);
     setPixelsDrawn(0);
-  }, [isCollaborative]);
+  }, [isCollaborative, pathname]);
+
+  // Check for existing personal canvas on component mount
+  useEffect(() => {
+    const savedCanvasId = localStorage.getItem('personalCanvasId');
+    if (savedCanvasId) {
+      setPersonalCanvasId(savedCanvasId);
+    }
+  }, []);
 
   const colorPixel = (row: number, col: number) => {
     if (!hasSelectedColor || grid[row][col] !== '#FFFFFF') return;
@@ -70,21 +105,27 @@ export default function VisitorsPage() {
     setHistory(newHistory);
     setCurrentStep(currentStep + 1);
 
-    // Backend save (unchanged)
+    // Backend save
+    const mutation = isCollaborative 
+      ? `mutation {
+          addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
+            x
+            y
+            color
+          }
+        }`
+      : `mutation {
+          addPixelToPersonalCanvas(canvasId: "${personalCanvasId}", x: ${col}, y: ${row}, color: "${currentColor}") {
+            x
+            y
+            color
+          }
+        }`;
+
     fetch('/api/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `
-          mutation {
-            addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
-              x
-              y
-              color
-            }
-          }
-        `
-      }),
+      body: JSON.stringify({ query: mutation }),
     }).catch(error => console.error('Error saving pixel:', error));
   };
 
@@ -119,13 +160,15 @@ export default function VisitorsPage() {
       
         // Only apply pixels from current canvas
         data.activeCanvas.pixels.forEach((pixel: any) => {
-          newGrid[pixel.y][pixel.x] = pixel.color;
+          if (pixel.y < GRID_SIZE && pixel.x < GRID_SIZE) {
+            newGrid[pixel.y][pixel.x] = pixel.color;
+          }
         });
         setGrid(newGrid);
         setVisitorCount(data.activeCanvas.visitorCount);
         
         // Reset history when loading new canvas
-        setHistory([]);
+        setHistory([newGrid]);
         setCurrentStep(0);
         setPixelsDrawn(0);
       }
@@ -134,9 +177,9 @@ export default function VisitorsPage() {
     }
   };
 
-  const createNewCanvas = async () => {
+  const createPersonalCanvas = async () => {
     try {
-      await fetch('/api/graphql', {
+      const response = await fetch('/api/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,17 +187,101 @@ export default function VisitorsPage() {
         body: JSON.stringify({
           query: `
             mutation {
-              createNewCanvas {
+              createPersonalCanvas(ownerId: "${visitorId}") {
                 id
               }
             }
           `
         }),
       });
-      setGrid(createInitialGrid());
-      setVisitorCount(1);
+      
+      const { data } = await response.json();
+      if (data?.createPersonalCanvas?.id) {
+        setPersonalCanvasId(data.createPersonalCanvas.id);
+        setGrid(createInitialGrid());
+        setHistory([createInitialGrid()]);
+        setCurrentStep(0);
+        
+        // Store personal canvas ID in localStorage for persistence
+        localStorage.setItem('personalCanvasId', data.createPersonalCanvas.id);
+      }
     } catch (error) {
-      console.error('Error creating new canvas:', error);
+      console.error('Error creating personal canvas:', error);
+    }
+  };
+
+  const loadPersonalCanvas = async (canvasId: string) => {
+    try {
+      const response = await fetch('/api/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            query {
+              personalCanvas(id: "${canvasId}") {
+                id
+                pixels {
+                  x
+                  y
+                  color
+                }
+              }
+            }
+          `
+        }),
+      });
+  
+      const { data } = await response.json();
+      if (data?.personalCanvas) {
+        // Create fresh grid
+        const newGrid = createInitialGrid();
+      
+        // Apply pixels from personal canvas
+        data.personalCanvas.pixels.forEach((pixel: any) => {
+          if (pixel.y < GRID_SIZE && pixel.x < GRID_SIZE) {
+            newGrid[pixel.y][pixel.x] = pixel.color;
+          }
+        });
+        setGrid(newGrid);
+        
+        // Reset history
+        setHistory([newGrid]);
+        setCurrentStep(0);
+      } else {
+        // If canvas not found, create a new one
+        createPersonalCanvas();
+      }
+    } catch (error) {
+      console.error('Error loading personal canvas:', error);
+      createPersonalCanvas();
+    }
+  };
+
+  const trackVisitor = async () => {
+    try {
+      const response = await fetch('/api/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            mutation {
+              trackVisitor(visitorId: "${visitorId}") {
+                visitorCount
+              }
+            }
+          `,
+        }),
+      });
+      const { data } = await response.json();
+      if (data?.trackVisitor?.visitorCount) {
+        setVisitorCount(data.trackVisitor.visitorCount); // Update visitorCount state
+      }
+      return data?.trackVisitor;
+    } catch (error) {
+      console.error('Error tracking visitor:', error);
+      return false;
     }
   };
 
@@ -198,45 +325,75 @@ export default function VisitorsPage() {
     URL.revokeObjectURL(url);
   };
 
-  const trackVisitor = async () => {
-    try {
-      const response = await fetch('/api/graphql', {
+  const restartPersonalCanvas = () => {
+    if (!isCollaborative && personalCanvasId) {
+      // Clear the personal canvas in the database
+      fetch('/api/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           query: `
             mutation {
-              trackVisitor(visitorId: "${visitorId}")
+              clearPersonalCanvas(id: "${personalCanvasId}")
             }
           `
         }),
-      });
-      const { data } = await response.json();
-      return data?.trackVisitor;
-    } catch (error) {
-      console.error('Error tracking visitor:', error);
-      return false;
+      }).catch(error => console.error('Error clearing personal canvas:', error));
     }
+    
+    const newGrid = createInitialGrid();
+    setGrid(newGrid);
+    setHistory([newGrid]);
+    setCurrentStep(0);
   };
-
-  // const restartCanvas = () => {
-  //   setGrid(createInitialGrid());
-  //   setHistory([createInitialGrid()]);
-  //   setCurrentStep(0);
-  // };
 
   return (
     <div className="w-full max-w-[680px] mx-auto">
       <h1 className="font-semibold mb-6">Visitors</h1>
       
-      <div className="text-gray-600 mb-4">
-        {visitorCount}/10 artists have joined this canvas
+      {/* Navigation wrapper - Tab selector */}
+      <div className="flex gap-4 mb-6">
+        {categories.map((category) => (
+          <Link 
+            key={category}
+            href={category === 'collaborative canvas' 
+              ? '/n/visitors' 
+              : '/n/visitors/personal'
+            }
+            className={`text-sm px-3 py-1 rounded-md text-gray-400 hover:text-gray-600 ${
+              (category === 'collaborative canvas' && pathname === '/n/visitors') ||
+              (category === 'personal canvas' && pathname === '/n/visitors/personal')
+                ? 'bg-gray-100 text-gray-700' 
+                : ''
+            }`}
+          >
+            {category}
+          </Link>
+        ))}
       </div>
       
+      {isCollaborative ? (
+        <div className="text-gray-600 mb-4">
+          {visitorCount}/10 artists have joined this canvas
+        </div>
+      ) : (
+        <div className="text-gray-600 mb-4">
+          Your personal canvas - draw freely!
+        </div>
+      )}
+      
       <div className="mb-4 text-gray-900">
-        Welcome to the collaborative canvas! Each visitor adds their unique touch, building on the evolving artwork before passing the brush to the next visitor.
-        <br />
-        The canvas resets after {MAX_VISITORS} visitors or once it's full. Ready to leave your stroke?
+        {isCollaborative ? (
+          <>
+            Welcome to the collaborative canvas! Each visitor adds their unique touch, building on the evolving artwork before passing the brush to the next visitor.
+            <br />
+            The canvas resets after {MAX_VISITORS} visitors or once it's full. Ready to leave your stroke?
+          </>
+        ) : (
+          <>
+            This is your personal canvas where you can experiment freely. Your work is saved automatically and will be here when you return.
+          </>
+        )}
       </div>
 
       <div 
@@ -261,14 +418,23 @@ export default function VisitorsPage() {
             <ArrowBendUpRight size={20} />
           </button>
           
-          {/* <button 
-            onClick={restartCanvas}
-            className="p-2 rounded disabled:opacity-50 transition-colors hover:bg-gray-100"
-          >
-            <ArrowCounterClockwise size={20} />
-          </button> */}
-
+          {!isCollaborative && (
+            <button 
+              onClick={restartPersonalCanvas}
+              className="p-2 rounded transition-colors hover:bg-gray-100"
+              title="Clear canvas"
+            >
+              <ArrowCounterClockwise size={20} />
+            </button>
+          )}
           
+          {/* <button
+            onClick={downloadCanvas}
+            className="p-2 rounded transition-colors hover:bg-gray-100"
+            title="Download canvas"
+          >
+            <DownloadSimple size={20} />
+          </button> */}
         </div>
         
         {/* Grid and Color Palette Container */}
@@ -337,16 +503,6 @@ export default function VisitorsPage() {
             />
           </div>
         </div>
-
-        {/* Mode Switch Button
-        <button
-          onClick={() => setIsCollaborative(!isCollaborative)}
-          className="mt-2 text-gray-400 hover:text-gray-600 self-center"
-        >
-          {isCollaborative 
-            ? "I'd rather have my own canvas" 
-            : "Back to joint canvas"}
-        </button> */}
       </div>
 
       {/* After the canvas grid */}
