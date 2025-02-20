@@ -62,9 +62,8 @@ export default function PersonalCanvas() {
   const [personalCanvasId, setPersonalCanvasId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Initialize visitor and canvas ID
+  // Initialize visitor ID
   useEffect(() => {
-    // Initialize visitor ID
     const storedId = localStorage.getItem('visitorId');
     const newId = storedId || `visitor-${Math.random().toString(36).slice(2)}`;
     if (!storedId) {
@@ -76,6 +75,8 @@ export default function PersonalCanvas() {
     const savedCanvasId = localStorage.getItem('personalCanvasId');
     if (savedCanvasId) {
       setPersonalCanvasId(savedCanvasId);
+      // Load canvas from backend
+      loadCanvasFromBackend(savedCanvasId);
     } else {
       // Create new personal canvas in backend
       createPersonalCanvas(newId);
@@ -95,17 +96,43 @@ export default function PersonalCanvas() {
     localStorage.setItem(PERSONAL_CANVAS_STEP_KEY, currentStep.toString());
   }, [currentStep]);
 
-  // Auto-save to backend
-  useEffect(() => {
-    
-    if (visitorId && personalCanvasId && currentStep > 0) {
-      const saveTimer = setTimeout(() => {
-        saveToBackend();
-      }, 3000); // Save 3 seconds after last change
+  const loadCanvasFromBackend = async (canvasId: string) => {
+    try {
+      const response = await fetch('/api/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            query {
+              getPersonalCanvas(id: "${canvasId}") {
+                id
+                pixels {
+                  x
+                  y
+                  color
+                }
+              }
+            }
+          `
+        }),
+      });
       
-      return () => clearTimeout(saveTimer);
+      const { data } = await response.json();
+      if (data?.getPersonalCanvas?.pixels) {
+        const newGrid = createInitialGrid();
+        data.getPersonalCanvas.pixels.forEach((pixel: any) => {
+          if (pixel.y < GRID_SIZE && pixel.x < GRID_SIZE) {
+            newGrid[pixel.y][pixel.x] = pixel.color;
+          }
+        });
+        setGrid(newGrid);
+        setHistory([...history, newGrid]);
+        setCurrentStep(history.length);
+      }
+    } catch (error) {
+      console.error('Error loading canvas from backend:', error);
     }
-  }, [grid, visitorId, personalCanvasId, currentStep]);
+  };
 
   const createPersonalCanvas = async (ownerId: string) => {
     try {
@@ -134,47 +161,6 @@ export default function PersonalCanvas() {
     }
   };
 
-  const saveToBackend = async () => {
-    if (!visitorId || !personalCanvasId || isSaving) return;
-    
-    setIsSaving(true);
-    try {
-      // Convert grid to pixels
-      const pixelMutations: PixelMutation[] = [];
-      for (let y = 0; y < grid.length; y++) {
-        for (let x = 0; x < grid[y].length; x++) {
-          if (grid[y][x] !== '#FFFFFF') {
-            pixelMutations.push({
-              x, y, color: grid[y][x]
-            });
-          }
-        }
-      }
-      
-      await fetch('/api/graphql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: `
-            mutation {
-              updatePersonalCanvas(
-                id: "${personalCanvasId}",
-                ownerId: "${visitorId}",
-                pixels: ${JSON.stringify(JSON.stringify(pixelMutations))}
-              ) {
-                id
-              }
-            }
-          `
-        }),
-      });
-    } catch (error) {
-      console.error('Error saving to backend:', error);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   const colorPixel = (row: number, col: number) => {
     if (!hasSelectedColor || grid[row][col] !== '#FFFFFF') return;
 
@@ -188,6 +174,23 @@ export default function PersonalCanvas() {
     newHistory.push(newGrid.map(row => [...row])); // Deep copy the new grid
     setHistory(newHistory);
     setCurrentStep(currentStep + 1);
+
+    // Send pixel to backend immediately (like collaborative canvas)
+    if (visitorId) {
+      const mutation = `mutation {
+        addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
+          x
+          y
+          color
+        }
+      }`;
+
+      fetch("/api/graphql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: mutation }),
+      }).catch((error) => console.error("Error saving pixel:", error));
+    }
   };
 
   const commitStroke = () => {
@@ -205,15 +208,63 @@ export default function PersonalCanvas() {
     if (currentStep > 0) {
       const prevStep = currentStep - 1;
       setCurrentStep(prevStep);
-      setGrid(history[prevStep].map(row => [...row])); // Deep copy the previous grid
+      const prevGrid = history[prevStep];
+      setGrid(prevGrid.map(row => [...row])); // Deep copy the previous grid
+      
+      // Update backend with the new state after undo
+      updateBackendAfterUndo(prevGrid);
     }
+  };
+
+  const updateBackendAfterUndo = (currentGrid: string[][]) => {
+    if (!visitorId) return;
+    
+    // Clear canvas on backend
+    fetch('/api/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+          mutation {
+            clearCanvas(visitorId: "${visitorId}")
+          }
+        `
+      }),
+    })
+    .then(() => {
+      // Re-add all non-white pixels
+      for (let y = 0; y < currentGrid.length; y++) {
+        for (let x = 0; x < currentGrid[y].length; x++) {
+          if (currentGrid[y][x] !== '#FFFFFF') {
+            const mutation = `mutation {
+              addPixel(x: ${x}, y: ${y}, color: "${currentGrid[y][x]}", visitorId: "${visitorId}") {
+                x
+                y
+                color
+              }
+            }`;
+            
+            fetch("/api/graphql", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ query: mutation }),
+            }).catch((error) => console.error("Error updating pixel after undo:", error));
+          }
+        }
+      }
+    })
+    .catch((error) => console.error("Error clearing canvas for undo:", error));
   };
 
   const redo = () => {
     if (currentStep < history.length - 1) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
-      setGrid(history[nextStep].map(row => [...row])); // Deep copy the next grid
+      const nextGrid = history[nextStep];
+      setGrid(nextGrid.map(row => [...row])); // Deep copy the next grid
+      
+      // Update backend with the new state after redo
+      updateBackendAfterUndo(nextGrid);
     }
   };
 
@@ -228,8 +279,8 @@ export default function PersonalCanvas() {
     localStorage.removeItem(PERSONAL_CANVAS_HISTORY_KEY);
     localStorage.removeItem(PERSONAL_CANVAS_STEP_KEY);
     
-    // Also clear on the backend
-    if (visitorId && personalCanvasId) {
+    // Clear on the backend
+    if (visitorId) {
       try {
         await fetch('/api/graphql', {
           method: 'POST',
@@ -237,87 +288,70 @@ export default function PersonalCanvas() {
           body: JSON.stringify({
             query: `
               mutation {
-                clearPersonalCanvas(id: "${personalCanvasId}")
+                clearCanvas(visitorId: "${visitorId}")
               }
             `
           }),
         });
       } catch (error) {
-        console.error('Error clearing personal canvas on backend:', error);
+        console.error('Error clearing canvas on backend:', error);
       }
     }
   };
 
   const publishToHall = async () => {
-    // Debug logging
-    console.log("Publishing attempt with:", {
-      personalCanvasId,
-      visitorId,
-      pixelCount: grid.filter(row => row.some(cell => cell !== '#FFFFFF')).flat().length
-    });
+    // Check if canvas is empty
+    const hasPixels = grid.some(row => row.some(cell => cell !== '#FFFFFF'));
     
-    // Validate we have required IDs
-    if (!personalCanvasId || !visitorId) {
-      console.error("Missing required IDs:", { personalCanvasId, visitorId });
-      alert('Canvas initialization incomplete. Please try again in a moment.');
+    if (!hasPixels) {
+      alert('Please draw something before publishing to the collaborative canvas!');
       return;
     }
     
+    // Backend save
+    setIsSaving(true);
     try {
-      const pixelMutations: PixelMutation[] = [];
-      
-      for (let y = 0; y < grid.length; y++) {
-        for (let x = 0; x < grid[y].length; x++) {
-          if (grid[y][x] !== '#FFFFFF') {
-            pixelMutations.push({
-              x: x,
-              y: y,
-              color: grid[y][x]
-            });
-          }
-        }
-      }
-      
-      // If no pixels drawn, alert user
-      if (pixelMutations.length === 0) {
-        alert('Please draw something before publishing to the hall!');
-        return;
-      }
-      
-      // First save the latest version to backend
-      await saveToBackend();
-      
-      // Now publish to hall
-      const mutation = `
-        mutation {
-          savePersonalCanvasToHall(
-            canvasId: "${personalCanvasId}",
-            visitorId: "${visitorId}"
-          ) {
-            id
-          }
-        }
-      `;
-      
-      const response = await fetch('/api/graphql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const mutation = `mutation {
+        saveCanvas(visitorId: "${visitorId}", isCollaborative: true)
+      }`;
+      const response = await fetch("/api/graphql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: mutation }),
       });
       
       const result = await response.json();
-      console.log("Publish result:", result);
       
-      if (result.errors) {
-        throw new Error(result.errors[0].message);
+      if (result.data && result.data.saveCanvas) {
+        alert('Successfully published to the Canvas Hall!');
+        
+        // Reset canvas after successful publish
+        const newGrid = createInitialGrid();
+        setGrid(newGrid);
+        setHistory([newGrid]);
+        setCurrentStep(0);
+        
+        // Clear on backend
+        await fetch('/api/graphql', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `
+              mutation {
+                clearCanvas(visitorId: "${visitorId}")
+              }
+            `
+          }),
+        });
+        
+      } else {
+        alert('Failed to publish. Please try again.');
       }
-      
-      // Success handling
-      alert('Your artwork has been published to the Canvas Hall!');
-      
     } catch (error) {
-      console.error('Error publishing canvas:', error);
-      alert('Failed to publish artwork. Please try again.');
+      console.error("Error publishing canvas:", error);
+      alert('Failed to publish due to a network error. Please check your connection and try again.');
+    } finally {
+      setIsSaving(false);
     }
   };
 

@@ -131,18 +131,37 @@ export default function VisitorsPage() {
   };
 
   const publishToHall = async () => {
+    // Check if canvas is empty
+    const hasPixels = grid.some(row => row.some(cell => cell !== '#FFFFFF'));
+    
+    if (!hasPixels) {
+      alert('Please draw something before publishing to the collaborative canvas!');
+      return;
+    }
+    
     // Backend save
     setIsSaving(true);
     try {
       const mutation = `mutation {
         saveCanvas(visitorId: "${visitorId}", isCollaborative: true)
       }`;
-      fetch("/api/graphql", {
+      const response = await fetch("/api/graphql", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: mutation }),
-      }).catch((error) => console.error("Error saving pixel:", error));
+      });
+      
+      const result = await response.json();
+      
+      if (result.data && result.data.saveCanvas) {
+        alert('Successfully published to the collaborative canvas!');
+        // You could also use a more elegant notification system instead of alert
+      } else {
+        alert('Failed to publish. Please try again.');
+      }
     } catch (error) {
+      console.error("Error publishing canvas:", error);
+      alert('Failed to publish due to a network error. Please check your connection and try again.');
     } finally {
       setIsSaving(false);
     }
@@ -300,7 +319,7 @@ export default function VisitorsPage() {
           touch, building on the evolving artwork before passing the brush to
           the next visitor.
           <br />
-          The canvas resets after {MAX_VISITORS} visitors or once it's full.
+          The canvas resets after {MAX_VISITORS} artists joined or once it's full.
           Ready to leave your stroke?
         </>
       </div>
