@@ -1,8 +1,8 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const MAX_VISITORS = 10;
-const GRID_SIZE = 23; // Changed from 40 to match your frontend
-const MAX_PIXELS = GRID_SIZE * GRID_SIZE; // Now 484 pixels instead of 1600
+const GRID_SIZE = 23;
+const MAX_PIXELS = GRID_SIZE * GRID_SIZE;
 
 const typeDefs = `
   type Pixel {
@@ -20,11 +20,24 @@ const typeDefs = `
     lastUpdated: String!
     isCollaborative: Boolean!
     completed: Boolean!
+    trackedVisitorIds: [String!]
+  }
+
+  type PersonalCanvas {
+    id: ID!
+    ownerId: String!
+    pixels: [Pixel!]!
+    lastUpdated: String!
+  }
+
+  type VisitorTrackingResponse {
+    visitorCount: Int!
   }
 
   type Query {
     activeCanvas: Canvas!
     completedCanvases: [Canvas!]!
+    personalCanvas(id: ID!): PersonalCanvas
   }
 
   type Mutation {
@@ -62,8 +75,10 @@ const resolvers = {
         lastUpdated: -1 
       });
       
-      console.log('Found completed canvases:', canvases.length); // Debug log
       return canvases;
+    },
+    personalCanvas: async (_, { id }, { db }) => {
+      return await db.PersonalCanvas.findById(id);
     }
   },
   Mutation: {
@@ -72,7 +87,7 @@ const resolvers = {
       let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
       
       // Count unique visitors who have drawn
-      const uniqueDrawnVisitors = new Set(canvas.pixels.map((p: any) => p.visitorId));
+      const uniqueDrawnVisitors = new Set(canvas.pixels.map((p) => p.visitorId));
       uniqueDrawnVisitors.add(visitorId);
       
       // Check if canvas should be reset BEFORE adding new pixel
@@ -126,7 +141,7 @@ const resolvers = {
           completed: false
       });
             console.log('create a new canvas');
-      canvas.visitorCount = 1;
+      canvas.visitorCount = 0;
       await canvas.save();
       return visitorId;
     }
