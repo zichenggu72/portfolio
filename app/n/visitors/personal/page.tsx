@@ -97,6 +97,7 @@ export default function PersonalCanvas() {
 
   // Auto-save to backend
   useEffect(() => {
+    
     if (visitorId && personalCanvasId && currentStep > 0) {
       const saveTimer = setTimeout(() => {
         saveToBackend();
