@@ -59,6 +59,38 @@ export default function HallOfFamePage() {
     fetchCompletedCanvases();
   }, []);
 
+  const deleteCanvas = async (canvasId: string) => {
+    try {
+      const response = await fetch('/api/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            mutation {
+              deleteCompletedCanvas(id: "${canvasId}")
+            }
+          `
+        }),
+      });
+
+      const { data, errors } = await response.json();
+      console.log('Delete response:', data, errors);
+
+      if (data?.deleteCompletedCanvas) {
+        setCompletedCanvases(prevCanvases => 
+          prevCanvases.filter(canvas => canvas.id !== canvasId)
+        );
+        alert('Canvas deleted successfully');
+      } else if (errors) {
+        console.error('GraphQL errors:', errors);
+        alert('Failed to delete canvas: ' + errors[0]?.message);
+      }
+    } catch (error) {
+      console.error('Error deleting canvas:', error);
+      alert('Failed to delete canvas. Please try again.');
+    }
+  };
+
   const renderCanvas = (canvas: Canvas) => {
     const grid = Array(GRID_SIZE).fill(null).map(() => 
       Array(GRID_SIZE).fill('#FFFFFF')
@@ -68,7 +100,6 @@ export default function HallOfFamePage() {
       grid[pixel.y][pixel.x] = pixel.color;
     });
 
-    // Format the date properly
     const formattedDate = new Date(canvas.lastUpdated).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -76,10 +107,20 @@ export default function HallOfFamePage() {
     });
 
     return (
-      <div key={canvas.id} className="mb-8">
+      <div key={canvas.id} className="mb-8 relative group">
         <div className="bg-white">
-          <div className="text-sm text-gray-500 mb-2">
-            {canvas.visitorCount} artists • {formattedDate}
+          <div className="text-sm text-gray-500 mb-2 flex justify-between items-center">
+            <span>{canvas.visitorCount} artists • {formattedDate}</span>
+            {/* <button
+              onClick={() => {
+                if (window.confirm('Are you sure you want to delete this canvas?')) {
+                  deleteCanvas(canvas.id);
+                }
+              }}
+              className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 text-xs transition-opacity"
+            >
+              Delete
+            </button> */}
           </div>
           <div className="border-none origin-top-left">
             {grid.map((row, rowIndex) => (
@@ -99,14 +140,17 @@ export default function HallOfFamePage() {
     );
   };
 
+ 
+
+ 
+
   return (
     <div className="w-full max-w-[680px] mx-auto">
-      <div className="font-semibold mb-6">
-        Canvas Hall
+      <div className="font-semibold mb-6 flex justify-between items-center">
+        <span>Canvas Hall</span>
+       
       </div>
       
-     
-
       {isLoading ? (
         <div className="flex justify-center items-center py-12">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
@@ -121,7 +165,7 @@ export default function HallOfFamePage() {
         </div>
       )}
 
-<div className="mt-2 flex justify-start">
+      <div className="mt-2 flex justify-start">
         <Link 
           href="/n/visitors" 
           className="text-sm text-gray-500 hover:text-gray-700 transition-colors"

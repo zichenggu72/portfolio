@@ -40,9 +40,13 @@ const typeDefs = `
     personalCanvas(id: ID!): PersonalCanvas
   }
 
-  type Mutation {
+   type Mutation {
     addPixel(x: Int!, y: Int!, color: String!, visitorId: String!, isCollaborative: Boolean): Pixel!
     saveCanvas(visitorId: String!, isCollaborative: Boolean): String!
+    clearCanvas(visitorId: String!): Boolean!
+    addPixelToPersonalCanvas(canvasId: ID!, x: Int!, y: Int!, color: String!): Pixel!
+    createPersonalCanvas(ownerId: String!): PersonalCanvas!
+    deleteCompletedCanvas(id: ID!): Boolean!
   }
 `;
 
@@ -112,6 +116,7 @@ const resolvers = {
         await canvas.save();
         return pixel;
       }
+      
 
       // Normal case - add pixel to existing canvas
       const pixel = { x, y, color, visitorId, createdAt: new Date().toISOString() };
@@ -121,7 +126,23 @@ const resolvers = {
       await canvas.save();
       
       return pixel;
+
     },
+
+    clearCanvas: async (_, { visitorId }, { db }) => {
+      // Find the most recent canvas
+      let canvas = await db.Canvas.findOne({ isCollaborative: true }).sort({ _id: -1 });
+      
+      if (canvas) {
+        // Remove all pixels drawn by this visitor
+        canvas.pixels = canvas.pixels.filter((pixel) => pixel.visitorId !== visitorId);
+        await canvas.save();
+      }
+      
+      return true;
+    },
+
+
     saveCanvas: async (_, { visitorId, isCollaborative = true }, { db }) => {
       console.log('save canvas');
       let canvas = await db.Canvas.findOne({ isCollaborative: isCollaborative }).sort({ _id: -1 });
@@ -144,6 +165,22 @@ const resolvers = {
       canvas.visitorCount = 0;
       await canvas.save();
       return visitorId;
+    },
+
+    deleteCompletedCanvas: async (_, { id }, { db }) => {
+      try {
+        // Find and delete the canvas
+        const result = await db.Canvas.findOneAndDelete({ 
+          _id: id,
+          completed: true  // Only allow deleting completed canvases
+        });
+
+        // Return true if canvas was found and deleted, false otherwise
+        return !!result;
+      } catch (error) {
+        console.error('Error deleting canvas:', error);
+        return false;
+      }
     }
   }
 };

@@ -176,8 +176,16 @@ export default function PersonalCanvas() {
     setCurrentStep(currentStep + 1);
 
     // Send pixel to backend immediately (like collaborative canvas)
-    if (visitorId) {
-      const mutation = `mutation {
+if (visitorId && currentStep === history.length - 1) {
+  const mutation = personalCanvasId 
+    ? `mutation {
+        addPixelToPersonalCanvas(canvasId: "${personalCanvasId}", x: ${col}, y: ${row}, color: "${currentColor}") {
+          x
+          y
+          color
+        }
+      }`
+    : `mutation {
         addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
           x
           y
@@ -185,12 +193,12 @@ export default function PersonalCanvas() {
         }
       }`;
 
-      fetch("/api/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: mutation }),
-      }).catch((error) => console.error("Error saving pixel:", error));
-    }
+  fetch("/api/graphql", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: mutation }),
+  }).catch((error) => console.error("Error saving pixel:", error));
+}
   };
 
   const commitStroke = () => {
