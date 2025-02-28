@@ -115,55 +115,105 @@ export default function VisitorsPage() {
     setCurrentStep(currentStep + 1);
 
     // Backend save
-    const mutation = `mutation {
-          addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
-            x
-            y
-            color
-          }
-        }`;
-
-    fetch("/api/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: mutation }),
-    }).catch((error) => console.error("Error saving pixel:", error));
+    if (isCollaborative) {
+      const mutation = `mutation {
+        addPixel(x: ${col}, y: ${row}, color: "${currentColor}", visitorId: "${visitorId}") {
+          x
+          y
+          color
+        }
+      }`;
+  
+      fetch('/api/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: mutation }),
+      }).catch(error => console.error('Error saving pixel:', error));
+    }
   };
 
-  const publishToHall = async () => {
-    // Check if canvas is empty
-    const hasPixels = grid.some(row => row.some(cell => cell !== '#FFFFFF'));
+  const syncBackendWithCurrentState = async () => {
+    if (!isCollaborative || !visitorId) return;
     
-    if (!hasPixels) {
-      alert('Please draw something before publishing to the collaborative canvas!');
-      return;
-    }
-    
-    // Backend save
-    setIsSaving(true);
     try {
-      const mutation = `mutation {
-        saveCanvas(visitorId: "${visitorId}", isCollaborative: true)
-      }`;
-      const response = await fetch("/api/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: mutation }),
-      });
-      
-      const result = await response.json();
-      
-      if (result.data && result.data.saveCanvas) {
-        alert('Successfully published to the collaborative canvas!');
-        // You could also use a more elegant notification system instead of alert
-      } else {
-        alert('Failed to publish. Please try again.');
-      }
+        await fetch('/api/graphql', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `mutation { clearCanvas(visitorId: "${visitorId}") }`
+            }),
+        });
+
+        const pixelPromises: Promise<Response>[] = [];
+        
+        for (let y = 0; y < grid.length; y++) {
+            for (let x = 0; x < grid[y].length; x++) {
+                if (grid[y][x] !== '#FFFFFF') {
+                    const mutation = `mutation {
+                        addPixel(x: ${x}, y: ${y}, color: "${grid[y][x]}", visitorId: "${visitorId}") {
+                            x
+                            y
+                            color
+                        }
+                    }`;
+                    
+                    pixelPromises.push(
+                        fetch("/api/graphql", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ query: mutation }),
+                        })
+                    );
+                }
+            }
+        }
+        
+        await Promise.all(pixelPromises);
     } catch (error) {
-      console.error("Error publishing canvas:", error);
-      alert('Failed to publish due to a network error. Please check your connection and try again.');
+        console.error("Error syncing canvas:", error);
+        throw error;
+    }
+  };
+  
+
+  const publishToHall = async () => {
+    try {
+        // Check if canvas is empty
+        const hasPixels = grid.some(row => row.some(cell => cell !== '#FFFFFF'));
+        
+        if (!hasPixels) {
+            alert('Please draw something before publishing to the collaborative canvas!');
+            return;
+        }
+        
+        setIsSaving(true);
+        
+        // Make sure backend is in sync with current state before publishing
+        await syncBackendWithCurrentState();
+        
+        // Now save to hall of fame
+        const mutation = `mutation {
+            saveCanvas(visitorId: "${visitorId}", isCollaborative: true)
+        }`;
+        
+        const response = await fetch("/api/graphql", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: mutation }),
+        });
+        
+        const result = await response.json();
+        
+        if (result.data && result.data.saveCanvas) {
+            alert('Successfully published to the collaborative canvas!');
+        } else {
+            throw new Error('Failed to publish canvas');
+        }
+    } catch (error) {
+        console.error("Error publishing canvas:", error);
+        alert('Failed to publish. Please try again.');
     } finally {
-      setIsSaving(false);
+        setIsSaving(false);
     }
   };
 
@@ -252,21 +302,27 @@ export default function VisitorsPage() {
     setIsDrawing(false);
   };
 
-  const undo = () => {
-    if (currentStep > 0) {
-      const prevStep = currentStep - 1;
-      setCurrentStep(prevStep);
-      setGrid(history[prevStep].map((row) => [...row])); // Deep copy the previous grid
-    }
-  };
+const undo = () => {
+  if (currentStep > 0) {
+    const prevStep = currentStep - 1;
+    setCurrentStep(prevStep);
+    setGrid(history[prevStep].map((row) => [...row])); // Deep copy the previous grid
+    
+    // Sync backend with current state after undo
+    syncBackendWithCurrentState();
+  }
+};
 
-  const redo = () => {
-    if (currentStep < history.length - 1) {
-      const nextStep = currentStep + 1;
-      setCurrentStep(nextStep);
-      setGrid(history[nextStep].map((row) => [...row])); // Deep copy the next grid
-    }
-  };
+const redo = () => {
+  if (currentStep < history.length - 1) {
+    const nextStep = currentStep + 1;
+    setCurrentStep(nextStep);
+    setGrid(history[nextStep].map((row) => [...row])); // Deep copy the next grid
+    
+    // Sync backend with current state after redo
+    syncBackendWithCurrentState();
+  }
+};
 
   const downloadCanvas = () => {
     const jsonString = JSON.stringify(grid);
@@ -286,7 +342,7 @@ export default function VisitorsPage() {
       <h1 className="font-semibold mb-6">Visitors</h1>
 
       {/* Navigation wrapper - Tab selector */}
-      <div className="flex gap-4 mb-6">
+      {/* <div className="flex gap-4 mb-6">
         {categories.map((category) => (
           <Link
             key={category}
@@ -307,7 +363,7 @@ export default function VisitorsPage() {
             {category}
           </Link>
         ))}
-      </div>
+      </div> */}
 
       <div className="text-gray-600 mb-4">
         {visitorCount}/10 artists have joined this canvas
@@ -319,7 +375,7 @@ export default function VisitorsPage() {
           touch, building on the evolving artwork before passing the brush to
           the next visitor.
           <br />
-          The canvas resets after {MAX_VISITORS} artists joined or once it's full.
+          The canvas resets after {MAX_VISITORS} artists joined or once it's full. Or simply click Publish when it's good enough.
           Ready to leave your stroke?
         </>
       </div>
