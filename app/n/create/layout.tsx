@@ -642,12 +642,36 @@ const initialPins: Pin[] = [
     longitude: 20.4489,
     images: [
       {
-        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782036/DSCF7697_fhe31f.jpg',
         alt: 'Belgrade scene 1',
         orientation: 'vertical',
-        caption: 'Belgrade'
+        caption: 'Laugh it out'
       },
-      // Add more Montreal images here
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782036/DSCF7973_rxktyb.jpg',
+        alt: 'Belgrade scene 2',
+        orientation: 'vertical',
+        caption: 'Lady in the flower'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782041/DSCF8062_oiazzq.jpg',
+        alt: 'Belgrade scene 3',
+        orientation: 'horizontal',
+        caption: 'Belgrade street view'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782039/DSCF7998_sx3lt0.jpg',
+        alt: 'Belgrade scene 4',
+        orientation: 'horizontal',
+        caption: 'Reimagining the grocery store'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782044/DSCF8240_uowqah.jpg',
+        alt: 'Belgrade scene 5',
+        orientation: 'horizontal',
+        caption: 'Protesting people flush to the bridge'
+      },
+     
     ],
     title: 'Belgrade'
   },
@@ -658,15 +682,243 @@ const initialPins: Pin[] = [
     longitude: 2.1686,
     images: [
       {
-        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737500437/DSC00666_hpf06f.jpg',
-        alt: 'Belgrade scene 1',
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782039/DSCF8464_igbxof.jpg',
+        alt: 'Barcelona scene 1',
         orientation: 'vertical',
-        caption: 'Old Montreal'
+        caption: 'Couple by the shore'
       },
-      // Add more Montreal images here
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782039/DSCF8445_i7yfos.jpg',
+        alt: 'Barcelona scene 2',
+        orientation: 'vertical',
+        caption: 'Chilling'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782038/DSCF9565_li4ioz.jpg',
+        alt: 'Barcelona scene 3',
+        orientation: 'vertical',
+        caption: 'A boy and pigeons'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782043/DSCF9366_lhre9o.jpg',
+        alt: 'Barcelona scene 4',
+        orientation: 'vertical',
+        caption: '@Quimet & Quimet'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782038/DSCF9715_yieqfh.jpg',
+        alt: 'Barcelona scene 5',
+        orientation: 'vertical',
+        caption: 'The forever Sagrada Família'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782043/DSCF9573_jf7r5b.jpg',
+        alt: 'Barcelona scene 6',
+        orientation: 'vertical',
+        caption: 'Casa Vicens Gaudí'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747782036/DSCF9378_jfkidg.jpg',
+        alt: 'Barcelona scene 7',
+        orientation: 'horizontal',
+        caption: 'Jamon is at the next level here'
+      },
+      
     ],
     title: 'Barcelona'
   },
+
+  {
+    id: '17',
+    latitude: 46.6863,
+    longitude: 7.8632,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783450/DSCF1303_y0ndlh.jpg',
+        alt: 'Interlaken lake view',
+        orientation: 'vertical',
+        caption: 'Lake Brienz'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783450/DSCF1463_b6rizp.jpg',
+        alt: 'Alpine stream',
+        orientation: 'vertical',
+        caption: 'Melting snow turns into blue streams'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783450/DSCF1279_rnnxvb.jpg',
+        alt: 'Lake through trees',
+        orientation: 'vertical',
+        caption: 'Sunlight dancing on alpine waters'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783450/DSCF1675_qat6ez.jpg',
+        alt: 'Geneva cafe scene',
+        orientation: 'vertical',
+        caption: 'No shop opens on Sun in Geneva'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783450/DSCF1556_go95c6.jpg',
+        alt: 'Swiss countryside',
+        orientation: 'horizontal',
+        caption: 'Swiss chalets and cows'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783451/DSCF1623_nvmyu0.jpg',
+        alt: 'Swiss mountain home',
+        orientation: 'horizontal',
+        caption: 'Misty mountains'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747783451/DSCF1719_j7dtv5.jpg',
+        alt: 'Geneva Jet d\'Eau',
+        orientation: 'horizontal',
+        caption: 'The iconic Jet d\'Eau fountain'
+      }
+    ],
+    title: 'Interlaken & Geneva'
+  },
+
+  {
+    id: '18',
+    latitude: 43.7696,
+    longitude: 11.2558,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF1023_axivtk.jpg',
+        alt: 'Florence street at night',
+        orientation: 'vertical',
+        caption: 'Medieval archway'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784317/DSCF0633_vtoh4l.jpg',
+        alt: 'Tuscan window shutters',
+        orientation: 'vertical',
+        caption: 'Wooden shutters'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0805_iv3ulr.jpg',
+        alt: 'Tuscan hillside town',
+        orientation: 'vertical',
+        caption: 'A Tuscan village'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0982_pu30mn.jpg',
+        alt: 'Italian gelato shop',
+        orientation: 'vertical',
+        caption: 'Speechlessly good'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0795_lt51nr.jpg',
+        alt: 'Cypress tree alley',
+        orientation: 'vertical',
+        caption: 'Cypress-lined path'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0703_kjgm48.jpg',
+        alt: 'Jump into water',
+        orientation: 'vertical',
+        caption: 'Jump'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784319/DSCF1101_q8coye.jpg',
+        alt: 'Florence cityscape',
+        orientation: 'horizontal',
+        caption: 'A city that remains the same for centuries'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784319/DSCF1216_dxhmis.jpg',
+        alt: 'Ponte Vecchio sunset',
+        orientation: 'horizontal',
+        caption: 'Sunset over Arno River'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0846_p2ovdv.jpg',
+        alt: 'Tuscan countryside',
+        orientation: 'horizontal',
+        caption: 'Tuscan countryside'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0754_rpunun.jpg',
+        alt: 'Cinque Terre village',
+        orientation: 'horizontal',
+        caption: 'Manarola, Cinque Terre'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747784318/DSCF0636_zthf6j.jpg',
+        alt: 'Italian coast sunbathers',
+        orientation: 'horizontal',
+        caption: 'Sunbathing by the Mediterranean Sea'
+      }
+    ],
+    title: 'Tuscany & Florence'
+  },
+
+  {
+    id: '19',
+    latitude: 43.7102,
+    longitude: 7.2620,
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786296/DSCF9942_b7lpqo.jpg',
+        alt: 'Sailboat masts in marina',
+        orientation: 'vertical',
+        caption: 'Sailboats in Marseille harbor'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786295/DSCF9931_atfg5n.jpg',
+        alt: 'Poolside view of marina',
+        orientation: 'vertical',
+        caption: 'Pool time'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786273/DSCF0066_ob66ro.jpg',
+        alt: 'Marseille cityscape',
+        orientation: 'vertical',
+        caption: 'Panoramic view of Marseille @ Notre-Dame de la Garde'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786273/DSCF0195_qizynt.jpg',
+        alt: 'Colorful fishing village',
+        orientation: 'vertical',
+        caption: 'Port du Vallon des Auffes'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786295/DSCF9801_vc2s6n.jpg',
+        alt: 'Art gallery entrance',
+        orientation: 'horizontal',
+        caption: 'Happiness is borning'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786274/DSCF0563_toqrrt.jpg',
+        alt: 'Palm-lined promenade',
+        orientation: 'horizontal',
+        caption: 'Nice is nice'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786273/DSCF0297_jnfhtw.jpg',
+        alt: 'Mediterranean beach view',
+        orientation: 'horizontal',
+        caption: 'The iconic blue chairs'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786274/DSCF0440_otj5b0.jpg',
+        alt: 'Coastal cliff houses',
+        orientation: 'horizontal',
+        caption: 'Villas overlooking the ocean'
+      },
+      {
+        url: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747786273/DSCF0265_f4yoxj.jpg',
+        alt: 'Sunset over coastal town',
+        orientation: 'horizontal',
+        caption: 'Eze botanical garden'
+      },
+      
+    ],
+    title: 'Côte d\'Azur'
+  }
+  
+  
 
   
     // {
@@ -727,7 +979,7 @@ export default function CreateLayout({
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
           style={{width: '100%', height: '80vh'}}
-          mapStyle="mapbox://styles/zichenggu/cm5hdtsm2000f01rd96p6cggw"
+          mapStyle="mapbox://styles/zichenggu/cmax8lbgz002z01rc0wn54m59"
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
           attributionControl={false}
           boxZoom={false}
@@ -784,7 +1036,7 @@ export default function CreateLayout({
                 </button>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 px-6 md:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 px-6 md:px-8 pb-8">
               {selectedPin?.images
                 .sort((a, b) => {
                   if (a.orientation === 'vertical' && b.orientation === 'horizontal') return -1;
