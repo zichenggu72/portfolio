@@ -979,7 +979,7 @@ export default function CreateLayout({
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
           style={{width: '100%', height: '80vh'}}
-          mapStyle="mapbox://styles/zichenggu/cm5hdtsm2000f01rd96p6cggw"
+          mapStyle="mapbox://styles/zichenggu/cmax8lbgz002z01rc0wn54m59"
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
           attributionControl={false}
           boxZoom={false}
