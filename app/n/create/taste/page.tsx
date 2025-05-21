@@ -21,7 +21,7 @@ const recipes: Recipe[] = [
     id: '1',
     title: 'Muchim',
     description: 'Spicy Korean salad',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400479/IMG_1087_oa0zll.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747859696/Frame_1_gmlvha.png',
     ingredients: [
       '+ avocado',
       '+ salmon sashimi',
@@ -55,7 +55,7 @@ const recipes: Recipe[] = [
     id: '2',
     title: 'Matcha hummus',
     description: 'Asian-inspired hummus',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1088_xpkmwf.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747859696/Frame_2_yth2ch.png',
     ingredients: [
       '+ Match powder',
       '+ coconut milk',
@@ -81,7 +81,7 @@ const recipes: Recipe[] = [
     id: '3',
     title: 'Papadam stack',
     description: 'Indian-mexican pizza',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1086_xesox2.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747859696/Frame_3_vac19z.png',
     ingredients: [
       '+ black pepper flavored papadam (uncooked)',
       '+ cooked mixed rice',
@@ -108,7 +108,7 @@ const recipes: Recipe[] = [
     id: '4',
     title: 'Salty biscuit',
     description: 'Serbian inspired biscuit',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1737400478/IMG_1086_xesox2.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747861956/Frame_4_b1iz5u.png',
     ingredients: [
       '+ 50g wheat flour',
       '+ 40g mixed healthier flours (oat, quinoa, and chickpea flour etc)',
@@ -205,7 +205,7 @@ export default function TastePage() {
             onClick={() => setSelectedRecipe(recipe)}
           >
             {/* Image */}
-            <div className="w-[60px] h-[60px] bg-gray-100 flex-shrink-0">
+            <div className="w-[100px] h-[100px] bg-gray-100 flex-shrink-0">
               <Image
                 src={recipe.image}
                 alt={recipe.title}

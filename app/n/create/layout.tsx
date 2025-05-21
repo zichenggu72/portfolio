@@ -949,7 +949,7 @@ export default function CreateLayout({
   const [viewState, setViewState] = useState({
     longitude: 0,
     latitude: 45,
-    zoom: 2,
+    zoom: 1.2,
     pitch: 0,
     bearing: 0
   });
@@ -975,6 +975,7 @@ export default function CreateLayout({
       <div className={`absolute top-[140px] left-0 right-0 mx-auto max-w-[680px] px-8 
         ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}
         ${selectedPin ? 'hidden md:block' : ''}`}>
+          
         <Map
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
