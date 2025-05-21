@@ -45,9 +45,9 @@ export default function HomePage() {
 
       {/* Status Update */}
       <div className="bg-[#F8F8F8] p-4 rounded-lg">
-        <p className="text-sm text-gray-600 mb-2">Updated Feb 2</p>
+        <p className="text-sm text-gray-600 mb-2">Updated May 18, 2025</p>
         <p className={`${oorangeregular.className} text-xl`}>
-          Went to Belgrade for 5 days, first time in the previous Yugoslavia. And also the first time I feel so close to the war, history, and politics.
+         Traveled to Spain, France, Italy, and Switzerland with my family. Each city we went to has its own charm and character, and weather was just perfect everyday. Such a blissful time. 
         </p>
       </div>
 
