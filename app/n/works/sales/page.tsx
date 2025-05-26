@@ -5,196 +5,244 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ImagePreview from "../../components/ImagePreview";
 
+// Updated case study data with new content
+const CASE_STUDY_DATA = {
+  id: "sales",
+  title: "Proponent Sales Enablement",
+  subtitle: "Conversation Intelligence to Sales Success",
+  problemImages: [
+    "https://res.cloudinary.com/dsu2yornu/image/upload/v1748241007/Group_39601_rdvgwp.jpg",
+  ],
+  problem: "While salespeople drive revenue by engaging directly with customers and understanding their needs, they often lack deep product knowledge due to their customer-facing role. Product Marketing Managers (PMMs), who own the product roadmap and feature development, possess this comprehensive product understanding. However, **the knowledge transfer between PMMs and sales teams is frequently inadequate**, resulting in standardized sales content that fails to address diverse customer requirements. And thus causes the loss of deals.",
+  solutionVideos: {
+    step1: "https://res.cloudinary.com/dsu2yornu/video/upload/v1748240683/Screen_Recording_2025-05-25_at_11.10.27_PM_aru0ti.mov",
+    step2: "https://res.cloudinary.com/dsu2yornu/video/upload/v1748233340/Screen_Recording_2025-05-25_at_9.06.01_PM_ng1k4u.mov",
+  },
+  solution: [
+    "For Sales team, Proponent extract key insights and action items for each valuable customer call, delivering timely, relevant information that enhances every customer engagement. By leveraging the PMM-curated product knowledge library (GTM hub), Proponent AI provides recommendations that actually drive results.",
+    "For Marketing team, Proponent provides a knowledge library (GTM hub) that is easy to manage and maintain all the products, personas, and insights. Knowledge transfer between sales and marketing has never been easier. The hub also serves as an AI training ground, with the knowledge inputs, Proponent AI continuously learning about the products and personas to deliver increasingly accurate recommendations.",
+  ],
+  impact: "From high-level strategy, user flows, information architecture, visual design, marketing website, and demo video, I crafted Proponent's comprehensive product vision. Together with PM and engineering, we successfully launched the product in six months, receiving positive market response, got accepted to incubators, and the design itself is awarded multiple times.",
+  research: {
+    title: "Research",
+    content: "The research methods I have adopted along the design process:",
+    methods: [
+      "Conducted **end-to-end product audits** of major players in the sales and deal management industry, capturing key features and documenting inspiring design elements and interactions. This helped identify what executed well and potential opportunities for differentiation.",
+      "Proactively **reached out to sales and marketing professionals in the field** to gather feedback and advice during the building process, ensuring our solutions aligned with real-world needs and pain points.",
+      "Maintained **regular conversations with design experts** to address design-related questions, from exploring different conceptual options to refining visual execution and identifying potential friction points that could impact user experience."
+    ]
+  },
+  legoBricks: {
+    title: "Build the Lego bricks",
+    intro: "One of the most significant lessons I learned while building this product from the ground up was the critical importance of systems design thinking. Initially, I approached each feature in isolation, focusing on individual key actions. However, I gradually discovered that scalable design requires a \"Lego brick\" approach—identifying versatile, reusable components that can be combined in different ways.",
+    subtitle: "Key system components that emerged:",
+    components: [
+      "**Title-subtitle pattern:** I recognized that pairing a primary title with a secondary subtitle was widely applicable and essential, as we consistently needed that additional context layer—whether for insights, meetings, or other content areas.",
+      "**Side panel (drawer) component:** Originally introduced for meetings to enable swift switching between meeting insights and summaries, this component proved so effective that we successfully adopted it across other areas, including insights panels and analytics panels.",
+      "**Card-based layouts:** This concept was adopted later in the design process after I realized how effectively cards handled responsive design challenges and created cleaner, more hierarchical visuals that improved overall clarity."
+    ]
+  },
+  archivedHistory: {
+    title: "Archived history",
+    content: "Looking back is always a time to reflect and appreciate how far we've come. Everything started with casual mockups in Figma and evolved into what it is today through countless rounds of iterations and refinements. I'm confident it will continue to grow beyond what we've achieved so far. I'm deeply grateful for all the help and encouragement I've received along the way—especially those moments when I felt truly connected with the team, working together toward a shared vision that felt bigger.",
+    video: "https://res.cloudinary.com/dsu2yornu/video/upload/v1748045961/0523_xcm5jj.mov"
+  }
+};
+
 export default function CaseStudyDetail() {
-    console.log('here CaseStudyDetail');
-    const router = useRouter();
-    const params = useParams();
+  console.log('here CaseStudyDetail');
   
-    // Sample case study data - you'll want to match this with your works data
-    const caseStudy = {
-      id: "sales",
-      title: "Proponent Sales Enablement",
-      subtitle: "From the initial idea to the product in 6 months",
-      background: "I was approached by a founder at YC matching platform regarding his startup idea. We clicked instantly, and I resonated with the vision and Streamlit prototype. Along with another engineer, the startup journey began.",
-      problemImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074037/Group_20921_exonso.jpg",
-      ],
-      problem: "While salespeople drive revenue by engaging directly with customers and understanding their needs, they often lack deep product knowledge due to their customer-facing role. Product Marketing Managers (PMMs), who own the product roadmap and feature development, possess this comprehensive product understanding. However, the knowledge transfer between PMMs and sales teams is frequently inadequate, resulting in standardized sales content that fails to address diverse customer requirements.",
-
-      solutionImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737073983/Group_39585_fmr8me.jpg",
-      ],
-      solution: [
-        "Proponent bridges the gap between sales and PMMs through AI. By leveraging PMM-curated product knowledge, the platform matches products and features to specific customer pain points and requirements, whether they emerge from meetings, chats, or email exchanges.",
-        "PMMs maintain their product knowledge in Proponent just as they would in traditional knowledge base platforms. They can easily map features to specific pain points, creating a robust foundation for AI-driven recommendations.",
-        "Through CRM and service integrations, Proponent automatically converts sales-customer conversations into actionable insights. Sales teams can explore detailed conversation quotes and receive AI-recommended content tailored to each customer, thus accelerate deal closure.",
-    
-      ],
-      solutionImages2: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074028/Group_39588_coly1x.png",
-      ],
-      solutionImages3: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737073983/Group_39587_fwr7qq.jpg",
-      ],
-
-      impact: "From high-level strategy, user flows, information architecture, visual design, and marketing website, I crafted Proponent's comprehensive product vision. Together with PM and engineering, we successfully launched the product in six months, receiving positive market response."
-    };
+  const router = useRouter();
+  const params = useParams();
+  const [selectedWork, setSelectedWork] = useState<{
+    images: { src: string; alt: string }[];
+    index: number;
+  } | null>(null);
   
-    const [selectedWork, setSelectedWork] = useState<{
-      images: { src: any; alt: string }[];
-      index: number;
-    } | null>(null);
-  
-    return (
-      <div className="min-h-screen bg-white pb-32">
-        {/* Main content container */}
-        {/* <div className="max-w-[744px] mx-auto px-6"> */}
-          {/* Back button aligned with content */}
-          <button 
-            onClick={() => router.back()}
-            className="text-gray-500 hover:text-gray-700 flex items-center gap-2 mb-8"
-          >
-            ← Back
-          </button>
-  
-          {/* Title */}
-        {/* <p className="font-semibold mb-2 hover:text-gray-700">{caseStudy.title}</p> */}
-        <span className="text-sm text-gray-500">{caseStudy.title}</span>
-        
-        {/* Subtitle */}
-        <p className="font-semibold mb-2 hover:text-gray-700 mt-2 mb-8">{caseStudy.subtitle}</p>
+  // Reusable function for handling image clicks
+  const handleImageClick = (images, index = 0) => {
+    setSelectedWork({ 
+      images: images.map(src => ({ src, alt: `Solution illustration ${index + 1}` })), 
+      index 
+    });
+  };
 
-        {/* Background */}
-        <section className="space-y-2">
-          <span className="text-sm text-gray-500">Background</span>
-          
-          <p className="text-gray-800 mb-4">{caseStudy.background}</p>
-        </section>
-
-        {/* Problem */}
-        <section className="space-y-2">
-        <span className="text-sm text-gray-500">Problem</span>
-         
-
-          <p className="text-gray-800 mb-4">{caseStudy.problem}</p>
-        </section>
-
-        {/* Solution */}
-        <section className="space-y-2 mt-8">
-        <span className="text-sm text-gray-500">Solution</span>
-          {/* Solution Images 1 */}
-          <div className="w-4/5 mx-auto grid grid-cols-1 gap-4 mt-4 mb-4">
-            {caseStudy.solutionImages1.map((imageUrl, index) => (
-              <div 
-                key={index}
-                className="cursor-pointer"
-                onClick={() => setSelectedWork({ 
-                  images: caseStudy.solutionImages1.map(src => ({ src, alt: `Solution illustration ${index + 1}` })), 
-                  index 
-                })}
-              >
-                <Image
-                  src={imageUrl}
-                  alt={`Solution illustration ${index + 1}`}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                  className="hover:opacity-90 transition-opacity"
-                />
-              </div>
-            ))}
-          </div>
-
-         {/* First paragraph */}
-  <p className="text-gray-800">{caseStudy.solution[0]}</p>
-
-          {/* Solution Images 2 */}
-          <div className="w-4/5 mx-auto grid grid-cols-1 gap-4 my-6">
-            {caseStudy.solutionImages2.map((imageUrl, index) => (
-              <div 
-                key={index}
-                className="cursor-pointer"
-                onClick={() => setSelectedWork({ 
-                  images: caseStudy.solutionImages2.map(src => ({ src, alt: `Solution illustration ${index + 1}` })), 
-                  index 
-                })}
-              >
-                <Image
-                  src={imageUrl}
-                  alt={`Solution illustration ${index + 1}`}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                  className="hover:opacity-90 transition-opacity rounded-md"
-                />
-              </div>
-            ))}
-          </div>
-
-           {/* Second paragraph */}
-  <p className="text-gray-800">{caseStudy.solution[1]}</p>
-
-           {/* Solution Images 3 */}
-            <div className="w-4/5 mx-auto grid grid-cols-1 gap-4 my-6">
-            {caseStudy.solutionImages3.map((imageUrl, index) => (
-              <div 
-                key={index}
-                className="cursor-pointer"
-                onClick={() => setSelectedWork({ 
-                  images: caseStudy.solutionImages3.map(src => ({ src, alt: `Solution illustration ${index + 1}` })), 
-                  index 
-                })}
-              >
-                <Image
-                  src={imageUrl}
-                  alt={`Solution illustration ${index + 1}`}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                  className="hover:opacity-90 transition-opacity rounded-md"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-
-         {/* Third paragraph */}
-        <p className="text-gray-800">{caseStudy.solution[2]}</p>
-
-
-        {/* Impact */}
-        <section className="space-y-2 mt-8">
-        <span className="text-sm text-gray-500">Impact</span>
-          <div className="space-y-2">
-            <p className="text-gray-800">{caseStudy.impact}</p>
-          </div>
-        </section>
-
-      
-
-        {/* Image Preview Modal - shared for all images */}
-        {selectedWork !== null && (
-          <ImagePreview
-            isOpen={selectedWork !== null}
-            onClose={() => setSelectedWork(null)}
-            images={selectedWork.images}
-            currentImageIndex={selectedWork.index}
+  // Reusable component for rendering image sections
+  const ImageSection = ({ images, onClick, className = "" }) => (
+    <div className={`w-4/5 grid grid-cols-1 gap-4 ${className}`}>
+      {images.map((imageUrl, index) => (
+        <div 
+          key={index}
+          className="cursor-pointer"
+          onClick={() => onClick(images, index)}
+        >
+          <Image
+            src={imageUrl}
+            alt={`Solution illustration ${index + 1}`}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{
+              width: '70%',
+              height: 'auto',
+            }}
+            className="hover:opacity-90 transition-opacity rounded-md"
           />
-        )}
-
-      </div>
-    // </div>
+        </div>
+      ))}
+    </div>
   );
-} 
+
+  // Reusable component for section headers
+  const SectionHeader = ({ children }) => (
+    <span className="text-sm text-gray-500">{children}</span>
+  );
+
+  // Helper function to render text with bold markdown
+  const renderTextWithBold = (text) => {
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={index}>{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-white pb-32">
+      {/* Back button */}
+      <button 
+        onClick={() => router.back()}
+        className="text-gray-500 hover:text-gray-700 flex items-center gap-2 mb-8"
+      >
+        ← Back
+      </button>
+
+      {/* Header Section */}
+      <header className="mb-8">
+        <SectionHeader>{CASE_STUDY_DATA.title}</SectionHeader>
+        <p className="font-semibold mb-2 hover:text-gray-700 mt-2">
+          {CASE_STUDY_DATA.subtitle}
+        </p>
+      </header>
+
+      {/* Problem Section */}
+      <section className="space-y-2 mb-8">
+        <SectionHeader>Problem</SectionHeader>
+        <p className="text-gray-800 mb-4">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
+        
+        {/* Problem Image */}
+        <ImageSection 
+          images={CASE_STUDY_DATA.problemImages} 
+          onClick={handleImageClick}
+          className="mt-4"
+        />
+      </section>
+
+      {/* Solution Section */}
+      <section className="space-y-2 mt-16">
+        <SectionHeader>Solution</SectionHeader>
+        
+        {/* Solution Step 1 - Sales Team */}
+        <div className="w-full mx-auto mt-4 mb-4">
+          <video
+            className="w-full h-auto rounded-md border-[4px] border-gray-200"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          >
+            <source src={CASE_STUDY_DATA.solutionVideos.step1} type="video/quicktime" />
+            <source src={CASE_STUDY_DATA.solutionVideos.step1} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p className="text-gray-800, mb-12">{CASE_STUDY_DATA.solution[0]}</p>
+
+        {/* Solution Step 2 - Marketing Team */}
+        <div className="w-full mx-auto mt-4 mb-4">
+          <video
+            className="w-full h-auto rounded-md border-[4px] border-gray-200"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          >
+            <source src={CASE_STUDY_DATA.solutionVideos.step2} type="video/quicktime" />
+            <source src={CASE_STUDY_DATA.solutionVideos.step2} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p className="text-gray-800">{CASE_STUDY_DATA.solution[1]}</p>
+      </section>
+
+      {/* Impact Section */}
+      <section className="space-y-2 mt-16">
+        <SectionHeader>Impact</SectionHeader>
+        <p className="text-gray-800">{CASE_STUDY_DATA.impact}</p>
+      </section>
+
+      {/* Research Section */}
+      <section className="space-y-2 mt-16">
+        <SectionHeader>{CASE_STUDY_DATA.research.title}</SectionHeader>
+        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.research.content}</p>
+        <div className="space-y-3">
+          {CASE_STUDY_DATA.research.methods.map((method, index) => (
+            <p key={index} className="text-gray-800">
+              {index + 1}. {renderTextWithBold(method)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      {/* Build the Lego bricks Section */}
+      <section className="space-y-2 mt-16">
+        <SectionHeader>{CASE_STUDY_DATA.legoBricks.title}</SectionHeader>
+        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.legoBricks.intro}</p>
+        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.legoBricks.subtitle}</p>
+        <div className="space-y-3">
+          {CASE_STUDY_DATA.legoBricks.components.map((component, index) => (
+            <p key={index} className="text-gray-800">
+              {index + 1}. {renderTextWithBold(component)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      {/* Archived History Section */}
+      <section className="space-y-2 mt-16">
+        <SectionHeader>{CASE_STUDY_DATA.archivedHistory.title}</SectionHeader>
+        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.archivedHistory.content}</p>
+        
+        {/* Archived History Video */}
+        <div className="w-full mx-auto mt-4 mb-4">
+          <video
+            className="w-full h-auto rounded-md border-[4px] border-gray-200"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          >
+            <source src={CASE_STUDY_DATA.archivedHistory.video} type="video/quicktime" />
+            <source src={CASE_STUDY_DATA.archivedHistory.video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+
+      {/* Image Preview Modal */}
+      {selectedWork !== null && (
+        <ImagePreview
+          isOpen={true}
+          onClose={() => setSelectedWork(null)}
+          images={selectedWork.images}
+          currentImageIndex={selectedWork.index}
+        />
+      )}
+    </div>
+  );
+}
