@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import sale4 from "../../assets/images/sale4.png";
-import service4 from "../../assets/images/service4.png";
-import task4 from "../../assets/images/task4.png";
+import sale4 from "../../assets/images/orange.jpg";
+import service4 from "../../assets/images/green.png";
+import task4 from "../../assets/images/blue.png";
 
 export default function WorksPage() {
   const [hoveredWork, setHoveredWork] = useState<string | null>(null);
@@ -52,19 +52,19 @@ export default function WorksPage() {
         }
         .gradient-underline-sales {
           background: linear-gradient(90deg, rgb(248, 150, 30) 0%, rgb(231, 176, 12) 33%, rgb(144, 190, 109) 66%, rgb(77, 144, 142) 100%);
-          background-size: 95% 1.6px;
+          background-size: 95% 1.4px;
           background-position: 0 100%;
           background-repeat: no-repeat;
         }
         .gradient-underline-integration {
           background: linear-gradient(90deg, rgb(248, 150, 30) 0%, rgb(231, 176, 12) 33%, rgb(144, 190, 109) 66%, rgb(77, 144, 142) 100%);
-          background-size: 95% 1.6px;
+          background-size: 95% 1.4px;
           background-position: 0 100%;
           background-repeat: no-repeat;
         }
         .gradient-underline-monitor {
           background: linear-gradient(90deg, rgb(248, 150, 30) 0%, rgb(231, 176, 12) 33%, rgb(144, 190, 109) 66%, rgb(77, 144, 142) 100%);
-          background-size: 96% 1.6px;
+          background-size: 96% 1.4px;
           background-position: 0 100%;
           background-repeat: no-repeat;
         }
