@@ -13,7 +13,7 @@ const CASE_STUDY_DATA = {
   problemImages: [
     "https://res.cloudinary.com/dsu2yornu/image/upload/v1748241007/Group_39601_rdvgwp.jpg",
   ],
-  problem: "While salespeople drive revenue by engaging directly with customers and understanding their needs, they often lack deep product knowledge due to their customer-facing role. Product Marketing Managers (PMMs), who own the product roadmap and feature development, possess this comprehensive product understanding. However, **the knowledge transfer between PMMs and sales teams is frequently inadequate**, resulting in standardized sales content that fails to address diverse customer requirements. And thus causes the loss of deals.",
+  problem: "While salespeople drive revenue by engaging directly with customers and understanding their needs, they often lack deep product knowledge due to their customer-facing role. Product Marketing Managers (PMMs), who own the product roadmap and feature development, possess this comprehensive product understanding. However, **the knowledge transfer between PMMs and sales teams is frequently inadequate**, resulting in standardized sales content that fails to address diverse customer requirements.** And thus causes the loss of deals.",
   solutionVideos: {
     step1: "https://res.cloudinary.com/dsu2yornu/video/upload/v1748240683/Screen_Recording_2025-05-25_at_11.10.27_PM_aru0ti.mov",
     step2: "https://res.cloudinary.com/dsu2yornu/video/upload/v1748233340/Screen_Recording_2025-05-25_at_9.06.01_PM_ng1k4u.mov",
@@ -183,8 +183,18 @@ export default function CaseStudyDetail() {
       <section className="space-y-2 mt-16">
         <SectionHeader>Impact</SectionHeader>
         <p className="text-gray-800">{CASE_STUDY_DATA.impact}</p>
-      </section>
 
+            <a 
+              href="https://proponentapp.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline block mt-2"
+            >
+              https://proponentapp.com/
+            </a>
+          </section>
+
+          
       {/* Research Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.research.title}</SectionHeader>
