@@ -67,10 +67,10 @@ export default function CaseStudyDetail() {
         </section>
 
         {/* Problem */}
-        <section className="space-y-2">
+        <section className="space-y-2 mt-12">
         <span className="text-sm text-gray-500">Problem</span>
           {/* Problem Images */}
-          <div className="w-7/8 mx-auto grid grid-cols-1 gap-4 mt-4 mb-4">
+          <div className="gap-4 mt-4 mb-4">
             {caseStudy.problemImages1.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -100,10 +100,10 @@ export default function CaseStudyDetail() {
         </section>
 
         {/* Solution */}
-        <section className="space-y-2 mt-8">
+        <section className="space-y-2 mt-16">
         <span className="text-sm text-gray-500">Solution</span>
           {/* Solution Images 1 */}
-          <div className="w-3/4 mx-auto grid grid-cols-1 gap-4 mt-4 mb-4">
+          <div className="w-3/4 gap-4 mt-4 mb-4">
             {caseStudy.solutionImages1.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -130,10 +130,10 @@ export default function CaseStudyDetail() {
           </div>
 
          {/* First paragraph */}
-  <p className="text-gray-800">{caseStudy.solution[0]}</p>
+  <p className="text-gray-800 mb-12">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
-          <div className="w-7/8 mx-auto grid grid-cols-1 gap-4 mt-6 mb-6">
+          <div className="grid grid-cols-1 gap-4 mt-6 mb-4">
             {caseStudy.solutionImages2.map((imageUrl, index) => (
               <div 
                 key={index}
@@ -165,7 +165,7 @@ export default function CaseStudyDetail() {
         </section>
 
         {/* Impact */}
-        <section className="space-y-2 mt-8">
+        <section className="space-y-2 mt-16">
         <span className="text-sm text-gray-500">Impact</span>
           <div className="space-y-2">
             <p className="text-gray-800">
@@ -178,7 +178,7 @@ export default function CaseStudyDetail() {
         </section>
 
         {/* What I Learned */}
-        <section className="space-y-2 mt-8">
+        <section className="space-y-2 mt-16">
         <span className="text-sm text-gray-500">What I Learned</span>
           <div className="space-y-4">
             <p className="text-gray-800">
