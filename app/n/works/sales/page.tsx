@@ -130,7 +130,7 @@ export default function CaseStudyDetail() {
       {/* Problem Section */}
       <section className="space-y-2 mb-8">
         <SectionHeader>Problem</SectionHeader>
-        <p className="text-gray-800 mb-4">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
+        <p className="text-gray-800 mb-8">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
         
         {/* Problem Image */}
         <ImageSection 
@@ -147,7 +147,7 @@ export default function CaseStudyDetail() {
         {/* Solution Step 1 - Sales Team */}
         <div className="w-full mx-auto mt-4 mb-4">
           <video
-            className="w-full h-auto rounded-md border-[4px] border-gray-200"
+            className="w-full h-auto rounded-md border-[4px] border-[#F4F4F4]"
             autoPlay
             loop
             muted
@@ -164,7 +164,7 @@ export default function CaseStudyDetail() {
         {/* Solution Step 2 - Marketing Team */}
         <div className="w-full mx-auto mt-4 mb-4">
           <video
-            className="w-full h-auto rounded-md border-[4px] border-gray-200"
+            className="w-full h-auto rounded-md border-[4px] border-[#F4F4F4]"
             autoPlay
             loop
             muted
@@ -230,7 +230,7 @@ export default function CaseStudyDetail() {
         {/* Archived History Video */}
         <div className="w-full mx-auto mt-4 mb-4">
           <video
-            className="w-full h-auto rounded-md border-[4px] border-gray-200"
+            className="w-full h-auto rounded-md border-[4px] border-[#F4F4F4]"
             autoPlay
             loop
             muted
