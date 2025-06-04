@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import sale4 from "../../assets/images/hero1.jpg";
-import service4 from "../../assets/images/hero2.jpg";
-import task4 from "../../assets/images/hero3.jpg";
+import sale4 from "../../assets/images/hero11.jpg";
+import service4 from "../../assets/images/hero33.jpg";
+import task4 from "../../assets/images/hero22.jpg";
 
 export default function WorksPage() {
   const [selectedWork, setSelectedWork] = useState<{
@@ -64,10 +64,10 @@ export default function WorksPage() {
                 <Link 
                   key={imageIndex}
                   href={`/n/works/${work.id}`}
-                  className="group block"
+                  className="group block rounded-lg overflow-hidden"
                 >
                   <div 
-                    className="w-[616px] aspect-video relative cursor-pointer overflow-hidden"
+                    className="w-[616px] aspect-video relative cursor-pointer"
                     onClick={() => setSelectedWork({ images: work.images, index: imageIndex })}
                   >
                     <Image

@@ -21,12 +21,11 @@ const HomePage = () => {
   const effectRan = useRef(false);
   
   const links = [
-    { label: 'Email', value: 'oorange.design@gmail.com', href: 'mailto:oorange.design@gmail.com' },
-    { label: 'LinkedIn', value: 'Zicheng Gu', href: 'https://linkedin.com/in/gudesign' },
-    { label: 'Instagram', value: '@zichengguu', href: 'https://instagram.com/zichengguu' },
-    { label: 'Read.cv', value: 'Zicheng Gu', href: 'https://read.cv/zichenggu' },
-    { label: 'GitHub', value: 'zichenggu72', href: 'https://github.com/zichenggu72' },
-    { label: 'X', value: '@ZichengGu', href: 'https://x.com/ZichengGu' }
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/gudesign' },
+    { label: 'Instagram', href: 'https://instagram.com/zichengguu' },
+    { label: 'GitHub', href: 'https://github.com/zichenggu72' },
+    { label: 'Bluesky', href: 'https://bsky.app/profile/zichenggu.bsky.social' },
+    { label: 'X', href: 'https://x.com/ZichengGu' }
   ];
   
   const keywords = [
@@ -226,14 +225,6 @@ const HomePage = () => {
         <p className="text-gray-800">Designer around the 🌍</p>
       </div>
 
-      {/* Status Update */}
-      <div className="bg-[#F8F8F8] p-4 rounded-lg">
-        <p className="text-sm text-gray-600 mb-2">Updated May 18, 2025</p>
-        <p className={`${oorangeregular.className} text-xl`}>
-          Traveled to Spain, France, Italy, and Switzerland with my family. Each city we went to has its own charm and character, and weather was just perfect everyday. Such a blissful time.
-        </p>
-      </div>
-
       {/* About Section */}
       <section>
         <h2 className="font-semibold mb-2">About me</h2>
@@ -257,23 +248,29 @@ const HomePage = () => {
       <section className="mt-16">
         <h2 className="font-semibold mb-2">Find me elsewhere</h2>
         
-        <div className="space-y-2">
+        <div className="flex items-center space-x-6">
           {links.map((link, index) => (
-            <div key={index} className="flex items-center">
-              <span className="text-gray-600 w-12">{link.label}</span>
-              <span className="w-24" />
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gray-600"
-              >
-                {link.value}
-              </a>
-            </div>
+            <a
+              key={index}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-800 underline"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
       </section>
+
+      {/* Status Update */}
+      <div className="bg-[#F8F8F8] p-4 rounded-lg">
+        <p className="text-sm text-gray-600 mb-2">Updated May 18, 2025</p>
+        <p className={`${oorangeregular.className} text-xl`}>
+          Traveled to Spain, France, Italy, and Switzerland with my family. Each city we went to has its own charm and character, and weather was just perfect everyday. Such a blissful time.
+        </p>
+        <p className="text-sm text-gray-600 mt-4">↑ This is my real handwriting font 🤗</p>
+      </div>
     </div>
   );
 };
