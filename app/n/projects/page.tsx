@@ -10,9 +10,12 @@ import nut1 from "../../assets/images/nut1.jpg";
 import nut2 from "../../assets/images/nut2.jpg";
 import nut3 from "../../assets/images/nut3.jpg";
 import nut4 from "../../assets/images/nut4.jpg";
-import food1 from "../../assets/images/food1.jpg";
-import food2 from "../../assets/images/food2.jpg";
-import food3 from "../../assets/images/food3.jpg";
+import food11 from "../../assets/images/food11.jpg";
+import food22 from "../../assets/images/food22.jpg";
+import food33 from "../../assets/images/food33.jpg";
+import tool1 from "../../assets/images/tool1.png";
+import tool2 from "../../assets/images/tool2.png";
+import tool3 from "../../assets/images/tool3.png";
 import ImagePreview from "../components/ImagePreview";
 
 export default function ProjectsPage() {
@@ -23,6 +26,20 @@ export default function ProjectsPage() {
   
   const projects = [
     {
+      organization: "Font Craft Lab",
+      year: "2025",
+      title: "Font decoration tool",
+      description: [
+        "Idea to code with Figma Make.",
+        "The initial idea is to decorate the letter and give typography another layer of expression. Build a tool, design the pattern, and code ßwith AI in a week.",
+      ],
+      images: [
+        { src: tool1, alt: "News Font Example 1" },
+        { src: tool2, alt: "News Font Example 2" },
+        { src: tool3, alt: "News Font Example 3" },
+      ],
+    },
+    {
       organization: "Food Photography",
       year: "2024",
       title: "Mundane Beauty",
@@ -31,11 +48,12 @@ export default function ProjectsPage() {
         "The series is still ongoing and aims to reveal the overlooked aesthetic qualities in common food ingredients, challenging us to find beauty in the mundane.",
       ],
       images: [
-        { src: food1, alt: "News Font Example 1" },
-        { src: food2, alt: "News Font Example 2" },
-        { src: food3, alt: "News Font Example 3" },
+        { src: food11, alt: "News Font Example 1" },
+        { src: food22, alt: "News Font Example 2" },
+        { src: food33, alt: "News Font Example 3" },
       ],
     },
+
     {
       organization: "University of the Arts London",
       year: "2024",
@@ -83,7 +101,15 @@ export default function ProjectsPage() {
           </div>
           
           {/* Title */}
-          <p className="font-semibold mb-2">{project.title}</p>
+          {project.title === "Font decoration tool" ? (
+            <p className="font-semibold mb-2">
+              <Link href="https://done-pluck-41161742.figma.site/" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
+                {project.title}
+              </Link>
+            </p>
+          ) : (
+            <p className="font-semibold mb-2">{project.title}</p>
+          )}
           
           {/* Description */}
           <div className="space-y-2">
