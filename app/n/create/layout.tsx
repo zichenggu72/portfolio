@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import Map, { Marker } from 'react-map-gl';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useRef } from 'react';
+
 
 type Pin = {
   id: string;
@@ -945,14 +947,19 @@ export default function CreateLayout({
 }) {
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
+  const hasAnimationPlayed = useRef(false);
+
   const pathname = usePathname();
   const [viewState, setViewState] = useState({
     longitude: 0,
     latitude: 45,
-    zoom: 1.2,
+    zoom: 1.2, // Start zoomed in for animation
     pitch: 0,
-    bearing: 0
+    bearing: 0,
   });
+
+  const [mapLoaded, setMapLoaded] = useState(false);
+
 
   useEffect(() => {
     if (selectedPin) {
@@ -965,6 +972,47 @@ export default function CreateLayout({
       document.body.style.overflow = 'auto';
     };
   }, [selectedPin]);
+
+  useEffect(() => {
+    // Only run animation if map is loaded, we're on the create page, 
+    // AND the animation hasn't played yet
+    if (mapLoaded && pathname === '/n/create' && !hasAnimationPlayed.current) {
+      let currentLongitude = 0;
+      let currentZoom = 0.3; // Start very zoomed out (small globe)
+      const targetZoom = 1.2; // End zoom level
+      const totalSteps = 360 / 3; // 120 steps total
+      const zoomIncrement = (targetZoom - currentZoom) / totalSteps; // ~0.0058 per step
+      
+      const rotationInterval = setInterval(() => {
+        currentLongitude += 3; // Your current rotation speed
+        currentZoom += zoomIncrement; // Zoom in gradually
+        
+        setViewState(prev => ({
+          ...prev,
+          longitude: currentLongitude,
+          zoom: currentZoom, // Add the zoom animation
+          transitionDuration: 15 // Your current transition speed
+        }));
+        
+        if (currentLongitude >= 360) {
+          clearInterval(rotationInterval);
+          // Then reset longitude but keep the final zoom level
+          setTimeout(() => {
+            setViewState(prev => ({
+              ...prev,
+              zoom: 1.2, // Final zoom level
+              longitude: 0,
+              transitionDuration: 1000
+            }));
+            hasAnimationPlayed.current = true; // Mark animation as completed
+          }, 500);
+        }
+      }, 15); // Your current interval speed
+
+      // Cleanup function to clear interval if component unmounts
+      return () => clearInterval(rotationInterval);
+    }
+  }, [mapLoaded, pathname]); // Keep the same dependencies
 
   return (
     <div className="min-h-screen bg-white">
@@ -979,6 +1027,7 @@ export default function CreateLayout({
         <Map
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
+          onLoad={() => setMapLoaded(true)}
           style={{width: '100%', height: '80vh'}}
           mapStyle="mapbox://styles/zichenggu/cmax8lbgz002z01rc0wn54m59"
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
@@ -989,6 +1038,8 @@ export default function CreateLayout({
           pitchWithRotate={false}
           maxPitch={0}
           minPitch={0}
+        
+    
         >
           {initialPins.map(pin => (
             <Marker

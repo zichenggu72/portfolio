@@ -1,13 +1,14 @@
 // app/layout.tsx
 import "./global.css";
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import Link from 'next/link';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { oorangeregular } from './fonts';
 import MobileNav from './n/components/MobileNav';
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -112,6 +113,7 @@ export default function RootLayout({
             © {new Date().getFullYear()} Zicheng Gu
           </div>
         </footer>
+        
       </body>
     </html>
   );

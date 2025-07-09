@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 type Recipe = {
   id: string;
@@ -62,19 +62,11 @@ const recipes: Recipe[] = [
       '+ dates, pitted and soaked',
       '+ canned chickpeas',
     ],
-    // sauce: [
-    //   '+ gochujang',
-    //   '+ sesame oil',
-    //   '+ soy sauce',
-    //   '+ garlic',
-    //   '+ sugar'
-    // ],
     steps: [
       '· the most important thing is to shell the chickpeas. it takes approximately 20 minutes to shell 1 can of chickpeas. it elevates the hummus to the next level.',
       '· add the shelled chickpeas to a food processor or blender.',
       '· add the matcha powder, dates, and start blending.',
       '· gradually add the coconut milk until it reaches a smooth consistency.',
- 
     ]
   },
   {
@@ -131,11 +123,6 @@ const recipes: Recipe[] = [
       '· divide the dough and flatten it as thin biscuit.',
     ]
   },
-
-
-
-
-
 ];
 
 const categories = ['memory', 'taste', 'graphic'];
@@ -144,6 +131,24 @@ export default function TastePage() {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [direction, setDirection] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<number>(1); // taste is index 1
+
+  // Determine active tab from pathname
+  useEffect(() => {
+    if (pathname === '/n/create') {
+      setActiveTab(0);
+    } else if (pathname === '/n/create/taste') {
+      setActiveTab(1);
+    } else if (pathname === '/n/create/graphic') {
+      setActiveTab(2);
+    }
+  }, [pathname]);
+
+  const handleTabClick = (index: number, category: string) => {
+    const newDirection = index > activeTab ? -1 : 1;
+    setDirection(newDirection);
+  };
 
   // Handle body scroll lock
   useEffect(() => {
@@ -163,70 +168,120 @@ export default function TastePage() {
     };
   }, [selectedRecipe]);
 
-  const handleCategoryClick = (category: string) => {
-    if (category === 'taste') {
-      return;
-    }
-    router.push('/n/create');
+  const contentVariants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      x: direction > 0 ? -50 : 50
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        opacity: { duration: 0.4, ease: "easeOut" as const },
+        x: { duration: 0.25, ease: "easeOut" as const }
+      }
+    },
+    exit: (direction: number) => ({
+      opacity: 0,
+      x: direction > 0 ? 50 : -50,
+      transition: {
+        opacity: { duration: 0.15, ease: "easeIn" as const },
+        x: { duration: 0.2, ease: "easeIn" as const }
+      }
+    })
   };
 
   return (
     <div className="main">
       <h1 className="font-semibold mb-6">Create</h1>
-      <div className="flex gap-4 mb-6">
-        {categories.map((category) => (
-          <Link 
-            key={category}
-            href={category === 'memory' ? '/n/create' : `/n/create/${category}`}
-            className={`text-sm px-3 py-1 rounded-md text-gray-400 hover:text-gray-600 ${
-              (category === 'memory' && pathname === '/n/create') ||
-              pathname === `/n/create/${category}`
-                ? 'bg-gray-100 text-gray-700' 
-                : ''
-            }`}
-          >
-            {category}
-          </Link>
-        ))}
+      
+      {/* Animated Tab Navigation */}
+      <div className="relative mb-6">
+        <div className="flex gap-2">
+          {categories.map((category, index) => (
+            <Link 
+              key={category}
+              href={category === 'memory' ? '/n/create' : `/n/create/${category}`}
+              onClick={() => handleTabClick(index, category)}
+              className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 hover:text-gray-600 ${
+                (category === 'memory' && pathname === '/n/create') ||
+                pathname === `/n/create/${category}`
+                  ? 'text-gray-700'
+                  : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              {/* Animated background */}
+              {((category === 'memory' && pathname === '/n/create') ||
+                pathname === `/n/create/${category}`) && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-gray-100 rounded-md"
+                  initial={false}
+                  transition={{
+                    type: "tween",
+                    ease: "easeOut",
+                    duration: 0.15
+                  }}
+                />
+              )}
+              
+              <span className="relative z-10">{category}</span>
+            </Link>
+          ))}
+        </div>
       </div>
 
-      {/* Subtitle */}
-      <h2 className="text-gray-600 mb-8">
-        Recipe reimagined,<br />
-        based on inspiring dining experiences across the world.<br />
-      </h2>
-
-      {/* Recipe List - Make it responsive */}
-      <div className="space-y-6 md:w-1/2">
-        {recipes.map((recipe) => (
-          <div 
-            key={recipe.id}
-            className="flex gap-4 cursor-pointer"
-            onClick={() => setSelectedRecipe(recipe)}
+      {/* Animated Content Area */}
+      <div className="relative">
+        <AnimatePresence mode="popLayout" custom={direction}>
+          <motion.div
+            key={pathname}
+            custom={direction}
+            variants={contentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
           >
-            {/* Image */}
-            <div className="w-[100px] h-[100px] bg-gray-100 flex-shrink-0">
-              <Image
-                src={recipe.image}
-                alt={recipe.title}
-                width={125}
-                height={125}
-                className="object-cover w-full h-full rounded-md"
-              />
-            </div>
+            {/* Subtitle */}
+            <h2 className="text-gray-600 mb-8">
+              Recipe reimagined,<br />
+              based on inspiring dining experiences across the world.<br />
+            </h2>
 
-            {/* Description */}
-            <div className="flex-1">
-              <h3 className="font-semibold mb-1 flex items-center gap-1">
-                {recipe.title}
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </h3>
-              <p className="text-gray-600">{recipe.description}</p>
+            {/* Recipe List - Make it responsive */}
+            <div className="space-y-6 md:w-1/2">
+              {recipes.map((recipe) => (
+                <div 
+                  key={recipe.id}
+                  className="flex gap-4 cursor-pointer"
+                  onClick={() => setSelectedRecipe(recipe)}
+                >
+                  {/* Image */}
+                  <div className="w-[100px] h-[100px] bg-gray-100 flex-shrink-0">
+                    <Image
+                      src={recipe.image}
+                      alt={recipe.title}
+                      width={125}
+                      height={125}
+                      className="object-cover w-full h-full rounded-md"
+                    />
+                  </div>
+
+                  {/* Description */}
+                  <div className="flex-1">
+                    <h3 className="font-semibold mb-1 flex items-center gap-1">
+                      {recipe.title}
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </h3>
+                    <p className="text-gray-600">{recipe.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Backdrop - Show on all screen sizes */}
@@ -311,4 +366,4 @@ export default function TastePage() {
       </div>
     </div>
   );
-} 
+}
