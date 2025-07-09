@@ -22,6 +22,7 @@
     "@vercel/speed-insights": "^1.0.9",
     "clsx": "^1.2.1",
     "formik": "^2.2.9",
+    "framer-motion": "^12.23.0",
     "geist": "1.2.2",
     "graphql-yoga": "^5.10.10",
     "mapbox-gl": "^3.9.2",
