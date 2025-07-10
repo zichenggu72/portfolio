@@ -53,7 +53,6 @@ export default function WorksPage() {
 
   return (
     <div className="space-y-12">
-      <h1 className="font-semibold">Works</h1>
       
       <div className="space-y-20">
         {works.map((work, index) => (

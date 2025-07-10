@@ -64,7 +64,6 @@ export default function ResourcesPage() {
 
   return (
     <div className="main">
-      <h1 className="font-semibold mb-6">Resources</h1>
       <div className="flex gap-4 mb-8">
         {categories.map((category) => (
           <button
