@@ -953,7 +953,7 @@ export default function CreateLayout({
   const [viewState, setViewState] = useState({
     longitude: 0,
     latitude: 45,
-    zoom: 1.2, // Start zoomed in for animation
+    zoom: 1.4, // Start zoomed in for animation
     pitch: 0,
     bearing: 0,
   });
@@ -978,8 +978,8 @@ export default function CreateLayout({
     // AND the animation hasn't played yet
     if (mapLoaded && pathname === '/n/create' && !hasAnimationPlayed.current) {
       let currentLongitude = 0;
-      let currentZoom = 0.3; // Start very zoomed out (small globe)
-      const targetZoom = 1.2; // End zoom level
+      let currentZoom = 0.5; // Start very zoomed out (small globe)
+      const targetZoom = 1.4; // End zoom level
       const totalSteps = 360 / 3; // 120 steps total
       const zoomIncrement = (targetZoom - currentZoom) / totalSteps; // ~0.0058 per step
       
@@ -1000,7 +1000,7 @@ export default function CreateLayout({
           setTimeout(() => {
             setViewState(prev => ({
               ...prev,
-              zoom: 1.2, // Final zoom level
+              zoom: 1.4, // Final zoom level
               longitude: 0,
               transitionDuration: 1000
             }));
@@ -1020,7 +1020,7 @@ export default function CreateLayout({
         {children}
       </div>
 
-      <div className={`absolute top-[140px] left-0 right-0 mx-auto max-w-[680px] px-8 
+      <div className={`absolute top-[100px] left-0 right-0 mx-auto max-w-[680px] px-8 
         ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}
         ${selectedPin ? 'hidden md:block' : ''}`}>
           

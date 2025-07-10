@@ -56,11 +56,12 @@ export default function GraphicPage() {
 
   return (
     <div className="main">
-      {/* Navigation */}
-      <h1 className="font-semibold mb-6">Create</h1>
+    
       
       {/* Animated Tab Navigation */}
       <div className="relative mb-8">
+      <div className="border-1 border-gray-200 rounded-[8px] p-0.5 inline-block bg-white">
+
         <div className="flex gap-2">
           {categories.map((category, index) => (
             <Link 
@@ -70,7 +71,7 @@ export default function GraphicPage() {
               className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 hover:text-gray-600 ${
                 (category === 'memory' && pathname === '/n/create') ||
                 pathname === `/n/create/${category}`
-                  ? 'text-gray-700'
+                  ? 'text-gray-900'
                   : 'text-gray-400 hover:text-gray-600'
               }`}
             >
@@ -92,6 +93,7 @@ export default function GraphicPage() {
               <span className="relative z-10">{category}</span>
             </Link>
           ))}
+        </div>
         </div>
       </div>
 

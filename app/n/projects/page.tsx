@@ -87,7 +87,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-12">
-      <h1 className="font-semibold mb-4">Projects</h1>
       
       <div className="space-y-16">
       {projects.map((project, projectIndex) => (
