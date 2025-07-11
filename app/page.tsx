@@ -25,7 +25,9 @@ const HomePage = () => {
     { label: 'Instagram', href: 'https://instagram.com/zichengguu' },
     { label: 'GitHub', href: 'https://github.com/zichenggu72' },
     { label: 'Bluesky', href: 'https://bsky.app/profile/zichenggu.bsky.social' },
-    { label: 'X', href: 'https://x.com/ZichengGu' }
+    { label: 'X', href: 'https://x.com/ZichengGu' },
+    { label: 'Chat with me', href: 'https://calendar.app.google/2ikrw6QDYCUoekRL7' }
+
   ];
   
   const keywords = [
