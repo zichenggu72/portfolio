@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // You can customize these data structures later with your own content
 type ResourceItem = {
@@ -17,7 +18,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
   inspirations: [
     // Add your inspiration items here
     { title: 'sidebar', description: 'the five best design links, every workday', date: 'Jan 25', url: 'https://sidebar.io/', hoverColor: 'hover:text-[#90BE6D]' },
-    { title: 'read.cv', description: 'design, art, eng, tech community with eye opening posts', date: 'Jan 25', url: 'https://read.cv/explore', hoverColor: 'hover:text-[#FF5D1F]' },
+    { title: 'the pudding', description: 'a digital publication that explain ideas with visual essays', date: 'Jul 25', url: 'https://pudding.cool/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'design systems libraries', description: 'the all-in-one design system libraries that i am truly grateful for', date: 'Jan 25', url: 'https://designsystems.surf/design-systems', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'shadcn/ui', description: 'one of the best component library', date: 'Jan 25', url: 'https://ui.shadcn.com/', hoverColor: 'hover:text-[#90BE6D]' },
     { title: 'cosmos', description: 'a discovery engine', date: 'Jan 25', url: 'https://www.cosmos.so/discover', hoverColor: 'hover:text-[#FF5D1F]' },
@@ -25,6 +26,8 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'curated.design', description: 'web design catalog', date: 'Jan 25', url: 'https://www.curated.design/', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'featured type', description: 'typefaces collection', date: 'Jan 25', url: 'https://www.featuredtype.com/typefaces', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'dive club', description: 'where designers never stop learning', date: 'Jan 25', url: 'https://www.dive.club/', hoverColor: 'hover:text-[#FF5D1F]' },
+    { title: 'window swap', description: 'open a window somewhere in the world', date: 'Jul 25', url: 'https://www.window-swap.com/', hoverColor: 'hover:text-[#FF5D1F]' },
+
   ],
 
   creatives: [
@@ -61,53 +64,119 @@ const resourcesData: Record<string, ResourceItem[]> = {
 
 export default function ResourcesPage() {
   const [activeCategory, setActiveCategory] = useState('inspirations');
+  const [direction, setDirection] = useState<number>(0);
+
+  const handleTabClick = (category: string) => {
+    const currentIndex = categories.indexOf(activeCategory);
+    const newIndex = categories.indexOf(category);
+    const newDirection = newIndex > currentIndex ? 1 : -1;
+    setDirection(newDirection);
+    setActiveCategory(category);
+  };
+
+  const contentVariants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      x: direction > 0 ? 50 : -50
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        opacity: { duration: 0.4, ease: "easeOut" as const },
+        x: { duration: 0.25, ease: "easeOut" as const }
+      }
+    },
+    exit: (direction: number) => ({
+      opacity: 0,
+      x: direction > 0 ? -50 : 50,
+      transition: {
+        opacity: { duration: 0.15, ease: "easeIn" as const },
+        x: { duration: 0.2, ease: "easeIn" as const }
+      }
+    })
+  };
 
   return (
     <div className="main">
-      <div className="flex gap-4 mb-8">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setActiveCategory(category)}
-            className={`text-sm px-3 py-1 rounded-md text-gray-400 hover:text-gray-600 ${
-              activeCategory === category ? 'bg-gray-100 text-gray-700' : ''
-            }`}
-          >
-            {category}
-          </button>
-        ))}
+      
+      {/* Animated Tab Navigation */}
+      <div className="relative mb-6">
+        <div className="border-1 border-gray-200 rounded-[8px] p-0.5 inline-block bg-white">
+          <div className="flex gap-2">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleTabClick(category)}
+                className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 hover:text-gray-600 ${
+                  activeCategory === category
+                    ? 'text-gray-900'
+                    : 'text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                {/* Animated background */}
+                {activeCategory === category && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-gray-100 rounded-md"
+                    initial={false}
+                    transition={{
+                      type: "tween",
+                      ease: "easeOut",
+                      duration: 0.15
+                    }}
+                  />
+                )}
+                
+                <span className="relative z-10">{category}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Content section based on active category */}
-      <div className="mt-6 space-y-2">
-        {resourcesData[activeCategory]?.map((item, index) => (
-          <div 
-            key={index} 
-            className={`flex justify-between items-start ${
-              item.description ? 'pb-4' : 'pb-2'
-            }`}
+      {/* Animated Content Area */}
+      <div className="relative">
+        <AnimatePresence mode="popLayout" custom={direction}>
+          <motion.div
+            key={activeCategory}
+            custom={direction}
+            variants={contentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="mt-6 space-y-2"
           >
-            <div>
-              <a 
-                href={item.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={`font-regular transition-colors ${item.hoverColor || 'hover:text-gray-600'}`}
+            {resourcesData[activeCategory]?.map((item, index) => (
+              <div 
+                key={index} 
+                className={`flex justify-between items-start ${
+                  item.description ? 'pb-4' : 'pb-2'
+                }`}
               >
-                {item.title}
-              </a>
-              {item.description && (
-                <p className="text-gray-600 text-sm mt-1">
-                  {item.description}
-                </p>
-              )}
-            </div>
-            <span className="text-sm text-gray-400 ml-4">
-              {item.date}
-            </span>
-          </div>
-        ))}
+                <div>
+                  <a 
+                    href={item.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className={`font-regular transition-colors ${item.hoverColor || 'hover:text-gray-600'}`}
+                  >
+                    {item.title}
+                  </a>
+                  {item.description && (
+                    <p className="text-gray-600 text-sm mt-1">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+                <span className="text-sm text-gray-400 ml-4">
+                  {item.date}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
-} 
+}
