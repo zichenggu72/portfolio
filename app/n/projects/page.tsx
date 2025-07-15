@@ -102,7 +102,7 @@ export default function ProjectsPage() {
           {/* Title */}
           {project.title === "Font decoration tool" ? (
             <p className="font-semibold mb-2">
-              <Link href="https://done-pluck-41161742.figma.site/" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
+              <Link href="https://fontcraftlab.figma.site" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
                 {project.title}
               </Link>
             </p>
