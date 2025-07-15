@@ -4,10 +4,9 @@ import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
-import Link from 'next/link';
+import Navigation from './n/components/Navigation';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { oorangeregular } from './fonts';
-import MobileNav from './n/components/MobileNav';
 
 
 export const metadata: Metadata = {
@@ -45,22 +44,6 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 
-function NavItem({ color, text }: { 
-  color: string; 
-  text: string;
-}) {
-  const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
-  
-  return (
-    <li className="flex items-center gap-3">
-      <Link href={href} className="flex items-center gap-3">
-        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-        <span>{text}</span>
-      </Link>
-    </li>
-  );
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -75,26 +58,11 @@ export default function RootLayout({
     >
       <body className="antialiased">
         {/* Mobile Navigation */}
-        <MobileNav />
+        <Navigation />
 
         <div className="min-h-screen flex flex-col lg:flex-row">
           {/* Desktop Navigation */}
-          <nav className={`hidden lg:fixed lg:left-0 lg:w-[200px] lg:h-screen lg:pl-[30px] lg:flex lg:flex-col lg:justify-between ${oorangeregular.className} text-xl`}>
-            <div className="pt-10">
-              <NavItem color="#FF5D1F" text="Home" />
-            </div>
-
-            <ul className="space-y-6">
-              <NavItem color="#F8961E" text="Works" />
-              <NavItem color="#F9C74F" text="Projects" />
-              <NavItem color="#90BE6D" text="Create" />
-              <NavItem color="#4D908E" text="Resources" />
-            </ul>
-
-            <div className="pb-10">
-              <NavItem color="#FF5D1F" text="Visitors" />
-            </div>
-          </nav>
+          <Navigation />
 
         
             {/* Main content area */}
@@ -110,7 +78,7 @@ export default function RootLayout({
         
         <footer className="mt-24 pb-8 text-sm text-gray-500">
           <div className="max-w-2xl mx-auto px-8">
-            © {new Date().getFullYear()} Zicheng Gu
+            © {new Date().getFullYear()} Designed and coded by Zicheng Gu
           </div>
         </footer>
         
