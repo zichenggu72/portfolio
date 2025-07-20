@@ -54,7 +54,7 @@ export default function WorksPage() {
   return (
     <div className="space-y-12">
       
-      <div className="space-y-20">
+      <div className="space-y-20 leading-relaxed">
         {works.map((work, index) => (
           <div key={index}>
             {/* Images Grid */}
