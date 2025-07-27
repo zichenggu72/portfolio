@@ -255,29 +255,31 @@ export default function TastePage() {
               {recipes.map((recipe) => (
                 <div 
                   key={recipe.id}
-                  className="flex gap-4 cursor-pointer"
+                  className="group transition-transform duration-200 ease-in-out hover:translate-x-1 cursor-pointer"
                   onClick={() => setSelectedRecipe(recipe)}
                 >
-                  {/* Image */}
-                  <div className="w-[100px] h-[100px] bg-gray-100 flex-shrink-0">
-                    <Image
-                      src={recipe.image}
-                      alt={recipe.title}
-                      width={125}
-                      height={125}
-                      className="object-cover w-full h-full rounded-md"
-                    />
-                  </div>
+                  <div className="flex gap-4">
+                    {/* Image */}
+                    <div className="w-[100px] h-[100px] bg-gray-100 flex-shrink-0">
+                      <Image
+                        src={recipe.image}
+                        alt={recipe.title}
+                        width={125}
+                        height={125}
+                        className="object-cover w-full h-full rounded-md"
+                      />
+                    </div>
 
-                  {/* Description */}
-                  <div className="flex-1">
-                    <h3 className="font-semibold mb-1 flex items-center gap-1">
-                      {recipe.title}
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </h3>
-                    <p className="text-gray-600">{recipe.description}</p>
+                    {/* Description */}
+                    <div className="flex-1">
+                      <h3 className="font-semibold mb-1 flex items-center gap-3">
+                        {recipe.title}
+                        <svg className="w-4 h-4 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M5 12H19M19 12L12 5M19 12L12 19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </h3>
+                      <p className="text-gray-600">{recipe.description}</p>
+                    </div>
                   </div>
                 </div>
               ))}

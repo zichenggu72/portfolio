@@ -26,7 +26,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'curated.design', description: 'web design catalog', date: 'Jan 25', url: 'https://www.curated.design/', hoverColor: 'hover:text-[#F8961E]' },
     { title: 'featured type', description: 'typefaces collection', date: 'Jan 25', url: 'https://www.featuredtype.com/typefaces', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'dive club', description: 'where designers never stop learning', date: 'Jan 25', url: 'https://www.dive.club/', hoverColor: 'hover:text-[#FF5D1F]' },
-    { title: 'window swap', description: 'open a window somewhere in the world', date: 'Jul 25', url: 'https://www.window-swap.com/', hoverColor: 'hover:text-[#FF5D1F]' },
+    { title: 'window swap', description: 'open a window somewhere in the world', date: 'Jul 25', url: 'https://www.window-swap.com/', hoverColor: 'hover:text-[#4D908E]' },
 
   ],
 
@@ -147,33 +147,51 @@ export default function ResourcesPage() {
             exit="exit"
             className="mt-6 space-y-2"
           >
-            {resourcesData[activeCategory]?.map((item, index) => (
-              <div 
-                key={index} 
-                className={`flex justify-between items-start ${
-                  item.description ? 'pb-4' : 'pb-2'
-                }`}
-              >
-                <div>
-                  <a 
-                    href={item.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className={`font-regular transition-colors ${item.hoverColor || 'hover:text-gray-600'}`}
-                  >
-                    {item.title}
-                  </a>
-                  {item.description && (
-                    <p className="text-gray-600 text-sm mt-1">
-                      {item.description}
-                    </p>
-                  )}
+            {resourcesData[activeCategory]?.map((item, index) => {
+              // Cycle through colors in sequence: red, orange, green, teal
+              const getHoverBackgroundColor = (index: number) => {
+                const colors = ['hover:bg-[#FF5D1F]/5', 'hover:bg-[#F8961E]/5', 'hover:bg-[#90BE6D]/5', 'hover:bg-[#4D908E]/5'];
+                const colorIndex = index % colors.length;
+                return colors[colorIndex];
+              };
+
+              // Get the same color for text hover effect and make text thicker
+              const getHoverTextColor = (index: number) => {
+                const colors = ['group-hover:text-[#FF5D1F]', 'group-hover:text-[#F8961E]', 'group-hover:text-[#90BE6D]', 'group-hover:text-[#4D908E]'];
+                const colorIndex = index % colors.length;
+                return `${colors[colorIndex]} group-hover:font-semibold`;
+              };
+
+              return (
+                <div 
+                  key={index} 
+                  className={`group transition-all duration-200 ease-in-out hover:translate-x-1 cursor-pointer rounded-lg p-3 ${getHoverBackgroundColor(index)} ${
+                    item.description ? 'pb-4' : 'pb-3'
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex-1">
+                      <a 
+                        href={item.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className={`font-regular transition-colors ${getHoverTextColor(index)}`}
+                      >
+                        {item.title}
+                      </a>
+                      {item.description && (
+                        <p className="text-gray-600 text-sm mt-1">
+                          {item.description}
+                        </p>
+                      )}
+                    </div>
+                    <span className="text-sm text-gray-400 ml-4 flex-shrink-0">
+                      {item.date}
+                    </span>
+                  </div>
                 </div>
-                <span className="text-sm text-gray-400 ml-4">
-                  {item.date}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </motion.div>
         </AnimatePresence>
       </div>
