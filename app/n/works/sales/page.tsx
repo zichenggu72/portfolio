@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImagePreview from "../../components/ImagePreview";
+import { motion } from 'framer-motion';
 
 // Updated case study data with new content
 const CASE_STUDY_DATA = {
@@ -11,7 +12,7 @@ const CASE_STUDY_DATA = {
   title: "Proponent Sales Enablement",
   subtitle: "Conversation Intelligence to Sales Success",
   problemImages: [
-    "https://res.cloudinary.com/dsu2yornu/image/upload/v1748241007/Group_39601_rdvgwp.jpg",
+    "https://res.cloudinary.com/dsu2yornu/image/upload/v1753675937/Banner1_urcpkl.jpg",
   ],
   problem: "While salespeople drive revenue by engaging directly with customers and understanding their needs, they often lack deep product knowledge due to their customer-facing role. Product Marketing Managers (PMMs), who own the product roadmap and feature development, possess this comprehensive product understanding. However, **the knowledge transfer between PMMs and sales teams is frequently inadequate**, resulting in standardized sales content that fails to address diverse customer requirements.** And thus causes the loss of deals.",
   solutionVideos: {
@@ -69,7 +70,7 @@ export default function CaseStudyDetail() {
 
   // Reusable component for rendering image sections
   const ImageSection = ({ images, onClick, className = "" }) => (
-    <div className={`w-4/5 grid grid-cols-1 gap-4 ${className}`}>
+    <div className={`w-full grid grid-cols-1 gap-4 ${className}`}>
       {images.map((imageUrl, index) => (
         <div 
           key={index}
@@ -83,7 +84,7 @@ export default function CaseStudyDetail() {
             height={0}
             sizes="100vw"
             style={{
-              width: '70%',
+              width: '100%',
               height: 'auto',
             }}
             className="hover:opacity-90 transition-opacity rounded-md"
@@ -110,7 +111,12 @@ export default function CaseStudyDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-32">
+    <motion.div 
+      className="min-h-screen bg-white pb-32"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       {/* Back button */}
       <button 
         onClick={() => router.back()}
@@ -130,7 +136,7 @@ export default function CaseStudyDetail() {
       {/* Problem Section */}
       <section className="space-y-2 mb-8">
         <SectionHeader>Problem</SectionHeader>
-        <p className="text-gray-800 mb-8">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
+        <p className="text-gray-800 mb-8 leading-relaxed">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
         
         {/* Problem Image */}
         <ImageSection 
@@ -147,7 +153,7 @@ export default function CaseStudyDetail() {
         {/* Solution Step 1 - Sales Team */}
         <div className="w-full mx-auto mt-4 mb-4">
           <video
-            className="w-full h-auto rounded-md border-[4px] border-[#F4F4F4]"
+            className="w-full h-auto shadow-lg"
             autoPlay
             loop
             muted
@@ -159,12 +165,12 @@ export default function CaseStudyDetail() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <p className="text-gray-800, mb-12">{CASE_STUDY_DATA.solution[0]}</p>
+        <p className="text-gray-800 mb-12 leading-relaxed">{CASE_STUDY_DATA.solution[0]}</p>
 
         {/* Solution Step 2 - Marketing Team */}
         <div className="w-full mx-auto mt-4 mb-4">
           <video
-            className="w-full h-auto rounded-md border-[4px] border-[#F4F4F4]"
+            className="w-full h-auto shadow-lg"
             autoPlay
             loop
             muted
@@ -176,13 +182,13 @@ export default function CaseStudyDetail() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <p className="text-gray-800">{CASE_STUDY_DATA.solution[1]}</p>
+        <p className="text-gray-800 leading-relaxed">{CASE_STUDY_DATA.solution[1]}</p>
       </section>
 
       {/* Impact Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>Impact</SectionHeader>
-        <p className="text-gray-800">{CASE_STUDY_DATA.impact}</p>
+        <p className="text-gray-800 leading-relaxed">{CASE_STUDY_DATA.impact}</p>
 
             <a 
               href="https://proponentapp.com/" 
@@ -198,10 +204,10 @@ export default function CaseStudyDetail() {
       {/* Research Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.research.title}</SectionHeader>
-        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.research.content}</p>
+        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.research.content}</p>
         <div className="space-y-3">
           {CASE_STUDY_DATA.research.methods.map((method, index) => (
-            <p key={index} className="text-gray-800">
+            <p key={index} className="text-gray-800 leading-relaxed">
               {index + 1}. {renderTextWithBold(method)}
             </p>
           ))}
@@ -211,11 +217,11 @@ export default function CaseStudyDetail() {
       {/* Build the Lego bricks Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.legoBricks.title}</SectionHeader>
-        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.legoBricks.intro}</p>
-        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.legoBricks.subtitle}</p>
+        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.legoBricks.intro}</p>
+        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.legoBricks.subtitle}</p>
         <div className="space-y-3">
           {CASE_STUDY_DATA.legoBricks.components.map((component, index) => (
-            <p key={index} className="text-gray-800">
+            <p key={index} className="text-gray-800 leading-relaxed">
               {index + 1}. {renderTextWithBold(component)}
             </p>
           ))}
@@ -225,12 +231,12 @@ export default function CaseStudyDetail() {
       {/* Archived History Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.archivedHistory.title}</SectionHeader>
-        <p className="text-gray-800 mb-4">{CASE_STUDY_DATA.archivedHistory.content}</p>
+        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.archivedHistory.content}</p>
         
         {/* Archived History Video */}
         <div className="w-full mx-auto mt-4 mb-4">
           <video
-            className="w-full h-auto rounded-md border-[4px] border-[#F4F4F4]"
+            className="w-full h-auto shadow-lg "
             autoPlay
             loop
             muted
@@ -253,6 +259,6 @@ export default function CaseStudyDetail() {
           currentImageIndex={selectedWork.index}
         />
       )}
-    </div>
+    </motion.div>
   );
 }

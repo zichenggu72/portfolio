@@ -17,6 +17,7 @@ import tool1 from "../../assets/images/tool1.png";
 import tool2 from "../../assets/images/tool2.png";
 import tool3 from "../../assets/images/tool3.png";
 import ImagePreview from "../components/ImagePreview";
+import { motion } from 'framer-motion';
 
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<{
@@ -90,7 +91,13 @@ export default function ProjectsPage() {
       
       <div className="space-y-16">
       {projects.map((project, projectIndex) => (
-        <article key={projectIndex} className="mb-4">
+        <motion.article
+          key={projectIndex}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: projectIndex * 0.1 }}
+          className="mb-4"
+        >
           {/* Organization and Year */}
           <div className="flex justify-between items-center mb-1">
           <span className="text-sm text-gray-500">
@@ -163,7 +170,7 @@ export default function ProjectsPage() {
             )}
           </div>
           
-        </article>
+        </motion.article>
       ))}
       </div>
 
