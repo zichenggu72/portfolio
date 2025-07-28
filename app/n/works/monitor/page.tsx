@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImagePreview from "../../components/ImagePreview";
+import { motion } from 'framer-motion';
 
 export default function CaseStudyDetail() {
     console.log('here CaseStudyDetail');
@@ -49,8 +50,13 @@ export default function CaseStudyDetail() {
       index: number;
     } | null>(null);
   
-    return (
-      <div className="min-h-screen bg-white pb-32">
+      return (
+    <motion.div 
+      className="min-h-screen bg-white pb-32"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
         {/* Main content container */}
         {/* <div className="max-w-[744px] mx-auto px-6"> */}
           {/* Back button aligned with content */}
@@ -72,7 +78,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2">
           <span className="text-sm text-gray-500">Background</span>
           
-          <p className="text-gray-800 mb-4">{caseStudy.background}</p>
+          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.background}</p>
         </section>
 
         {/* Problem */}
@@ -105,17 +111,17 @@ export default function CaseStudyDetail() {
             ))}
           </div>
 
-          <p className="text-gray-800 mb-4">{caseStudy.problem[0]}</p>
+          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem[0]}</p>
           <div className="space-y-1 mb-4">
-            <p className="text-gray-800">
+            <p className="text-gray-800 leading-relaxed">
               1. The task panel behaves as an overlay with no DISMISS function. 
             </p>
             <p className="text-gray-800">
               2. Once a task is completed, there’s no way to access the past tasks.
             </p>
           </div>
-          <p className="text-gray-800 mb-4">{caseStudy.problem[2]}</p>
-          <p className="text-gray-800 mb-4">{caseStudy.problem[3]}</p>
+          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem[2]}</p>
+          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem[3]}</p>
 
         </section>
 
@@ -150,7 +156,7 @@ export default function CaseStudyDetail() {
           </div>
 
          {/* First paragraph */}
-  <p className="text-gray-800">{caseStudy.solution[0]}</p>
+  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
           <div className="grid grid-cols-1 gap-4 mt-12 mb-4">
@@ -180,9 +186,9 @@ export default function CaseStudyDetail() {
           </div>
 
            {/* Second paragraph */}
-  <p className="text-gray-800">{caseStudy.solution[1]}</p>
-  <p className="text-gray-800">{caseStudy.solution[2]}</p>
-  <p className="text-gray-800">{caseStudy.solution[3]}</p>
+  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[1]}</p>
+  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[2]}</p>
+  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[3]}</p>
 
 
         </section>
@@ -191,7 +197,7 @@ export default function CaseStudyDetail() {
         <section className="space-y-2 mt-16">
         <span className="text-sm text-gray-500">Impact</span>
           <div className="space-y-2">
-            <p className="text-gray-800">{caseStudy.impact}</p>
+            <p className="text-gray-800 leading-relaxed">{caseStudy.impact}</p>
           </div>
         </section>
 
@@ -199,10 +205,10 @@ export default function CaseStudyDetail() {
         <section className="space-y-2 mt-16">
         <span className="text-sm text-gray-500">What I Learned</span>
           <div className="space-y-4">
-            <p className="text-gray-800">
+            <p className="text-gray-800 leading-relaxed">
               1. Knowledge is distributed among various stakeholders in a large organization. Effective communication and finding the right contact is crucial for success.
             </p>
-            <p className="text-gray-800">
+            <p className="text-gray-800 leading-relaxed">
               2. Maintaining structured documentation throughout the project lifecycle proves invaluable for decision tracking and reasoning, especially in long-term projects.
             </p>
           </div>
@@ -218,7 +224,7 @@ export default function CaseStudyDetail() {
           />
         )}
 
-      </div>
+      </motion.div>
     // </div>
   );
 } 
