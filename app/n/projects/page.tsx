@@ -17,6 +17,9 @@ import tool1 from "../../assets/images/tool1.png";
 import tool2 from "../../assets/images/tool2.png";
 import tool3 from "../../assets/images/tool3.png";
 import ImagePreview from "../components/ImagePreview";
+import keyboard1 from "../../assets/images/canvasgif.gif";  
+import keyboard2 from "../../assets/images/Frame 4.png";  
+import keyboard3 from "../../assets/images/Frame 3.png";  
 import { motion } from 'framer-motion';
 
 export default function ProjectsPage() {
@@ -27,12 +30,26 @@ export default function ProjectsPage() {
   
   const projects = [
     {
-      organization: "Font Craft Lab",
+      organization: "Design Engineering",
       year: "2025",
-      title: "Font decoration tool",
+      title: "Keyboard Canvas",
+      description: [
+        "Where colors can flow at your fingertips.",
+        "A pixel art playground with infinite possibilities and keyboard magic.",
+      ],
+      images: [
+        { src: keyboard1, alt: "News Font Example 1" },
+        { src: keyboard2, alt: "News Font Example 2" },
+        { src: keyboard3, alt: "News Font Example 3" },
+      ],
+    },
+    {
+      organization: "Design Engineering",
+      year: "2025",
+      title: "Font Craft Lab",
       description: [
         "Idea to code with Figma Make.",
-        "The initial idea is to decorate the letter and give typography another layer of expression. Build a tool, design the pattern, and code ßwith AI in a week.",
+        "The initial idea is to decorate the letter and give typography another layer of expression. Build a tool, design the pattern, and code with AI in a week.",
       ],
       images: [
         { src: tool1, alt: "News Font Example 1" },
@@ -107,9 +124,15 @@ export default function ProjectsPage() {
           </div>
           
           {/* Title */}
-          {project.title === "Font decoration tool" ? (
+          {project.title === "Font Craft Lab" ? (
             <p className="font-semibold mb-2">
               <Link href="https://fontcraftlab.figma.site" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
+                {project.title}
+              </Link>
+            </p>
+          ) : project.title === "Keyboard Canvas" ? (
+            <p className="font-semibold mb-2">
+              <Link href="https://keyboard-canvas.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
                 {project.title}
               </Link>
             </p>
