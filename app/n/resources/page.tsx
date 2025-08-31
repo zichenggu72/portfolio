@@ -27,6 +27,7 @@ const resourcesData: Record<string, ResourceItem[]> = {
     { title: 'featured type', description: 'typefaces collection', date: 'Jan 25', url: 'https://www.featuredtype.com/typefaces', hoverColor: 'hover:text-[#4D908E]' },
     { title: 'dive club', description: 'where designers never stop learning', date: 'Jan 25', url: 'https://www.dive.club/', hoverColor: 'hover:text-[#FF5D1F]' },
     { title: 'window swap', description: 'open a window somewhere in the world', date: 'Jul 25', url: 'https://www.window-swap.com/', hoverColor: 'hover:text-[#4D908E]' },
+    { title: 'savee', description: 'a collection of graphic inspiration', date: 'Aug 25', url: 'https://savee.com/', hoverColor: 'hover:text-[#F8961E]' },
 
   ],
 
