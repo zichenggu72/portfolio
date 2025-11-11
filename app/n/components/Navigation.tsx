@@ -37,7 +37,6 @@ export default function Navigation() {
         <NavItem color="#F9C74F" text="Projects" />
         <NavItem color="#90BE6D" text="Create" />
         <NavItem color="#4D908E" text="Resources" />
-        <NavItem color="#4D908E" text="Visitors" />
     
       </ul>
     </nav>

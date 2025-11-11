@@ -1,73 +1,55 @@
 // app/components/MobileNav.tsx
-'use client';  // Mark this as a client component
+'use client';
 
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { oorangeregular } from 'app/fonts';
 
-function NavItem({ 
+function NavTab({ 
   color, 
   text, 
-  extraClasses = "", 
-  onClick 
 }: { 
   color: string; 
   text: string;
-  extraClasses?: string;
-  onClick?: () => void;
 }) {
   const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
+  const pathname = usePathname();
+  const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
   
   return (
-    <li className={`flex items-center gap-3 ${extraClasses}`}>
-      <Link 
-        href={href} 
-        className="flex items-center gap-3"
-        onClick={onClick}
-      >
-        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-        <span>{text}</span>
-      </Link>
-    </li>
+    <Link 
+      href={href} 
+      className={`
+        flex items-center gap-2 px-4 pt-1 pb-0.4 rounded-full text-xl whitespace-nowrap
+        transition-all duration-200
+        ${isActive 
+          ? 'text-gray-900 font-medium shadow-sm' 
+          : 'text-gray-500 hover:text-gray-700'
+        }
+      `}
+      style={isActive ? { backgroundColor: `${color}15` } : {}}
+    >
+      <div 
+        className="w-1.5 h-1.5 rounded-full" 
+        style={{ backgroundColor: color }} 
+      />
+      <span>{text}</span>
+    </Link>
   );
 }
 
 export default function MobileNav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
-    <>
-      {/* Mobile Menu Button */}
-      <div className="lg:hidden fixed top-4 right-4 z-50">
-        <button 
-          className="md:hidden fixed top-4 right-4 z-50 p-2 text-gray-800 hover:text-gray-600"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
-              <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
-              <path d="M4 6h16M4 12h16M4 18h16" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`
-        lg:hidden fixed inset-0 bg-white dark:bg-black z-40
-        transform transition-transform duration-300 ease-in-out
-        ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-      `}>
-        <div className="flex flex-col items-center justify-center h-full space-y-8 font-md">
-          <NavItem color="#FF5D1F" text="Home" onClick={() => setIsMenuOpen(false)} />
-          <NavItem color="#F8961E" text="Works" onClick={() => setIsMenuOpen(false)} />
-          <NavItem color="#F9C74F" text="Projects" onClick={() => setIsMenuOpen(false)} />
-          <NavItem color="#90BE6D" text="Create" onClick={() => setIsMenuOpen(false)} />
-          <NavItem color="#4D908E" text="Resources" onClick={() => setIsMenuOpen(false)} />
+    <nav className={`lg:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 ${oorangeregular.className}`}>
+      <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex items-center gap-2 px-4 py-3 min-w-max">
+          <NavTab color="#FF5D1F" text="Home" />
+          <NavTab color="#F8961E" text="Works" />
+          <NavTab color="#F9C74F" text="Projects" />
+          <NavTab color="#90BE6D" text="Create" />
+          <NavTab color="#4D908E" text="Resources" />
         </div>
       </div>
-    </>
+    </nav>
   );
 }
