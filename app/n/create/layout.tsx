@@ -4,6 +4,7 @@ import Map, { Marker } from 'react-map-gl';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
+import CreateTabs from './components/CreateTabs';
 
 
 type Pin = {
@@ -1016,11 +1017,15 @@ export default function CreateLayout({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className={`relative ${selectedPin ? 'hidden md:block' : ''}`}>
-        {children}
+      {/* Single main container for tabs and all page content */}
+      <div className="main">
+        <CreateTabs />
+        <div className={`relative ${selectedPin ? 'hidden md:block' : ''}`}>
+          {children}
+        </div>
       </div>
 
-      <div className={`absolute top-[100px] left-0 right-0 mx-auto max-w-[680px] px-8 
+      <div className={`absolute top-[100px] left-0 right-0 mx-auto max-w-[680px] px-8 z-0
         ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}
         ${selectedPin ? 'hidden md:block' : ''}`}>
           

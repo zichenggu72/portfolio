@@ -1,8 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -125,30 +123,10 @@ const recipes: Recipe[] = [
   },
 ];
 
-const categories = ['memory', 'taste', 'graphic'];
-
 export default function TastePage() {
-  const router = useRouter();
   const pathname = usePathname();
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  const [direction, setDirection] = useState<number>(0);
-  const [activeTab, setActiveTab] = useState<number>(1); // taste is index 1
-
-  // Determine active tab from pathname
-  useEffect(() => {
-    if (pathname === '/n/create') {
-      setActiveTab(0);
-    } else if (pathname === '/n/create/taste') {
-      setActiveTab(1);
-    } else if (pathname === '/n/create/graphic') {
-      setActiveTab(2);
-    }
-  }, [pathname]);
-
-  const handleTabClick = (index: number, category: string) => {
-    const newDirection = index > activeTab ? -1 : 1;
-    setDirection(newDirection);
-  };
+  const [direction, setDirection] = useState<number>(1);
 
   // Handle body scroll lock
   useEffect(() => {
@@ -192,46 +170,12 @@ export default function TastePage() {
   };
 
   return (
-    <div className="main">
-      
-      {/* Animated Tab Navigation */}
-      <div className="relative mb-6">
-      <div className="border-1 border-gray-200 rounded-[8px] p-0.5 inline-block bg-white">
-
-        <div className="flex gap-2">
-          {categories.map((category, index) => (
-            <Link 
-              key={category}
-              href={category === 'memory' ? '/n/create' : `/n/create/${category}`}
-              onClick={() => handleTabClick(index, category)}
-              className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 hover:text-gray-600 ${
-                (category === 'memory' && pathname === '/n/create') ||
-                pathname === `/n/create/${category}`
-                  ? 'text-gray-900'
-                  : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              {/* Animated background */}
-              {((category === 'memory' && pathname === '/n/create') ||
-                pathname === `/n/create/${category}`) && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute inset-0 bg-gray-100 rounded-md"
-                  initial={false}
-                  transition={{
-                    type: "tween",
-                    ease: "easeOut",
-                    duration: 0.15
-                  }}
-                />
-              )}
-              
-              <span className="relative z-10">{category}</span>
-            </Link>
-          ))}
-        </div>
-        </div>
-      </div>
+    <>
+      {/* Subtitle */}
+      <h2 className="text-gray-600 mb-8">
+        Recipe reimagined,<br />
+        based on inspiring dining experiences across the world.<br />
+      </h2>
 
       {/* Animated Content Area */}
       <div className="relative">
@@ -244,14 +188,8 @@ export default function TastePage() {
             animate="animate"
             exit="exit"
           >
-            {/* Subtitle */}
-            <h2 className="text-gray-600 mb-8">
-              Recipe reimagined,<br />
-              based on inspiring dining experiences across the world.<br />
-            </h2>
-
             {/* Recipe List - Make it responsive */}
-            <div className="space-y-6 md:w-1/2">
+            <div className="space-y-6">
               {recipes.map((recipe) => (
                 <div 
                   key={recipe.id}
@@ -368,6 +306,6 @@ export default function TastePage() {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 }

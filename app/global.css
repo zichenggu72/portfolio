@@ -132,6 +132,16 @@ pre {
   scrollbar-width: none; /* Firefox */
 }
 
+/* Hide scrollbar for horizontal mobile nav */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Remove Safari input shadow on mobile */
 input[type='text'],
 input[type='email'] {
@@ -164,3 +174,10 @@ table {
 }
 
 /* Add more weights as needed */
+
+/* Main content container */
+.main {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}

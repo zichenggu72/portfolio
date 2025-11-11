@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import Navigation from './n/components/Navigation';
+import MobileNav from './n/components/MobileNav';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { oorangeregular } from './fonts';
 
@@ -58,7 +59,7 @@ export default function RootLayout({
     >
       <body className="antialiased">
         {/* Mobile Navigation */}
-        <Navigation />
+        <MobileNav />
 
         <div className="min-h-screen flex flex-col lg:flex-row">
           {/* Desktop Navigation */}
@@ -66,8 +67,8 @@ export default function RootLayout({
 
         
             {/* Main content area */}
-            <div className="mx-auto max-w-[680px]">
-            <main className="w-full lg:w-[680px] px-4 lg:px-8 py-6 lg:py-10">
+            <div className="max-w-[680px] md:mx-auto">
+            <main className="w-full lg:w-[680px] px-8 lg:px-8 py-8 lg:py-10">
               {children}
             </main>
           </div>
