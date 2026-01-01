@@ -126,7 +126,7 @@ export default function ProjectsPage() {
           {/* Title */}
           {project.title === "Font Craft Lab" ? (
             <p className="font-semibold mb-2">
-              <Link href="https://fontcraftlab.figma.site" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
+              <Link href="https://font-craft-lab.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
                 {project.title}
               </Link>
             </p>
