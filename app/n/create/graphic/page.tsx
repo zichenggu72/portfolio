@@ -73,9 +73,9 @@ export default function GraphicPage() {
                     </div>
                   </div>
                   <div className="w-2/3">
-                    <h3 className="font-medium mb-1">Reimagine the refrigerator magnet</h3>
-                    <p className="text-gray-600">
-                      Using scratch paper to draw the most memorable spots from every city I've visited in the States, 
+                    <h3 className="font-medium mb-1 dark:text-white">Reimagine the refrigerator magnet</h3>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Using scratch paper to draw the most memorable spots from every city I've visited in the States,
                       capturing the essence of my journeys in a way that's unique without overpaying the industrial souvenirs.
                     </p>
                   </div>
@@ -106,8 +106,8 @@ export default function GraphicPage() {
                     </div>
                   </div>
                   <div className="w-2/3">
-                    <h3 className="font-medium mb-1">Stare at time</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-medium mb-1 dark:text-white">Stare at time</h3>
+                    <p className="text-gray-600 dark:text-gray-400">
                       Acrylic painting on canvas of glacier in Alaska. How far back in time am I staring at?
                     </p>
                   </div>
@@ -138,8 +138,8 @@ export default function GraphicPage() {
                     </div>
                   </div>
                   <div className="w-2/3">
-                    <h3 className="font-medium mb-1">Personal logo</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-medium mb-1 dark:text-white">Personal logo</h3>
+                    <p className="text-gray-600 dark:text-gray-400">
                       Letter "G" after my surname
                     </p>
                   </div>
@@ -170,8 +170,8 @@ export default function GraphicPage() {
                     </div>
                   </div>
                   <div className="w-2/3">
-                    <h3 className="font-medium mb-1">Broken plate</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-medium mb-1 dark:text-white">Broken plate</h3>
+                    <p className="text-gray-600 dark:text-gray-400">
                     When I opened the delivery of my long-awaited plate, only to find it broken. I decided to turn it into a canvas.
                     </p>
                   </div>

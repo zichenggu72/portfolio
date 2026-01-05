@@ -17,8 +17,8 @@ function NavItem({ color, text }: {
         href={href}
         className={`flex items-center gap-3 transition-colors duration-200
           ${isActive
-            ? 'text-gray-900 '
-            : 'text-gray-400 hover:text-gray-700 opacity-60 hover:opacity-100'}
+            ? 'text-gray-900 dark:text-gray-100'
+            : 'text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300 opacity-60 hover:opacity-100'}
         `}
       >
         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />

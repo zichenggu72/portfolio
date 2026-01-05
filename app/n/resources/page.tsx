@@ -103,23 +103,23 @@ export default function ResourcesPage() {
       
       {/* Animated Tab Navigation */}
       <div className="relative mb-6">
-        <div className="border-1 border-gray-200 rounded-[8px] p-0.5 inline-block bg-white">
+        <div className="border-1 border-gray-200 dark:border-gray-700 rounded-[8px] p-0.5 inline-block bg-white dark:bg-[#2B2B2B]">
           <div className="flex gap-2">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => handleTabClick(category)}
-                className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 hover:text-gray-600 ${
+                className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 ${
                   activeCategory === category
-                    ? 'text-gray-900'
-                    : 'text-gray-400 hover:text-gray-600'
+                    ? 'text-gray-900 dark:text-gray-100'
+                    : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
                 }`}
               >
                 {/* Animated background */}
                 {activeCategory === category && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-gray-100 rounded-md"
+                    className="absolute inset-0 bg-gray-100 dark:bg-[#3D3D3D] rounded-md"
                     initial={false}
                     transition={{
                       type: "tween",
@@ -164,24 +164,22 @@ export default function ResourcesPage() {
               };
 
               return (
-                <div 
-                  key={index} 
-                  className={`group transition-all duration-200 ease-in-out hover:translate-x-1 cursor-pointer rounded-lg p-3 ${getHoverBackgroundColor(index)} ${
+                <a
+                  key={index}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group transition-all duration-200 ease-in-out hover:translate-x-1 cursor-pointer rounded-lg p-3 block ${getHoverBackgroundColor(index)} ${
                     item.description ? 'pb-4' : 'pb-3'
                   }`}
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex-1">
-                      <a 
-                        href={item.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className={`font-regular transition-colors ${getHoverTextColor(index)}`}
-                      >
+                      <span className={`font-regular transition-colors dark:text-gray-200 ${getHoverTextColor(index)}`}>
                         {item.title}
-                      </a>
+                      </span>
                       {item.description && (
-                        <p className="text-gray-600 text-sm mt-1">
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
                           {item.description}
                         </p>
                       )}
@@ -190,7 +188,7 @@ export default function ResourcesPage() {
                       {item.date}
                     </span>
                   </div>
-                </div>
+                </a>
               );
             })}
           </motion.div>

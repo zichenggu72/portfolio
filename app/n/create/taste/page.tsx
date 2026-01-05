@@ -19,7 +19,7 @@ const recipes: Recipe[] = [
     id: '1',
     title: 'Muchim',
     description: 'Spicy Korean salad',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747859696/Frame_1_gmlvha.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1767637776/salm_tvvcwn.svg',
     ingredients: [
       '+ avocado',
       '+ salmon sashimi',
@@ -53,7 +53,7 @@ const recipes: Recipe[] = [
     id: '2',
     title: 'Matcha hummus',
     description: 'Asian-inspired hummus',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747859696/Frame_2_yth2ch.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1767638202/match_xftja9.svg',
     ingredients: [
       '+ Match powder',
       '+ coconut milk',
@@ -71,7 +71,7 @@ const recipes: Recipe[] = [
     id: '3',
     title: 'Papadam stack',
     description: 'Indian-mexican pizza',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747859696/Frame_3_vac19z.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1767638240/papa_iw8rrt.svg',
     ingredients: [
       '+ black pepper flavored papadam (uncooked)',
       '+ cooked mixed rice',
@@ -98,7 +98,7 @@ const recipes: Recipe[] = [
     id: '4',
     title: 'Salty biscuit',
     description: 'Serbian inspired biscuit',
-    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1747861956/Frame_4_b1iz5u.png',
+    image: 'https://res.cloudinary.com/dsu2yornu/image/upload/v1767638227/bis_ura6es.svg',
     ingredients: [
       '+ 50g wheat flour',
       '+ 40g mixed healthier flours (oat, quinoa, and chickpea flour etc)',
@@ -172,7 +172,7 @@ export default function TastePage() {
   return (
     <>
       {/* Subtitle */}
-      <h2 className="text-gray-600 mb-8">
+      <h2 className="text-gray-600 dark:text-gray-400 mb-8">
         Recipe reimagined,<br />
         based on inspiring dining experiences across the world.<br />
       </h2>
@@ -198,7 +198,7 @@ export default function TastePage() {
                 >
                   <div className="flex gap-4">
                     {/* Image */}
-                    <div className="w-[100px] h-[100px] bg-gray-100 flex-shrink-0">
+                    <div className="w-[100px] h-[100px] flex-shrink-0">
                       <Image
                         src={recipe.image}
                         alt={recipe.title}
@@ -210,13 +210,13 @@ export default function TastePage() {
 
                     {/* Description */}
                     <div className="flex-1">
-                      <h3 className="font-semibold mb-1 flex items-center gap-3">
+                      <h3 className="font-semibold mb-1 flex items-center gap-3 dark:text-white">
                         {recipe.title}
-                        <svg className="w-4 h-4 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                           <path d="M5 12H19M19 12L12 5M19 12L12 19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </h3>
-                      <p className="text-gray-600">{recipe.description}</p>
+                      <p className="text-gray-600 dark:text-gray-400">{recipe.description}</p>
                     </div>
                   </div>
                 </div>
@@ -243,14 +243,14 @@ export default function TastePage() {
         {selectedRecipe && (
           <>
             {/* Solid white background overlay */}
-            <div className="absolute inset-0 bg-white" />
-            
+            <div className="absolute inset-0 bg-white dark:bg-[#1a1a1a]" />
+
             {/* Content */}
             <div className="relative h-full overflow-y-auto">
               <div className="p-8">
-                <button 
+                <button
                   onClick={() => setSelectedRecipe(null)}
-                  className="absolute top-4 right-4 p-2 hover:text-gray-600 transition-colors"
+                  className="absolute top-4 right-4 p-2 hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -258,8 +258,8 @@ export default function TastePage() {
                 </button>
 
                 <div className="mb-8">
-                  <h2 className="font-semibold mb-1">{selectedRecipe.title}</h2>
-                  <p className="text-gray-600">{selectedRecipe.description}</p>
+                  <h2 className="font-semibold mb-1 dark:text-white">{selectedRecipe.title}</h2>
+                  <p className="text-gray-600 dark:text-gray-400">{selectedRecipe.description}</p>
                 </div>
 
                 <div 
@@ -273,20 +273,20 @@ export default function TastePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                   <div>
-                    <h3 className="font-semibold mb-2">Ingredients</h3>
+                    <h3 className="font-semibold mb-2 dark:text-white">Ingredients</h3>
                     <div className="space-y-2">
                       {selectedRecipe.ingredients.map((ingredient, index) => (
-                        <p key={index} className="text-gray-600">{ingredient}</p>
+                        <p key={index} className="text-gray-600 dark:text-gray-400">{ingredient}</p>
                       ))}
                     </div>
                   </div>
-                  
+
                   {selectedRecipe.sauce && selectedRecipe.sauce.length > 0 && (
                     <div>
-                      <h3 className="font-semibold mb-2">Sauce</h3>
+                      <h3 className="font-semibold mb-2 dark:text-white">Sauce</h3>
                       <div className="space-y-2">
                         {selectedRecipe.sauce.map((item, index) => (
-                          <p key={index} className="text-gray-600">{item}</p>
+                          <p key={index} className="text-gray-600 dark:text-gray-400">{item}</p>
                         ))}
                       </div>
                     </div>
@@ -294,10 +294,10 @@ export default function TastePage() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold mb-2">Steps</h3>
+                  <h3 className="font-semibold mb-2 dark:text-white">Steps</h3>
                   <div className="space-y-3">
                     {selectedRecipe.steps.map((step, index) => (
-                      <p key={index} className="text-gray-600">{step}</p>
+                      <p key={index} className="text-gray-600 dark:text-gray-400">{step}</p>
                     ))}
                   </div>
                 </div>

@@ -93,14 +93,14 @@ export default function WorksPage() {
                 {/* Title and Date row */}
                 <div className="flex justify-between items-center mb-1">
                   <div className="flex items-center">
-                    <Link 
+                    <Link
                       href={`/n/works/${work.id}`}
-                      className="text-sm text-gray-500 hover:text-gray-700"
+                      className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                     >
                       {work.title}
                     </Link>
                   </div>
-                  <span className="text-sm text-gray-500">{work.dateRange}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{work.dateRange}</span>
                 </div>
                 
                 {/* Description */}
@@ -108,7 +108,7 @@ export default function WorksPage() {
                   href={`/n/works/${work.id}`}
                   className="block"
                 >
-                  <p className={`font-semibold mb-2 inline-flex items-center gap-2 transition-colors duration-200
+                  <p className={`font-semibold mb-2 inline-flex items-center gap-2 transition-colors duration-200 dark:text-white
                     ${work.id === 'sales' ? 'hover:text-[#F8961E]' : ''}
                     ${work.id === 'integration' ? 'hover:text-[#A7A622]' : ''}
                     ${work.id === 'monitor' ? 'hover:text-[#59829E]' : ''}`}
@@ -121,7 +121,7 @@ export default function WorksPage() {
                 </Link>
                 
                 {/* Details paragraph */}
-                <p className="text-gray-600 mb-2">{work.details}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-2">{work.details}</p>
               </div>
             </div>
           </motion.div>

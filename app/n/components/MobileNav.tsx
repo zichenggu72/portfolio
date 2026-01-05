@@ -17,14 +17,14 @@ function NavTab({
   const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
   
   return (
-    <Link 
-      href={href} 
+    <Link
+      href={href}
       className={`
         flex items-center gap-2 px-4 pt-1 pb-0.4 rounded-full text-xl whitespace-nowrap
         transition-all duration-200
-        ${isActive 
-          ? 'text-gray-900 font-medium shadow-sm' 
-          : 'text-gray-500 hover:text-gray-700'
+        ${isActive
+          ? 'text-gray-900 dark:text-gray-100 font-medium shadow-sm'
+          : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
         }
       `}
       style={isActive ? { backgroundColor: `${color}15` } : {}}
@@ -40,7 +40,7 @@ function NavTab({
 
 export default function MobileNav() {
   return (
-    <nav className={`lg:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 ${oorangeregular.className}`}>
+    <nav className={`lg:hidden sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 ${oorangeregular.className}`}>
       <div className="overflow-x-auto scrollbar-hide">
         <div className="flex items-center gap-2 px-4 py-3 min-w-max">
           <NavTab color="#FF5D1F" text="Home" />

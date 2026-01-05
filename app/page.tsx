@@ -223,14 +223,14 @@ const HomePage = () => {
     <div ref={contentRef} className="space-y-12">
       {/* Profile */}
       <div className="space-y-2">
-        <h1 className="text-lg font-semibold">Zicheng Gu</h1>
-        <p className="text-gray-800">Designer around the 🌍</p>
+        <h1 className="text-lg font-semibold dark:text-white">Zicheng Gu</h1>
+        <p className="text-gray-800 dark:text-gray-400">Designer around the 🌍</p>
       </div>
 
       {/* About Section */}
       <section>
-        <h2 className="font-semibold mb-2">About me</h2>
-        <div className="space-y-4 text-gray-800 leading-relaxed">
+        <h2 className="font-semibold mb-2 dark:text-white">About me</h2>
+        <div className="space-y-4 text-gray-800 dark:text-gray-400 leading-relaxed">
           <p>I am a product designer with curiosity in the vast spectrum of design — from the elegant forms of furniture to the visual allure of graphics and print, the storytelling power of photography, the artistry of gastronomy, and industrial objects infused with personality.</p>
           <p>This multifaceted approach to design fuels my work in the digital realm. I aspire to create software experiences that resonate on a human level.</p>
           <p>Through a blend of aesthetics, functionality, and empathy, I create digital products that not only solve problems but enrich lives, leaving people inspired and eager to explore further.</p>
@@ -239,8 +239,8 @@ const HomePage = () => {
 
       {/* This Site Section */}
       <section>
-        <h2 className="font-semibold mb-2">This Site</h2>
-        <div className="space-y-4 text-gray-800 leading-relaxed">
+        <h2 className="font-semibold mb-2 dark:text-white">This Site</h2>
+        <div className="space-y-4 text-gray-800 dark:text-gray-400 leading-relaxed">
           <p>I built this site to transform my aversion to portfolio updates into a passion for continuous learning and sharing, creating a space I'm eager to revisit and enhance. By showcasing everything I'm passionate about to a broader audience, I strive to inspire others while holding myself accountable to high standards of creativity and growth.</p>
           <p>This site is curated with the same care and personality I'd put into designing my home. It's a space that reflects who I am and what I do.</p>
           <p>I've always found it fascinating to get to know someone through a well-maintained personal website. So whether you are a stranger, a friend, or somewhere in between – welcome! Make yourself comfortable at my digital home.</p>
@@ -248,8 +248,8 @@ const HomePage = () => {
       </section>
 
       <section className="mt-16">
-        <h2 className="font-semibold mb-2">Find me elsewhere</h2>
-        
+        <h2 className="font-semibold mb-2 dark:text-white">Find me elsewhere</h2>
+
         <div className="flex items-center space-x-6">
           {links.map((link, index) => (
             <a
@@ -257,7 +257,7 @@ const HomePage = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-800 underline"
+              className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 underline"
             >
               {link.label}
             </a>
@@ -266,12 +266,12 @@ const HomePage = () => {
       </section>
 
       {/* Status Update */}
-      <div className="bg-[#F8F8F8] p-4 rounded-lg">
-        <p className="text-sm text-gray-600 mb-2">Updated May 18, 2025</p>
-        <p className={`${oorangeregular.className} text-xl`}>
+      <div className="bg-[#F8F8F8] dark:bg-[#2b2b2b] p-4 rounded-lg">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">Updated May 18, 2025</p>
+        <p className={`${oorangeregular.className} text-xl dark:text-gray-100`}>
           Traveled to Spain, France, Italy, and Switzerland with my family. Each city we went to has its own charm and character, and weather was just perfect everyday. Such a blissful time.
         </p>
-        <p className="text-sm text-gray-600 mt-4">↑ This is my real handwriting font 🤗</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mt-4">↑ This is my real handwriting font 🤗</p>
       </div>
     </div>
   );

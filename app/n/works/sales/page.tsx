@@ -96,7 +96,7 @@ export default function CaseStudyDetail() {
 
   // Reusable component for section headers
   const SectionHeader = ({ children }) => (
-    <span className="text-sm text-gray-500">{children}</span>
+    <span className="text-sm font-semibold text-gray-900 dark:text-white">{children}</span>
   );
 
   // Helper function to render text with bold markdown
@@ -111,24 +111,24 @@ export default function CaseStudyDetail() {
   };
 
   return (
-    <motion.div 
-      className="min-h-screen bg-white pb-32"
+    <motion.div
+      className="min-h-screen bg-white dark:bg-[#1a1a1a] pb-32"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
       {/* Back button */}
-      <button 
+      <button
         onClick={() => router.back()}
-        className="text-gray-500 hover:text-gray-700 flex items-center gap-2 mb-8"
+        className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-2 mb-8"
       >
         ← Back
       </button>
 
       {/* Header Section */}
       <header className="mb-8">
-        <SectionHeader>{CASE_STUDY_DATA.title}</SectionHeader>
-        <p className="font-semibold mb-2 hover:text-gray-700 mt-2">
+        <span className="text-sm text-gray-500 dark:text-gray-400">{CASE_STUDY_DATA.title}</span>
+        <p className="text-lg font-semibold mb-2 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 mt-2">
           {CASE_STUDY_DATA.subtitle}
         </p>
       </header>
@@ -136,7 +136,7 @@ export default function CaseStudyDetail() {
       {/* Problem Section */}
       <section className="space-y-2 mb-8">
         <SectionHeader>Problem</SectionHeader>
-        <p className="text-gray-800 mb-8 leading-relaxed">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
+        <p className="text-gray-800 dark:text-gray-400 mb-8 leading-relaxed">{renderTextWithBold(CASE_STUDY_DATA.problem)}</p>
         
         {/* Problem Image */}
         <ImageSection 
@@ -165,7 +165,7 @@ export default function CaseStudyDetail() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <p className="text-gray-800 mb-12 leading-relaxed">{CASE_STUDY_DATA.solution[0]}</p>
+        <p className="text-gray-800 dark:text-gray-400 mb-12 leading-relaxed">{CASE_STUDY_DATA.solution[0]}</p>
 
         {/* Solution Step 2 - Marketing Team */}
         <div className="w-full mx-auto mt-4 mb-4">
@@ -182,32 +182,32 @@ export default function CaseStudyDetail() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <p className="text-gray-800 leading-relaxed">{CASE_STUDY_DATA.solution[1]}</p>
+        <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{CASE_STUDY_DATA.solution[1]}</p>
       </section>
 
       {/* Impact Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>Impact</SectionHeader>
-        <p className="text-gray-800 leading-relaxed">{CASE_STUDY_DATA.impact}</p>
+        <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{CASE_STUDY_DATA.impact}</p>
 
-            <a 
-              href="https://proponentapp.com/" 
-              target="_blank" 
+            <a
+              href="https://proponentapp.com/"
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 underline block mt-2"
+              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline block mt-2"
             >
               https://proponentapp.com/
             </a>
           </section>
 
-          
+
       {/* Research Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.research.title}</SectionHeader>
-        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.research.content}</p>
+        <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{CASE_STUDY_DATA.research.content}</p>
         <div className="space-y-3">
           {CASE_STUDY_DATA.research.methods.map((method, index) => (
-            <p key={index} className="text-gray-800 leading-relaxed">
+            <p key={index} className="text-gray-800 dark:text-gray-400 leading-relaxed">
               {index + 1}. {renderTextWithBold(method)}
             </p>
           ))}
@@ -217,11 +217,11 @@ export default function CaseStudyDetail() {
       {/* Build the Lego bricks Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.legoBricks.title}</SectionHeader>
-        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.legoBricks.intro}</p>
-        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.legoBricks.subtitle}</p>
+        <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{CASE_STUDY_DATA.legoBricks.intro}</p>
+        <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{CASE_STUDY_DATA.legoBricks.subtitle}</p>
         <div className="space-y-3">
           {CASE_STUDY_DATA.legoBricks.components.map((component, index) => (
-            <p key={index} className="text-gray-800 leading-relaxed">
+            <p key={index} className="text-gray-800 dark:text-gray-400 leading-relaxed">
               {index + 1}. {renderTextWithBold(component)}
             </p>
           ))}
@@ -231,7 +231,7 @@ export default function CaseStudyDetail() {
       {/* Archived History Section */}
       <section className="space-y-2 mt-16">
         <SectionHeader>{CASE_STUDY_DATA.archivedHistory.title}</SectionHeader>
-        <p className="text-gray-800 mb-4 leading-relaxed">{CASE_STUDY_DATA.archivedHistory.content}</p>
+        <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{CASE_STUDY_DATA.archivedHistory.content}</p>
         
         {/* Archived History Video */}
         <div className="w-full mx-auto mt-4 mb-4">

@@ -10,17 +10,17 @@ export default function CreateTabs() {
   
   return (
     <div className="relative mb-6 z-10">
-      <div className="border border-gray-200 rounded-[8px] p-0.5 inline-block bg-white">
+      <div className="border border-gray-200 dark:border-gray-700 rounded-[8px] p-0.5 inline-block bg-white dark:bg-[#2B2B2B]">
         <div className="flex gap-2">
           {categories.map((category) => (
-            <Link 
+            <Link
               key={category}
               href={category === 'memory' ? '/n/create' : `/n/create/${category}`}
-              className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 hover:text-gray-600 ${
+              className={`relative text-sm px-3 py-1 rounded-md transition-all duration-200 ${
                 (category === 'memory' && pathname === '/n/create') ||
                 pathname === `/n/create/${category}`
-                  ? 'text-gray-900'
-                  : 'text-gray-400 hover:text-gray-600'
+                  ? 'text-gray-900 dark:text-gray-100'
+                  : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
             >
               {/* Animated background */}
@@ -28,7 +28,7 @@ export default function CreateTabs() {
                 pathname === `/n/create/${category}`) && (
                 <motion.div
                   layoutId="createActiveTab"
-                  className="absolute inset-0 bg-gray-100 rounded-md"
+                  className="absolute inset-0 bg-gray-100 dark:bg-[#3D3D3D] rounded-md"
                   initial={false}
                   transition={{
                     type: "tween",

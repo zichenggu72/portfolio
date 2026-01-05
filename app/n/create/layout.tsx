@@ -949,6 +949,15 @@ export default function CreateLayout({
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
   const hasAnimationPlayed = useRef(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Initialize with system dark mode preference
+    if (typeof window !== 'undefined') {
+      const matches = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      console.log('Initial dark mode check:', matches);
+      return matches;
+    }
+    return false;
+  });
 
   const pathname = usePathname();
   const [viewState, setViewState] = useState({
@@ -960,6 +969,26 @@ export default function CreateLayout({
   });
 
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  // Detect dark mode based on system preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      console.log('Dark mode changed to:', e.matches);
+      setIsDarkMode(e.matches);
+    };
+
+    // Set initial value
+    handleChange(mediaQuery);
+
+    // Listen for changes
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
 
 
   useEffect(() => {
@@ -1016,7 +1045,7 @@ export default function CreateLayout({
   }, [mapLoaded, pathname]); // Keep the same dependencies
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-[#1a1a1a]">
       {/* Single main container for tabs and all page content */}
       <div className="main">
         <CreateTabs />
@@ -1030,11 +1059,21 @@ export default function CreateLayout({
         ${selectedPin ? 'hidden md:block' : ''}`}>
           
         <Map
+          key={isDarkMode ? 'dark' : 'light'}
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
-          onLoad={() => setMapLoaded(true)}
+          onLoad={() => {
+            setMapLoaded(true);
+            console.log('Map loaded. isDarkMode state:', isDarkMode);
+            console.log('Map style URL:', isDarkMode
+              ? "mapbox://styles/zichenggu/cmk1lp98c001j01slcnz3gv3e"
+              : "mapbox://styles/zichenggu/cmax8lbgz002z01rc0wn54m59");
+          }}
           style={{width: '100%', height: '80vh'}}
-          mapStyle="mapbox://styles/zichenggu/cmax8lbgz002z01rc0wn54m59"
+          mapStyle={isDarkMode
+            ? "mapbox://styles/zichenggu/cmk1lp98c001j01slcnz3gv3e"
+            : "mapbox://styles/zichenggu/cmax8lbgz002z01rc0wn54m59"
+          }
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
           attributionControl={false}
           boxZoom={false}
@@ -1043,8 +1082,8 @@ export default function CreateLayout({
           pitchWithRotate={false}
           maxPitch={0}
           minPitch={0}
-        
-    
+
+
         >
           {initialPins.map(pin => (
             <Marker
@@ -1061,8 +1100,8 @@ export default function CreateLayout({
                 <div className="w-2.5 h-2.5 bg-[#1E1E1E] rounded-full cursor-pointer" />
                 
                 {hoveredPin === pin.id && (
-                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 whitespace-nowrap bg-black text-white text-sm px-2 py-1 rounded-md">
-                    {pin.title} 
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 whitespace-nowrap bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm px-2 py-1 rounded-md">
+                    {pin.title}
                   </div>
                 )}
               </div>
@@ -1078,11 +1117,11 @@ export default function CreateLayout({
             onClick={() => setSelectedPin(null)}
           />
           
-          <div className="fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen bg-white 
+          <div className="fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen bg-white dark:bg-[#1a1a1a]
             transition-transform duration-300 ease-in-out z-50 flex flex-col overflow-y-auto">
-            <div className="sticky top-0 bg-white p-6 md:p-8 md:pt-10 z-40">
+            <div className="sticky top-0 bg-white dark:bg-[#1a1a1a] p-6 md:p-8 md:pt-10 z-40">
               <div className="flex justify-between items-center">
-                <h2 className="font-semibold">{selectedPin?.title}</h2>
+                <h2 className="font-semibold dark:text-white">{selectedPin?.title}</h2>
                 <button 
                   onClick={() => setSelectedPin(null)}
                   className="p-2 hover:text-gray-600"
@@ -1118,7 +1157,7 @@ export default function CreateLayout({
                       />
                     </div>
                     {image.caption && (
-                      <p className="mt-2 text-gray-600 text-sm">{image.caption}</p>
+                      <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">{image.caption}</p>
                     )}
                   </div>
                 ))}
