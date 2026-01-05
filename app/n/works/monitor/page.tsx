@@ -18,7 +18,7 @@ export default function CaseStudyDetail() {
       subtitle: "Uncover a hidden behavior to facilitate task monitoring",
       background: "Task monitoring panel is a component that is used across all the VMware cloud products. It will be triggered whenever asynchronous tasks take place. It serves as a crucial interface element that helps users track ongoing system operations.",
       problemImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074037/Group_20921_exonso.jpg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1767640713/Group_39679_wvmln7.svg",
       ],
       problem: [
         "There are 2 concerns regarding the current usage:",
@@ -30,7 +30,7 @@ export default function CaseStudyDetail() {
       ],
 
       solutionImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074379/Group_20922_qdnjmz.jpg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1767642668/monitor1_kpd0bc.svg",
       ],
       solution: [
         "I implemented a two-phased approach to address these issues. The short-term solution simplified the information hierarchy by consolidating dismiss actions while maintaining individual cancel options per task, reducing multiple clicks to a single interaction.",
@@ -39,7 +39,7 @@ export default function CaseStudyDetail() {
         "Implementation feasibility was confirmed through discovery of an existing PIN functionality during the design share-out meeting."
       ],
       solutionImages2: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1737074380/Group_20923_bjbsc0.jpg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1767640713/Group_27167_v08mkv.svg",
       ],
       impact: "The solution significantly improved user workflow efficiency by reducing interaction steps and providing flexible viewing options.",
       whatIlearned: "1. Knowledge is distributed among various stakeholders in a large organization. Effective communication and finding the right contact is crucial for success.\n\n2. Maintaining structured documentation throughout the project lifecycle proves invaluable for decision tracking and reasoning, especially in long-term projects."
@@ -51,8 +51,8 @@ export default function CaseStudyDetail() {
     } | null>(null);
   
       return (
-    <motion.div 
-      className="min-h-screen bg-white pb-32"
+    <motion.div
+      className="min-h-screen bg-white dark:bg-[#1a1a1a] pb-32"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -60,30 +60,30 @@ export default function CaseStudyDetail() {
         {/* Main content container */}
         {/* <div className="max-w-[744px] mx-auto px-6"> */}
           {/* Back button aligned with content */}
-          <button 
+          <button
             onClick={() => router.back()}
-            className="text-gray-500 hover:text-gray-700 flex items-center gap-2 mb-8"
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-2 mb-8"
           >
             ← Back
           </button>
-  
+
           {/* Title */}
         {/* <p className="font-semibold mb-2 hover:text-gray-700">{caseStudy.title}</p> */}
-        <span className="text-sm text-gray-500">{caseStudy.title}</span>
-        
+        <span className="text-sm text-gray-500 dark:text-gray-400">{caseStudy.title}</span>
+
         {/* Subtitle */}
-        <p className="font-semibold mb-2 hover:text-gray-700 mt-2 mb-8">{caseStudy.subtitle}</p>
+        <p className="text-lg font-semibold mb-2 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 mt-2 mb-8">{caseStudy.subtitle}</p>
 
         {/* Background */}
         <section className="space-y-2">
-          <span className="text-sm text-gray-500">Background</span>
-          
-          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.background}</p>
+          <span className="text-sm font-semibold text-gray-900 dark:text-white">Background</span>
+
+          <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{caseStudy.background}</p>
         </section>
 
         {/* Problem */}
         <section className="space-y-2 mt-8">
-        <span className="text-sm text-gray-500">Problem</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">Problem</span>
           {/* Problem Images */}
           <div className="grid grid-cols-1 gap-4 mt-4 mb-4">
             {caseStudy.problemImages1.map((imageUrl, index) => (
@@ -111,23 +111,23 @@ export default function CaseStudyDetail() {
             ))}
           </div>
 
-          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem[0]}</p>
+          <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{caseStudy.problem[0]}</p>
           <div className="space-y-1 mb-4">
-            <p className="text-gray-800 leading-relaxed">
-              1. The task panel behaves as an overlay with no DISMISS function. 
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
+              1. The task panel behaves as an overlay with no DISMISS function.
             </p>
-            <p className="text-gray-800">
-              2. Once a task is completed, there’s no way to access the past tasks.
+            <p className="text-gray-800 dark:text-gray-400">
+              2. Once a task is completed, there's no way to access the past tasks.
             </p>
           </div>
-          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem[2]}</p>
-          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem[3]}</p>
+          <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{caseStudy.problem[2]}</p>
+          <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{caseStudy.problem[3]}</p>
 
         </section>
 
         {/* Solution */}
         <section className="space-y-2 mt-16">
-        <span className="text-sm text-gray-500">Solution</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">Solution</span>
           {/* Solution Images 1 */}
           <div className="grid gap-4 mb-4">
             {caseStudy.solutionImages1.map((imageUrl, index) => (
@@ -156,7 +156,7 @@ export default function CaseStudyDetail() {
           </div>
 
          {/* First paragraph */}
-  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[0]}</p>
+  <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
           <div className="grid grid-cols-1 gap-4 mt-12 mb-4">
@@ -186,29 +186,29 @@ export default function CaseStudyDetail() {
           </div>
 
            {/* Second paragraph */}
-  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[1]}</p>
-  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[2]}</p>
-  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[3]}</p>
+  <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{caseStudy.solution[1]}</p>
+  <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{caseStudy.solution[2]}</p>
+  <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{caseStudy.solution[3]}</p>
 
 
         </section>
 
         {/* Impact */}
         <section className="space-y-2 mt-16">
-        <span className="text-sm text-gray-500">Impact</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">Impact</span>
           <div className="space-y-2">
-            <p className="text-gray-800 leading-relaxed">{caseStudy.impact}</p>
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{caseStudy.impact}</p>
           </div>
         </section>
 
         {/* What I Learned */}
         <section className="space-y-2 mt-16">
-        <span className="text-sm text-gray-500">What I Learned</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">What I Learned</span>
           <div className="space-y-4">
-            <p className="text-gray-800 leading-relaxed">
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
               1. Knowledge is distributed among various stakeholders in a large organization. Effective communication and finding the right contact is crucial for success.
             </p>
-            <p className="text-gray-800 leading-relaxed">
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
               2. Maintaining structured documentation throughout the project lifecycle proves invaluable for decision tracking and reasoning, especially in long-term projects.
             </p>
           </div>

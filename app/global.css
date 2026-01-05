@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 ::selection {
-  background-color: #47a3f3;
+  background-color: #6b7280;
   color: #fefefe;
 }
 
@@ -19,7 +19,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --sh-class: #4c97f8;
+    --sh-class: #9ca3af;
     --sh-identifier: white;
     --sh-keyword: #f47067;
     --sh-string: #0fa295;

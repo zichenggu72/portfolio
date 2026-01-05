@@ -117,33 +117,33 @@ export default function ProjectsPage() {
         >
           {/* Organization and Year */}
           <div className="flex justify-between items-center mb-1">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
               {project.organization}
             </span>
-          <span className="text-sm text-gray-500">{project.year}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{project.year}</span>
           </div>
           
           {/* Title */}
           {project.title === "Font Craft Lab" ? (
-            <p className="font-semibold mb-2">
+            <p className="font-semibold mb-2 dark:text-white">
               <Link href="https://font-craft-lab.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
                 {project.title}
               </Link>
             </p>
           ) : project.title === "Keyboard Canvas" ? (
-            <p className="font-semibold mb-2">
+            <p className="font-semibold mb-2 dark:text-white">
               <Link href="https://keyboard-canvas.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline transition-colors hover:text-[#7E7A84]">
                 {project.title}
               </Link>
             </p>
           ) : (
-            <p className="font-semibold mb-2">{project.title}</p>
+            <p className="font-semibold mb-2 dark:text-white">{project.title}</p>
           )}
           
           {/* Description */}
           <div className="space-y-2">
             {project.description.map((paragraph, index) => (
-              <p key={index} className="text-gray-600">
+              <p key={index} className="text-gray-600 dark:text-gray-400">
               {paragraph}
             </p>
           ))}

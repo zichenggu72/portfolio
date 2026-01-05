@@ -54,7 +54,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        "text-black bg-white dark:text-white dark:black font-graphik"
+        "text-black bg-white dark:text-white dark:bg-[#1a1a1a] font-graphik"
       )}
     >
       <body className="antialiased">
@@ -77,7 +77,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         
-        <footer className="mt-24 pb-8 text-sm text-gray-500">
+        <footer className="mt-24 pb-8 text-sm text-gray-500 dark:text-gray-400">
           <div className="max-w-2xl mx-auto px-8">
             © {new Date().getFullYear()} Designed and coded by Zicheng Gu
           </div>

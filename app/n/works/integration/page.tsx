@@ -18,7 +18,7 @@ export default function CaseStudyDetail() {
       subtitle: "Unified workflow to augment cloud capabilities",
       background: "VMware, with its core vSphere product serving over 400,000 customers. VMware Cloud, as a major business segment of VMware, is transitioning from a license-based to a subscription-based business model. As part of this transformation, VMware has integrated various complementary services with vSphere to create comprehensive solution packages.",
       problemImages1: [
-        "https://res.cloudinary.com/dsu2yornu/image/upload/v1735924435/Group_20836_vc9pev.svg",
+        "https://res.cloudinary.com/dsu2yornu/image/upload/v1767641352/Group_39679_dphrqu.svg",
       ],
       problem: "Looking at the current integrated service page, Besides the visual problems like service cards are not aligned, so many status indicators create an undesired and overwhelming environment. After the subscription model is introduced, more complexity will be added.",
 
@@ -42,8 +42,8 @@ export default function CaseStudyDetail() {
     } | null>(null);
   
       return (
-    <motion.div 
-      className="min-h-screen bg-white pb-32"
+    <motion.div
+      className="min-h-screen bg-white dark:bg-[#1a1a1a] pb-32"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -51,30 +51,30 @@ export default function CaseStudyDetail() {
         {/* Main content container */}
         {/* <div className="max-w-[744px] mx-auto px-6"> */}
           {/* Back button aligned with content */}
-          <button 
+          <button
             onClick={() => router.back()}
-            className="text-gray-500 hover:text-gray-700 flex items-center gap-2 mb-8"
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-2 mb-8"
           >
             ← Back
           </button>
-  
+
           {/* Title */}
         {/* <p className="font-semibold mb-2 hover:text-gray-700">{caseStudy.title}</p> */}
-        <span className="text-sm text-gray-500">{caseStudy.title}</span>
-        
+        <span className="text-sm text-gray-500 dark:text-gray-400">{caseStudy.title}</span>
+
         {/* Subtitle */}
-        <p className="font-semibold mb-2 hover:text-gray-700 mt-2 mb-8">{caseStudy.subtitle}</p>
+        <p className="text-lg font-semibold mb-2 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 mt-2 mb-8">{caseStudy.subtitle}</p>
 
         {/* Background */}
         <section className="space-y-2">
-          <span className="text-sm text-gray-500">Background</span>
-          
-          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.background}</p>
+          <span className="text-sm font-semibold text-gray-900 dark:text-white">Background</span>
+
+          <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{caseStudy.background}</p>
         </section>
 
         {/* Problem */}
         <section className="space-y-2 mt-12">
-        <span className="text-sm text-gray-500">Problem</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">Problem</span>
           {/* Problem Images */}
           <div className="gap-4 mt-4 mb-4">
             {caseStudy.problemImages1.map((imageUrl, index) => (
@@ -102,12 +102,12 @@ export default function CaseStudyDetail() {
             ))}
           </div>
 
-          <p className="text-gray-800 mb-4 leading-relaxed">{caseStudy.problem}</p>
+          <p className="text-gray-800 dark:text-gray-400 mb-4 leading-relaxed">{caseStudy.problem}</p>
         </section>
 
         {/* Solution */}
         <section className="space-y-2 mt-16">
-        <span className="text-sm text-gray-500">Solution</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">Solution</span>
           {/* Solution Images 1 */}
           <div className="w-3/4 gap-4 mt-4 mb-4">
             {caseStudy.solutionImages1.map((imageUrl, index) => (
@@ -136,7 +136,7 @@ export default function CaseStudyDetail() {
           </div>
 
          {/* First paragraph */}
-  <p className="text-gray-800 mb-12 leading-relaxed">{caseStudy.solution[0]}</p>
+  <p className="text-gray-800 dark:text-gray-400 mb-12 leading-relaxed">{caseStudy.solution[0]}</p>
 
           {/* Solution Images 2 */}
           <div className="grid grid-cols-1 gap-4 mt-6 mb-4">
@@ -166,18 +166,18 @@ export default function CaseStudyDetail() {
           </div>
 
            {/* Second paragraph */}
-  <p className="text-gray-800 leading-relaxed">{caseStudy.solution[1]}</p>
+  <p className="text-gray-800 dark:text-gray-400 leading-relaxed">{caseStudy.solution[1]}</p>
 
         </section>
 
         {/* Impact */}
         <section className="space-y-2 mt-16">
-        <span className="text-sm text-gray-500">Impact</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">Impact</span>
           <div className="space-y-2">
-            <p className="text-gray-800 leading-relaxed">
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
               1. <span className="font-bold">8 out of 8</span> users detect the new tab system and complete the tasks successfully.
             </p>
-            <p className="text-gray-800 leading-relaxed">
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
               2. Aim to reduce the time-to-value by 30%, <span className="font-bold">reached 46%</span>
             </p>
           </div>
@@ -185,12 +185,12 @@ export default function CaseStudyDetail() {
 
         {/* What I Learned */}
         <section className="space-y-2 mt-16">
-        <span className="text-sm text-gray-500">What I Learned</span>
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">What I Learned</span>
           <div className="space-y-4">
-            <p className="text-gray-800 leading-relaxed">
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
               1. Embrace the changing requirements. I have wondered that why our priorities are always changing. One day our focus is on the launchpad, the next day it shifts to services, and next week it shifts to Org view. This shifting landscape can be a bit challenging to keep up with. However, over time, I've come to understand that in the realm of live and active products, change is the only constant. I've learned to embrace this ever-evolving nature and adapt to it effectively.
             </p>
-            <p className="text-gray-800 leading-relaxed">
+            <p className="text-gray-800 dark:text-gray-400 leading-relaxed">
               2. Through project reflection, I identified an opportunity to strengthen our data-driven approach: conducting comprehensive analysis of service categorization methods earlier in the design phase. By examining subscription patterns, availability metrics, and usage frequency, we could have further optimized service organization.
             </p>
           </div>
