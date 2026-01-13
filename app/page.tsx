@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, memo } from 'react';
+import { FaLinkedin, FaInstagram, FaGithub, FaXTwitter } from 'react-icons/fa6';
+import { BsCalendar3 } from 'react-icons/bs';
 
 // Mock font - replace with your actual font import
 import { oorangeregular } from "./fonts";
@@ -21,13 +23,11 @@ const HomePage = () => {
   const effectRan = useRef(false);
   
   const links = [
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/gudesign' },
-    { label: 'Instagram', href: 'https://instagram.com/zichengguu' },
-    { label: 'GitHub', href: 'https://github.com/zichenggu72' },
-    { label: 'Bluesky', href: 'https://bsky.app/profile/zichenggu.bsky.social' },
-    { label: 'X', href: 'https://x.com/ZichengGu' },
-    { label: 'Chat with me', href: 'https://calendar.app.google/2ikrw6QDYCUoekRL7' }
-
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/gudesign', icon: FaLinkedin },
+    { label: 'Instagram', href: 'https://instagram.com/zichengguu', icon: FaInstagram },
+    { label: 'GitHub', href: 'https://github.com/zichenggu72', icon: FaGithub },
+    { label: 'X', href: 'https://x.com/ZichengGu', icon: FaXTwitter },
+    { label: 'Chat with me', href: 'https://calendar.app.google/2ikrw6QDYCUoekRL7', icon: BsCalendar3 }
   ];
   
   const keywords = [
@@ -250,18 +250,23 @@ const HomePage = () => {
       <section className="mt-16">
         <h2 className="font-semibold mb-2 dark:text-white">Find me elsewhere</h2>
 
-        <div className="flex items-center space-x-6">
-          {links.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 underline"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="flex items-center gap-3 flex-wrap">
+          {links.map((link, index) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+                aria-label={link.label}
+                title={link.label}
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            );
+          })}
         </div>
       </section>
 
