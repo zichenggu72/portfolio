@@ -40,7 +40,7 @@ function NavTab({
 
 export default function MobileNav() {
   return (
-    <nav className={`lg:hidden sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 ${oorangeregular.className}`}>
+    <nav className={`lg:hidden sticky top-0 z-50 bg-white/80 dark:bg-[#2b2b2b]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 ${oorangeregular.className}`}>
       <div className="overflow-x-auto scrollbar-hide">
         <div className="flex items-center gap-2 px-4 py-3 min-w-max">
           <NavTab color="#FF5D1F" text="Home" />
