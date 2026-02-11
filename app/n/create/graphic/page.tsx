@@ -53,14 +53,14 @@ const projects: GraphicItem[] = [
     aspectRatio: 1, // Square
   },
   {
-    image: "/pic/diary.png",
+    image: "/pic/graphics/diary.png",
     title: "Visual diary",
     description:
       "A handmade journal with colorful illustrations on textured paper",
     aspectRatio: 3 / 4, // Portrait
   },
   {
-    image: "/pic/human.png",
+    image: "/pic/graphics/human.png",
     title: "Human and Saguaro",
     description:
       "Acrylic painting on circular canvas depicting desert life with saguaro cacti",
