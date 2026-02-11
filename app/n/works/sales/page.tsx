@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImagePreview from "../../components/ImagePreview";
+import WorkNavigation from "../components/WorkNavigation";
 import { motion } from 'framer-motion';
 
 // Updated case study data with new content
@@ -53,7 +54,6 @@ const CASE_STUDY_DATA = {
 export default function CaseStudyDetail() {
   console.log('here CaseStudyDetail');
   
-  const router = useRouter();
   const params = useParams();
   const [selectedWork, setSelectedWork] = useState<{
     images: { src: string; alt: string }[];
@@ -117,14 +117,6 @@ export default function CaseStudyDetail() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      {/* Back button */}
-      <button
-        onClick={() => router.back()}
-        className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-2 mb-8"
-      >
-        ← Back
-      </button>
-
       {/* Header Section */}
       <header className="mb-8">
         <span className="text-sm text-gray-500 dark:text-gray-400">{CASE_STUDY_DATA.title}</span>
@@ -259,6 +251,9 @@ export default function CaseStudyDetail() {
           currentImageIndex={selectedWork.index}
         />
       )}
+
+      {/* Navigation */}
+      <WorkNavigation />
     </motion.div>
   );
 }

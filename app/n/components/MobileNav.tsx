@@ -12,7 +12,7 @@ function NavTab({
   color: string; 
   text: string;
 }) {
-  const href = text.toLowerCase() === 'home' ? '/' : `/n/${text.toLowerCase()}`;
+  const href = text.toLowerCase() === 'works' ? '/' : `/n/${text.toLowerCase()}`;
   const pathname = usePathname();
   const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
   
@@ -43,7 +43,6 @@ export default function MobileNav() {
     <nav className={`lg:hidden sticky top-0 z-50 bg-white/80 dark:bg-[#2b2b2b]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 ${oorangeregular.className}`}>
       <div className="overflow-x-auto scrollbar-hide">
         <div className="flex items-center gap-2 px-4 py-3 min-w-max">
-          <NavTab color="#FF5D1F" text="Home" />
           <NavTab color="#F8961E" text="Works" />
           <NavTab color="#F9C74F" text="Projects" />
           <NavTab color="#90BE6D" text="Create" />

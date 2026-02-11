@@ -1,290 +1,115 @@
 "use client";
 
-import React, { useEffect, useRef, memo } from 'react';
-import { FaLinkedin, FaInstagram, FaGithub, FaXTwitter } from 'react-icons/fa6';
-import { BsCalendar3 } from 'react-icons/bs';
+import React, { memo } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-// Mock font - replace with your actual font import
-import { oorangeregular } from "./fonts";
+import SharedHeader from "./components/SharedHeader";
+import MainTabs from "./components/MainTabs";
+import sale4 from "./assets/images/hero11.jpg";
+import service4 from "./assets/images/hero33.jpg";
+import task4 from "./assets/images/hero22.jpg";
+
+const works = [
+  {
+    id: "sales",
+    dateRange: "2024",
+    title: "B2B SaaS - Sales tool",
+    description: "Conversation Intelligence to Sales Success",
+    details:
+      "As the founding designer, I shaped the entire user experience. Build a cohesive product that empower sales teams and product marketing managers.",
+    projectUrl: "#",
+    images: [{ src: sale4, alt: "Proponent Example 1" }],
+  },
+  {
+    id: "integration",
+    dateRange: "2023",
+    title: "B2B SaaS",
+    description: "Unified workflow to augment cloud capabilities",
+    details:
+      "To support the new business requirement (license to subscription mode transition), I designed a cloud service integration strategy that reduce the time-to-value.",
+    projectUrl: "#",
+    images: [{ src: task4, alt: "VMware Cloud Service Integration Example 1" }],
+  },
+  {
+    id: "monitor",
+    dateRange: "2023",
+    title: "Design System",
+    description: "Uncover a hidden behavior to facilitate task monitoring",
+    details:
+      "Designed phased solutions for VMware's core task monitoring system, a critical component used across products by millions of users. The strategy balanced quick implementation needs with long-term scalability.",
+    projectUrl: "#",
+    images: [{ src: service4, alt: "VMware Cloud Task Monitor Example 1" }],
+  },
+];
 
 const HomePage = () => {
-  interface Match {
-    node: Text;
-    charIndex: number;
-    globalIndex: number;
-    char: string;
-    keywordIndex: number;
-    positionInKeyword: number;
-    keywordLength: number;
-  }
-
-  const contentRef = useRef<HTMLDivElement>(null);
-  const matchesRef = useRef<Match[]>([]);
-  const effectRan = useRef(false);
-  
-  const links = [
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/gudesign', icon: FaLinkedin },
-    { label: 'Instagram', href: 'https://instagram.com/zichengguu', icon: FaInstagram },
-    { label: 'GitHub', href: 'https://github.com/zichenggu72', icon: FaGithub },
-    { label: 'X', href: 'https://x.com/ZichengGu', icon: FaXTwitter },
-    { label: 'Chat with me', href: 'https://calendar.app.google/2ikrw6QDYCUoekRL7', icon: BsCalendar3 }
-  ];
-  
-  const keywords = [
-    'furniture',
-    'graphics and print',
-    'photography',
-    'gastronomy',
-    'objects',
-    'I create digital products that not only solve problems but enrich lives, leaving people inspired and eager to explore further',
-    'creating a space I\'m eager to revisit and enhance',
-    'whether you are a stranger, a friend, or somewhere in between – welcome! Make yourself comfortable at my digital home.'
-  ];
-
-  useEffect(() => {
-    // Add a small delay to ensure DOM is ready
-    const timeoutId = setTimeout(() => {
-      console.log('Starting animation setup');
-      const contentElement = contentRef.current; 
-      if (!contentElement) {
-        console.log('No content element found');
-        return;
-      }
-
-      // Get all text nodes in the content
-      const textNodes: Text[] = [];
-      const walker = document.createTreeWalker(
-        contentElement,
-        NodeFilter.SHOW_TEXT,
-        null,
-      );
-
-      let node;
-      while (node = walker.nextNode()) {
-        if (node.textContent?.trim()) {
-          textNodes.push(node);
-        }
-      }
-
-      console.log('Found text nodes:', textNodes.length);
-
-      // Find all matches for keywords
-      const allMatches: Match[] = [];
-      let globalCharIndex = 0;
-
-      textNodes.forEach(textNode => {
-        const text = textNode.textContent ?? '';
-        
-        keywords.forEach((keyword, keywordIndex) => {
-          const regex = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-          let match;
-          
-          while ((match = regex.exec(text)) !== null) {
-            for (let i = 0; i < keyword.length; i++) {
-              allMatches.push({
-                node: textNode,
-                charIndex: match.index + i,
-                globalIndex: globalCharIndex + match.index + i,
-                char: keyword[i],
-                keywordIndex: keywordIndex,
-                positionInKeyword: i,
-                keywordLength: keyword.length
-              });
-            }
-          }
-        });
-        
-        globalCharIndex += text.length;
-      });
-
-      console.log('Found matches:', allMatches.length);
-
-      // Sort matches by global position
-      allMatches.sort((a, b) => a.globalIndex - b.globalIndex);
-
-      // Remove duplicates
-      const uniqueMatches = allMatches.filter((match, index) => {
-        return index === 0 || match.globalIndex !== allMatches[index - 1].globalIndex;
-      });
-
-      console.log('Unique matches:', uniqueMatches.length);
-
-      // Process each text node to add spans
-      const processedNodes = new Set();
-      
-      uniqueMatches.forEach(match => {
-        if (processedNodes.has(match.node)) return;
-        
-        const textNode = match.node;
-        const text = textNode.textContent ?? '';
-        const parent = textNode.parentNode;
-        
-        // Find all matches in this text node
-        const nodeMatches = uniqueMatches.filter(m => m.node === textNode);
-        
-        if (nodeMatches.length === 0) return;
-        
-        // Create new content with spans
-        const fragment = document.createDocumentFragment();
-        let lastIndex = 0;
-        
-        nodeMatches.forEach(match => {
-          // Add text before the match
-          if (match.charIndex > lastIndex) {
-            const beforeText = text.slice(lastIndex, match.charIndex);
-            fragment.appendChild(document.createTextNode(beforeText));
-          }
-          
-          // Create span for the character
-          const span = document.createElement('span');
-          span.textContent = match.char;
-          span.setAttribute('data-char-index', match.globalIndex.toString());
-          span.setAttribute('data-keyword-index', match.keywordIndex.toString());
-          span.setAttribute('data-match-position', match.positionInKeyword.toString());
-          span.setAttribute('data-match-total', match.keywordLength.toString());
-          span.style.transition = 'all 0.3s ease';
-          fragment.appendChild(span);
-          
-          lastIndex = match.charIndex + 1;
-        });
-        
-        // Add remaining text
-        if (lastIndex < text.length) {
-          fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
-        }
-        
-        // Replace the text node
-        parent?.replaceChild(fragment, textNode);
-        processedNodes.add(textNode);
-      });
-
-      // Start the animation
-      let currentIndex = 0;
-      
-      const highlightInterval = setInterval(() => {
-        if (currentIndex >= uniqueMatches.length) {
-          clearInterval(highlightInterval);
-          return;
-        }
-
-        const match = uniqueMatches[currentIndex];
-        const span = contentElement.querySelector(`[data-char-index="${match.globalIndex}"]`);
-        
-        if (span) {
-          // Apply gradient effect
-          const position = parseInt(span.getAttribute('data-match-position') ?? '0');
-          const total = parseInt(span.getAttribute('data-match-total') ?? '0');
-          const progress = position / (total - 1);
-          
-          // Calculate color based on gradient position
-          let color;
-          if (progress <= 0.33) {
-            // Between orange and yellow
-            const localProgress = progress / 0.33;
-            const r = Math.round(248 + (231 - 248) * localProgress);
-            const g = Math.round(150 + (176 - 150) * localProgress);
-            const b = Math.round(30 + (12 - 30) * localProgress);
-            color = `rgb(${r}, ${g}, ${b})`;
-          } else if (progress <= 0.66) {
-            // Between yellow and green
-            const localProgress = (progress - 0.33) / 0.33;
-            const r = Math.round(231 + (144 - 249) * localProgress);
-            const g = Math.round(176 + (190 - 199) * localProgress);
-            const b = Math.round(12 + (109 - 79) * localProgress);
-            color = `rgb(${r}, ${g}, ${b})`;
-          } else {
-            // Between green and teal
-            const localProgress = (progress - 0.66) / 0.34;
-            const r = Math.round(144 + (77 - 144) * localProgress);
-            const g = Math.round(190 + (144 - 190) * localProgress);
-            const b = Math.round(109 + (142 - 109) * localProgress);
-            color = `rgb(${r}, ${g}, ${b})`;
-          }
-          
-          (span as HTMLElement).style.color = color;
-          (span as HTMLElement).style.textShadow = `0 0 20px ${color}40`;
-        }
-        
-        currentIndex++;
-      }, 42);
-
-      return () => {
-        clearInterval(highlightInterval);
-        clearTimeout(timeoutId);
-      };
-    }, 0); // No delay needed, but keeping timeoutId for cleanup
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
   return (
-    <div ref={contentRef} className="space-y-12">
-      {/* Profile */}
-      <div className="space-y-2">
-        <h1 className="text-lg font-semibold dark:text-white">Zicheng Gu</h1>
-        <p className="text-gray-800 dark:text-gray-400">Designer around the 🌍</p>
-      </div>
+    <div>
+      <SharedHeader />
+      <MainTabs />
 
-      {/* About Section */}
-      <section>
-        <h2 className="font-semibold mb-2 dark:text-white">About me</h2>
-        <div className="space-y-4 text-gray-800 dark:text-gray-400 leading-relaxed">
-          <p>I am a product designer with curiosity in the vast spectrum of design — from the elegant forms of furniture to the visual allure of graphics and print, the storytelling power of photography, the artistry of gastronomy, and industrial objects infused with personality.</p>
-          <p>This multifaceted approach to design fuels my work in the digital realm. I aspire to create software experiences that resonate on a human level.</p>
-          <p>Through a blend of aesthetics, functionality, and empathy, I create digital products that not only solve problems but enrich lives, leaving people inspired and eager to explore further.</p>
-        </div>
-      </section>
+      {/* Works Section */}
+      <div className="space-y-space-500 leading-relaxed mt-space-400">
+        {works.map((work, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+          >
+            <Link
+              href={`/n/works/${work.id}`}
+              className="group block -mx-2 px-2 py-2 rounded-lg cursor-pointer transition-all duration-200 ease-out hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:translate-x-1"
+            >
+              <div className="flex gap-8">
+                {/* Image */}
+                <div className="flex-shrink-0">
+                  <div className="w-[493px] aspect-video relative overflow-hidden rounded-lg">
+                    <Image
+                      src={work.images[0].src}
+                      alt={work.images[0].alt}
+                      fill
+                      sizes="493px"
+                      priority={index === 0}
+                      placeholder="blur"
+                      className="object-cover rounded-lg border border-gray-100 dark:border-gray-800"
+                    />
+                  </div>
+                </div>
 
-      {/* This Site Section */}
-      <section>
-        <h2 className="font-semibold mb-2 dark:text-white">This Site</h2>
-        <div className="space-y-4 text-gray-800 dark:text-gray-400 leading-relaxed">
-          <p>I built this site to transform my aversion to portfolio updates into a passion for continuous learning and sharing, creating a space I'm eager to revisit and enhance. By showcasing everything I'm passionate about to a broader audience, I strive to inspire others while holding myself accountable to high standards of creativity and growth.</p>
-          <p>This site is curated with the same care and personality I'd put into designing my home. It's a space that reflects who I am and what I do.</p>
-          <p>I've always found it fascinating to get to know someone through a well-maintained personal website. So whether you are a stranger, a friend, or somewhere in between – welcome! Make yourself comfortable at my digital home.</p>
-        </div>
-      </section>
+                {/* Description - right side */}
+                <div className="flex-1 flex flex-col justify-center">
+                  {/* Title and Date row */}
+                  <div className="mb-1">
+                    <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+                      {work.title} · {work.dateRange}
+                    </span>
+                  </div>
 
-      <section className="mt-16">
-        <h2 className="font-semibold mb-2 dark:text-white">Find me elsewhere</h2>
+                  {/* Description */}
+                  <p
+                    className={`font-semibold mb-2 transition-colors duration-200 dark:text-white
+                    ${work.id === "sales" ? "group-hover:text-[#F8961E]" : ""}
+                    ${work.id === "integration" ? "group-hover:text-[#A7A622]" : ""}
+                    ${work.id === "monitor" ? "group-hover:text-[#59829E]" : ""}`}
+                  >
+                    {work.description}
+                  </p>
 
-        <div className="flex items-center gap-3 flex-wrap">
-          {links.map((link, index) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={index}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                aria-label={link.label}
-                title={link.label}
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Status Update */}
-      <div className="bg-[#F8F8F8] dark:bg-[#2b2b2b] p-4 rounded-lg">
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">Updated May 18, 2025</p>
-        <p className={`${oorangeregular.className} text-xl dark:text-gray-100`}>
-          Traveled to Spain, France, Italy, and Switzerland with my family. Each city we went to has its own charm and character, and weather was just perfect everyday. Such a blissful time.
-        </p>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mt-4">↑ This is my real handwriting font 🤗</p>
+                  {/* Details paragraph */}
+                  <p className="text-gray-600 dark:text-gray-400 mb-2">
+                    {work.details}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
 };
 
-// Memoize the component
-export default memo(HomePage, (prevProps, nextProps) => {
-  // Since this component doesn't take any props, it will never re-render
-  // unless its parent forces a re-render
-  return true;
-});
+export default memo(HomePage);

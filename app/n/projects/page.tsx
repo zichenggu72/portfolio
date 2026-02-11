@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import SharedHeader from "../../components/SharedHeader";
+import MainTabs from "../../components/MainTabs";
 import font1 from "../../assets/images/font1.jpg";
 import font2 from "../../assets/images/font2.jpg";
 import font3 from "../../assets/images/font3.jpg";
@@ -104,9 +106,10 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <div className="space-y-12">
-      
-      <div className="space-y-16">
+    <div>
+      <SharedHeader />
+      <MainTabs />
+      <div className="space-y-16 mt-8">
       {projects.map((project, projectIndex) => (
         <motion.article
           key={projectIndex}

@@ -4,10 +4,9 @@ import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
-import Navigation from './n/components/Navigation';
-import MobileNav from './n/components/MobileNav';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { oorangeregular } from './fonts';
+import FooterContent from "./components/FooterContent";
+import { graphik } from "./fonts";
 
 
 export const metadata: Metadata = {
@@ -54,21 +53,15 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        "text-black bg-white dark:text-white dark:bg-[#1a1a1a] font-graphik"
+        graphik.variable,
+        "text-black bg-white dark:text-white dark:bg-[#1a1a1a]"
       )}
     >
       <body className="antialiased">
-        {/* Mobile Navigation */}
-        <MobileNav />
-
-        <div className="min-h-screen flex flex-col lg:flex-row">
-          {/* Desktop Navigation */}
-          <Navigation />
-
-        
-            {/* Main content area */}
-            <div className="max-w-[680px] md:mx-auto">
-            <main className="w-full lg:w-[680px] px-8 lg:px-8 py-8 lg:py-10">
+        <div className="min-h-screen">
+          {/* Main content area */}
+          <div className="max-w-[866px] mx-auto">
+            <main className="w-full px-8 py-8 lg:py-10">
               {children}
             </main>
           </div>
@@ -76,9 +69,11 @@ export default function RootLayout({
         
         <Analytics />
         <SpeedInsights />
-        
+
+        <FooterContent />
+
         <footer className="mt-24 pb-8 text-sm text-gray-500 dark:text-gray-400">
-          <div className="max-w-2xl mx-auto px-8">
+          <div className="max-w-[866px] mx-auto px-8">
             © {new Date().getFullYear()} Designed and coded by Zicheng Gu
           </div>
         </footer>

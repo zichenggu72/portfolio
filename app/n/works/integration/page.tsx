@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImagePreview from "../../components/ImagePreview";
+import WorkNavigation from "../components/WorkNavigation";
 import { motion } from 'framer-motion';
 
 export default function CaseStudyDetail() {
     console.log('here CaseStudyDetail');
-    const router = useRouter();
     const params = useParams();
   
     // Sample case study data - you'll want to match this with your works data
@@ -50,13 +50,6 @@ export default function CaseStudyDetail() {
     >
         {/* Main content container */}
         {/* <div className="max-w-[744px] mx-auto px-6"> */}
-          {/* Back button aligned with content */}
-          <button
-            onClick={() => router.back()}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-2 mb-8"
-          >
-            ← Back
-          </button>
 
           {/* Title */}
         {/* <p className="font-semibold mb-2 hover:text-gray-700">{caseStudy.title}</p> */}
@@ -205,6 +198,9 @@ export default function CaseStudyDetail() {
             currentImageIndex={selectedWork.index}
           />
         )}
+
+        {/* Navigation */}
+        <WorkNavigation />
 
       </motion.div>
     // </div>

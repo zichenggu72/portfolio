@@ -1,10 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Map, { Marker } from 'react-map-gl';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
-import CreateTabs from './components/CreateTabs';
+import { motion, AnimatePresence } from 'framer-motion';
+import SharedHeader from '../../components/SharedHeader';
+import MainTabs from '../../components/MainTabs';
+import PhotoCarousel from '../components/PhotoCarousel';
 
 
 type Pin = {
@@ -948,6 +950,7 @@ export default function CreateLayout({
 }) {
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
+  const [visiblePinIndex, setVisiblePinIndex] = useState(0);
   const hasAnimationPlayed = useRef(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Initialize with system dark mode preference
@@ -969,6 +972,17 @@ export default function CreateLayout({
   });
 
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  // Cycle through pins to show labels one by one
+  useEffect(() => {
+    if (pathname !== '/n/create') return;
+
+    const interval = setInterval(() => {
+      setVisiblePinIndex(prev => (prev + 1) % initialPins.length);
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [pathname]);
 
   // Detect dark mode based on system preference
   useEffect(() => {
@@ -1004,57 +1018,55 @@ export default function CreateLayout({
   }, [selectedPin]);
 
   useEffect(() => {
-    // Only run animation if map is loaded, we're on the create page, 
+    // Only run animation if map is loaded, we're on the create page,
     // AND the animation hasn't played yet
     if (mapLoaded && pathname === '/n/create' && !hasAnimationPlayed.current) {
       let currentLongitude = 0;
-      let currentZoom = 0.5; // Start very zoomed out (small globe)
+      const startZoom = 0.5; // Start very zoomed out (small globe)
       const targetZoom = 1.4; // End zoom level
-      const totalSteps = 360 / 3; // 120 steps total
-      const zoomIncrement = (targetZoom - currentZoom) / totalSteps; // ~0.0058 per step
-      
+      const totalRotation = 360; // 1 full rotation - ends exactly at 0
+      const totalSteps = 100; // Slightly more steps for smoothness
+      let step = 0;
+
       const rotationInterval = setInterval(() => {
-        currentLongitude += 3; // Your current rotation speed
-        currentZoom += zoomIncrement; // Zoom in gradually
-        
+        step++;
+        // Easing function: start fast, slow down at end (ease-out cubic)
+        const progress = step / totalSteps;
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+        currentLongitude = easedProgress * totalRotation;
+        const currentZoom = startZoom + (easedProgress * (targetZoom - startZoom));
+
         setViewState(prev => ({
           ...prev,
-          longitude: currentLongitude,
-          zoom: currentZoom, // Add the zoom animation
-          transitionDuration: 15 // Your current transition speed
+          longitude: currentLongitude % 360,
+          zoom: currentZoom,
+          transitionDuration: 8
         }));
-        
-        if (currentLongitude >= 360) {
-          clearInterval(rotationInterval);
-          // Then reset longitude but keep the final zoom level
-          setTimeout(() => {
-            setViewState(prev => ({
-              ...prev,
-              zoom: 1.4, // Final zoom level
-              longitude: 0,
-              transitionDuration: 1000
-            }));
-            hasAnimationPlayed.current = true; // Mark animation as completed
-          }, 500);
-        }
-      }, 15); // Your current interval speed
 
-      // Cleanup function to clear interval if component unmounts
+        if (step >= totalSteps) {
+          clearInterval(rotationInterval);
+          // Animation ends at longitude 0 naturally (720 % 360 = 0)
+          hasAnimationPlayed.current = true;
+        }
+      }, 12); // Faster interval
+
       return () => clearInterval(rotationInterval);
     }
-  }, [mapLoaded, pathname]); // Keep the same dependencies
+  }, [mapLoaded, pathname]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#1a1a1a]">
       {/* Single main container for tabs and all page content */}
       <div className="main">
-        <CreateTabs />
-        <div className={`relative ${selectedPin ? 'hidden md:block' : ''}`}>
+        <SharedHeader />
+        <MainTabs />
+        <div className={`relative mt-space-400 ${selectedPin ? 'hidden md:block' : ''}`}>
           {children}
         </div>
       </div>
 
-      <div className={`absolute top-[100px] left-0 right-0 mx-auto max-w-[680px] px-8 z-0
+      <div className={`absolute top-[290px] left-0 right-0 mx-auto max-w-[866px] px-8 z-0
         ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}
         ${selectedPin ? 'hidden md:block' : ''}`}>
           
@@ -1099,72 +1111,32 @@ export default function CreateLayout({
               >
                 <div className="w-2.5 h-2.5 bg-[#1E1E1E] rounded-full cursor-pointer" />
                 
-                {hoveredPin === pin.id && (
-                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 whitespace-nowrap bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm px-2 py-1 rounded-md">
-                    {pin.title}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {(hoveredPin === pin.id || initialPins[visiblePinIndex]?.id === pin.id) && (
+                    <motion.div
+                      key={`tooltip-${pin.id}`}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: hoveredPin === pin.id ? 1 : 0.85, y: 0 }}
+                      exit={{ opacity: 0, y: 5 }}
+                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                      className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 whitespace-nowrap bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm px-2 py-1 rounded-md"
+                    >
+                      {pin.title}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </Marker>
           ))}
         </Map>
       </div>
 
-      {selectedPin && (
-        <>
-          <div 
-            className="fixed inset-0 bg-gray-500/8 transition-all duration-300 ease-in-out z-20 md:block hidden"
-            onClick={() => setSelectedPin(null)}
-          />
-          
-          <div className="fixed inset-0 md:inset-auto md:top-0 md:right-0 md:w-1/2 md:h-screen bg-white dark:bg-[#1a1a1a]
-            transition-transform duration-300 ease-in-out z-50 flex flex-col overflow-y-auto">
-            <div className="sticky top-0 bg-white dark:bg-[#1a1a1a] p-6 md:p-8 md:pt-10 z-40">
-              <div className="flex justify-between items-center">
-                <h2 className="font-semibold dark:text-white">{selectedPin?.title}</h2>
-                <button 
-                  onClick={() => setSelectedPin(null)}
-                  className="p-2 hover:text-gray-600"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6">
-                    <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 px-6 md:px-8 pb-8">
-              {selectedPin?.images
-                .sort((a, b) => {
-                  if (a.orientation === 'vertical' && b.orientation === 'horizontal') return -1;
-                  if (a.orientation === 'horizontal' && b.orientation === 'vertical') return 1;
-                  return 0;
-                })
-                .map((image, index) => (
-                  <div 
-                    key={index} 
-                    className={`relative flex flex-col
-                      ${image.orientation === 'vertical' 
-                        ? 'md:col-span-1 aspect-[3/4]' 
-                        : 'md:col-span-2 aspect-[16/9]'}`}
-                  >
-                    <div className="relative w-full h-full overflow-hidden rounded-lg">
-                      <Image 
-                        src={image.url}
-                        alt={image.alt || ''}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
-                    {image.caption && (
-                      <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">{image.caption}</p>
-                    )}
-                  </div>
-                ))}
-            </div>
-          </div>
-        </>
-      )}
+      <PhotoCarousel
+        isOpen={selectedPin !== null}
+        onClose={() => setSelectedPin(null)}
+        images={selectedPin?.images || []}
+        title={selectedPin?.title || ''}
+      />
     </div>
   );
 }

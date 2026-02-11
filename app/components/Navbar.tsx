@@ -1,17 +1,16 @@
 import Link from "next/link";
 
 const navItems = [
-  { path: "/", name: "Home", color: "bg-red-500" },
+  { path: "/", name: "Works", color: "bg-orange-500" },
   { path: "/blog", name: "Blog", color: "bg-blue-500" },
-  { path: "/n/works", name: "Works", color: "bg-orange-500" },
   { path: "/n/projects", name: "Projects", color: "bg-yellow-500" },
   { path: "/n/create", name: "Create", color: "bg-green-300" },
   { path: "/n/thoughts", name: "Thoughts", color: "bg-green-700" },
-  { 
-    path: "https://vercel.com/templates/next.js/portfolio-starter-kit", 
-    name: "Deploy", 
+  {
+    path: "https://vercel.com/templates/next.js/portfolio-starter-kit",
+    name: "Deploy",
     color: "bg-purple-500",
-    isExternal: true 
+    isExternal: true
   },
 ];
 
