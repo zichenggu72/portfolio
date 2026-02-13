@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 import SharedHeader from "./components/SharedHeader";
 import MainTabs from "./components/MainTabs";
-import sale4 from "./assets/images/hero11.jpg";
+const sale4 = "/pic/works/proponent.png";
 import service4 from "./assets/images/hero33.jpg";
 import task4 from "./assets/images/hero22.jpg";
 
@@ -16,29 +16,26 @@ const works = [
     id: "sales",
     dateRange: "2024",
     title: "B2B SaaS - Sales tool",
-    description: "Conversation Intelligence to Sales Success",
-    details:
-      "As the founding designer, I shaped the entire user experience. Build a cohesive product that empower sales teams and product marketing managers.",
+    description: "Proponent",
+    details: ["Conversational AI", "0 to 1 product design owner", "Systematical design components", "Branding and Marketing"],
     projectUrl: "#",
     images: [{ src: sale4, alt: "Proponent Example 1" }],
   },
   {
     id: "integration",
     dateRange: "2023",
-    title: "B2B SaaS",
-    description: "Unified workflow to augment cloud capabilities",
-    details:
-      "To support the new business requirement (license to subscription mode transition), I designed a cloud service integration strategy that reduce the time-to-value.",
+    title: "B2B SaaS - Cloud",
+    description: "VMware Cloud",
+    details: ["Business model transformation", "Integrated cloud services", "Reduce time-to-value"],
     projectUrl: "#",
     images: [{ src: task4, alt: "VMware Cloud Service Integration Example 1" }],
   },
   {
     id: "monitor",
     dateRange: "2023",
-    title: "Design System",
-    description: "Uncover a hidden behavior to facilitate task monitoring",
-    details:
-      "Designed phased solutions for VMware's core task monitoring system, a critical component used across products by millions of users. The strategy balanced quick implementation needs with long-term scalability.",
+    title: "B2B SaaS - Design System",
+    description: "VMware Cloud",
+    details: ["Long running task monitor", "Incremental solution", "Scalable design system"],
     projectUrl: "#",
     images: [{ src: service4, alt: "VMware Cloud Task Monitor Example 1" }],
   },
@@ -73,7 +70,7 @@ const HomePage = () => {
                       fill
                       sizes="493px"
                       priority={index === 0}
-                      placeholder="blur"
+                      {...(typeof work.images[0].src !== 'string' ? { placeholder: "blur" } : {})}
                       className="object-cover rounded-lg border border-gray-100 dark:border-gray-800"
                     />
                   </div>
@@ -81,27 +78,28 @@ const HomePage = () => {
 
                 {/* Description - right side */}
                 <div className="flex-1 flex flex-col justify-center">
-                  {/* Title and Date row */}
-                  <div className="mb-1">
-                    <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200 group-hover:text-gray-700 dark:group-hover:text-gray-300">
-                      {work.title} · {work.dateRange}
-                    </span>
-                  </div>
-
-                  {/* Description */}
-                  <p
-                    className={`font-semibold mb-2 transition-colors duration-200 dark:text-white
+                  {/* Description - product name + year */}
+                  <div className={`flex items-baseline gap-2 mb-2 transition-colors duration-200
                     ${work.id === "sales" ? "group-hover:text-[#F8961E]" : ""}
                     ${work.id === "integration" ? "group-hover:text-[#A7A622]" : ""}
                     ${work.id === "monitor" ? "group-hover:text-[#59829E]" : ""}`}
                   >
-                    {work.description}
-                  </p>
+                    <span className="font-semibold dark:text-white">{work.description}</span>
+                    <span className="font-normal text-gray-400 dark:text-gray-500">{work.dateRange}</span>
+                  </div>
 
                   {/* Details paragraph */}
-                  <p className="text-gray-600 dark:text-gray-400 mb-2">
-                    {work.details}
-                  </p>
+                  {Array.isArray(work.details) ? (
+                    <div className="text-gray-600 dark:text-gray-400 mb-2">
+                      {work.details.map((item, i) => (
+                        <div key={i}>• {item}</div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-600 dark:text-gray-400 mb-2">
+                      {work.details}
+                    </p>
+                  )}
                 </div>
               </div>
             </Link>
