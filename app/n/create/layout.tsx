@@ -1055,19 +1055,19 @@ export default function CreateLayout({
   }, [mapLoaded, pathname]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#1a1a1a]">
+    <div className="bg-white dark:bg-[#1a1a1a]">
       {/* Single main container for tabs and all page content */}
       <div className="main">
         <div className={`relative mt-space-400 ${selectedPin ? 'hidden md:block' : ''}`}>
           {children}
         </div>
-      </div>
 
-      <div className={`absolute top-[290px] left-0 right-0 mx-auto max-w-[866px] px-8 z-0
-        ${pathname !== '/n/create' ? 'opacity-0 pointer-events-none' : 'opacity-100'}
-        ${selectedPin ? 'hidden md:block' : ''}`}>
-          
-        <Map
+        <div className={`mt-space-400 z-0
+          ${pathname !== '/n/create' ? 'hidden' : 'opacity-100'}
+          ${selectedPin ? 'hidden md:block' : ''}`}>
+
+          <div className="overflow-hidden rounded-lg">
+          <Map
           key={isDarkMode ? 'dark' : 'light'}
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
@@ -1125,7 +1125,9 @@ export default function CreateLayout({
               </div>
             </Marker>
           ))}
-        </Map>
+          </Map>
+          </div>
+        </div>
       </div>
 
       <PhotoCarousel

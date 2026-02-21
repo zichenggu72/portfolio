@@ -18,6 +18,9 @@ const sites = [
   { name: 'headless-ui', url: 'https://headlessui.com/' },
   { name: 'design-spells', url: 'https://www.designspells.com/' },
   { name: 'hyperframer', url: 'https://www.hyperframer.com/' },
+  { name: 'animejs', url: 'https://animejs.com/' },
+  { name: 'userinterface-wiki', url: 'https://www.userinterface.wiki/' },
+  { name: 'wwdcnotes', url: 'https://wwdcnotes.com/documentation/wwdcnotes/' },
 ];
 
 const OUTPUT_DIR = path.join(__dirname, '../public/pic/inspirations');

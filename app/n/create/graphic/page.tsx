@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import ImageZoom from "../../components/ExpandingImagePreview";
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 type GraphicItem = {
@@ -87,6 +87,26 @@ const generatePositions = () => {
   ];
 
   return { positions, height: 600 };
+};
+
+// Mobile positions: 2 columns, full card size, with slight rotations and overlaps
+const generateMobilePositions = () => {
+  const positions: {
+    x: number;
+    y: number;
+    rotation: number;
+    zIndex: number;
+  }[] = [
+    { x: 30,   y: 20,  rotation: -4, zIndex: 3 }, // Road trip (left col, row 1)
+    { x: 240, y: 0,   rotation: 5,  zIndex: 2 }, // Stare at time (right col, row 1)
+    { x: 40,  y: 278, rotation: 3,  zIndex: 4 }, // Personal logo (left col, row 2)
+    { x: 230, y: 220, rotation: -4, zIndex: 5 }, // Illustrated recipe (right col, row 2)
+    { x: 40,  y: 500, rotation: -5, zIndex: 7 }, // Broken plate (left col, row 3)
+    { x: 250, y: 490, rotation: 4,  zIndex: 6 }, // Visual diary (right col, row 3)
+    { x: 100,  y: 730, rotation: 2,  zIndex: 8 }, // Human and Saguaro (centered, row 4)
+  ];
+
+  return { positions, height: 900 };
 };
 
 // Draggable card component
@@ -202,8 +222,19 @@ export default function GraphicPage() {
     sourceRect: DOMRect;
     rotation: number;
   } | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const { positions, height } = useMemo(() => generatePositions(), []);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const { positions, height } = useMemo(
+    () => isMobile ? generateMobilePositions() : generatePositions(),
+    [isMobile]
+  );
 
   const handleDragStart = () => {
     const newZ = highestZ + 1;
@@ -222,7 +253,6 @@ export default function GraphicPage() {
 
   return (
     <>
-      {/* Scattered cards */}
       <motion.div
         className="relative"
         style={{ height }}
@@ -231,15 +261,15 @@ export default function GraphicPage() {
         transition={{ duration: 0.4 }}
       >
         {projects.map((item, index) => (
-          <DraggableCard
-            key={index}
-            item={item}
-            initialPosition={positions[index]}
-            index={index}
-            onDragStart={handleDragStart}
-            onImageClick={(rect, rotation) => handleImageClick(item, rect, rotation)}
-          />
-        ))}
+            <DraggableCard
+              key={index}
+              item={item}
+              initialPosition={positions[index]}
+              index={index}
+              onDragStart={handleDragStart}
+              onImageClick={(rect, rotation) => handleImageClick(item, rect, rotation)}
+            />
+          ))}
       </motion.div>
 
       {/* Image Zoom */}

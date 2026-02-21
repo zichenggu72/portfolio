@@ -25,6 +25,9 @@ const allItems: ResourceItem[] = [
   { title: 'headless ui', url: 'https://headlessui.com/', image: '/pic/inspirations/headless-ui.png' },
   { title: 'design spells', url: 'https://www.designspells.com/', image: '/pic/inspirations/design-spells.png' },
   { title: 'hyperframer', url: 'https://www.hyperframer.com/', image: '/pic/inspirations/hyperframer.png' },
+  { title: 'anime.js', url: 'https://animejs.com/', image: '/pic/inspirations/animejs.png' },
+  { title: 'userinterface.wiki', url: 'https://www.userinterface.wiki/', image: '/pic/inspirations/userinterface-wiki.png' },
+  { title: 'wwdc notes', url: 'https://wwdcnotes.com/documentation/wwdcnotes/', image: '/pic/inspirations/wwdcnotes.png' },
 ];
 
 // Card component
@@ -78,7 +81,7 @@ export default function InspirationsPage() {
     <div>
       {/* Grid layout - 4 columns */}
       <motion.div
-        className="mt-space-400 grid grid-cols-4 gap-4"
+        className="mt-space-400 grid grid-cols-2 sm:grid-cols-4 gap-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
