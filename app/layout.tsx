@@ -6,8 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { baseUrl } from "./sitemap";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import FooterContent from "./components/FooterContent";
-import SharedHeader from "./components/SharedHeader";
-import MainTabs from "./components/MainTabs";
+import HeaderAndTabs from "./components/HeaderAndTabs";
 import { graphik } from "./fonts";
 
 
@@ -60,12 +59,11 @@ export default function RootLayout({
       )}
     >
       <body className="antialiased">
-        <div className="min-h-screen">
+        <div>
           {/* Main content area */}
           <div className="max-w-[866px] mx-auto">
             <main className="w-full px-4 sm:px-8 py-8 lg:py-10">
-              <SharedHeader />
-              <MainTabs />
+              <HeaderAndTabs />
               {children}
             </main>
           </div>
