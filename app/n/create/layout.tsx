@@ -4,8 +4,7 @@ import Map, { Marker } from 'react-map-gl';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import SharedHeader from '../../components/SharedHeader';
-import MainTabs from '../../components/MainTabs';
+
 import PhotoCarousel from '../components/PhotoCarousel';
 
 
@@ -1059,8 +1058,6 @@ export default function CreateLayout({
     <div className="min-h-screen bg-white dark:bg-[#1a1a1a]">
       {/* Single main container for tabs and all page content */}
       <div className="main">
-        <SharedHeader />
-        <MainTabs />
         <div className={`relative mt-space-400 ${selectedPin ? 'hidden md:block' : ''}`}>
           {children}
         </div>

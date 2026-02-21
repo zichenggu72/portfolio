@@ -5,8 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-import SharedHeader from "./components/SharedHeader";
-import MainTabs from "./components/MainTabs";
+
 const sale4 = "/pic/works/proponent.png";
 import service4 from "./assets/images/hero33.jpg";
 import task4 from "./assets/images/hero22.jpg";
@@ -44,9 +43,6 @@ const works = [
 const HomePage = () => {
   return (
     <div>
-      <SharedHeader />
-      <MainTabs />
-
       {/* Works Section */}
       <div className="space-y-space-500 leading-relaxed mt-space-400">
         {works.map((work, index) => (
@@ -60,15 +56,15 @@ const HomePage = () => {
               href={`/n/works/${work.id}`}
               className="group block -mx-2 px-2 py-2 rounded-lg cursor-pointer transition-all duration-200 ease-out hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:translate-x-1"
             >
-              <div className="flex gap-8">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
                 {/* Image */}
                 <div className="flex-shrink-0">
-                  <div className="w-[493px] aspect-video relative overflow-hidden rounded-lg">
+                  <div className="w-full sm:w-[493px] aspect-video relative overflow-hidden rounded-lg">
                     <Image
                       src={work.images[0].src}
                       alt={work.images[0].alt}
                       fill
-                      sizes="493px"
+                      sizes="(max-width: 640px) 100vw, 493px"
                       priority={index === 0}
                       {...(typeof work.images[0].src !== 'string' ? { placeholder: "blur" } : {})}
                       className="object-cover rounded-lg border border-gray-100 dark:border-gray-800"
