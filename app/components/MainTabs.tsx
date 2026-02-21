@@ -53,7 +53,7 @@ export default function MainTabs() {
   };
 
   return (
-    <div className={`sticky top-0 mt-space-400 z-20 bg-white dark:bg-[#1a1a1a] ${oorangeregular.className}`}>
+    <div className={`sticky top-0 mt-4 -mb-4 z-20 py-4 px-4 sm:px-8 -mx-4 sm:-mx-8 backdrop-blur-md bg-white/70 dark:bg-[#1a1a1a]/70 ${oorangeregular.className}`}>
       <div className="border border-gray-200 dark:border-gray-700 rounded-[8px] p-1 flex w-full bg-white dark:bg-[#2B2B2B]">
         {tabs.map((tab) => (
           <motion.div
