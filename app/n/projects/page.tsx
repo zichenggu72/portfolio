@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import SharedHeader from "../../components/SharedHeader";
-import MainTabs from "../../components/MainTabs";
+
 import font1 from "../../assets/images/font1.jpg";
 import font2 from "../../assets/images/font2.jpg";
 import font3 from "../../assets/images/font3.jpg";
@@ -148,8 +147,6 @@ export default function ProjectsPage() {
 
   return (
     <div>
-      <SharedHeader />
-      <MainTabs />
       <div className="space-y-16 mt-8">
         {projects.map((project, projectIndex) => (
           <motion.article
@@ -224,7 +221,7 @@ export default function ProjectsPage() {
                 {project.images.map((image, index) => (
                   <div
                     key={index}
-                    className="relative cursor-pointer overflow-hidden rounded-lg"
+                    className={`relative cursor-pointer overflow-hidden rounded-lg ${index >= 2 ? "hidden sm:block" : ""}`}
                     style={{
                       height: "192px",
                       flex:
@@ -248,17 +245,17 @@ export default function ProjectsPage() {
               <div
                 className={`grid ${
                   project.title === "Good Nut Butter"
-                    ? "grid-cols-4"
-                    : "grid-cols-3"
+                    ? "grid-cols-3 sm:grid-cols-4"
+                    : "grid-cols-2 sm:grid-cols-3"
                 } gap-4 mt-6`}
               >
                 {project.title === "Good Nut Butter" ? (
                   <>
-                    <div className="col-span-4 h-full grid grid-cols-4 gap-4">
+                    <div className="col-span-3 sm:col-span-4 h-full grid grid-cols-3 sm:grid-cols-4 gap-4">
                       {project.images.slice(0, 4).map((image, index) => (
                         <div
                           key={index}
-                          className="aspect-[3/4] relative cursor-pointer"
+                          className={`aspect-[3/4] relative cursor-pointer ${index === 3 ? "hidden sm:block" : ""}`}
                           onClick={() =>
                             setSelectedProject({
                               images: project.images,
@@ -282,7 +279,7 @@ export default function ProjectsPage() {
                   project.images.map((image, index) => (
                     <div
                       key={index}
-                      className="aspect-[4/3] relative cursor-pointer"
+                      className={`aspect-[4/3] relative cursor-pointer ${index === 2 ? "hidden sm:block" : ""}`}
                       onClick={() =>
                         setSelectedProject({ images: project.images, index })
                       }

@@ -1,6 +1,5 @@
 'use client';
-import SharedHeader from "../../components/SharedHeader";
-import MainTabs from "../../components/MainTabs";
+
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -77,9 +76,6 @@ const InspirationCard = ({
 export default function InspirationsPage() {
   return (
     <div>
-      <SharedHeader />
-      <MainTabs />
-
       {/* Grid layout - 4 columns */}
       <motion.div
         className="mt-space-400 grid grid-cols-4 gap-4"
